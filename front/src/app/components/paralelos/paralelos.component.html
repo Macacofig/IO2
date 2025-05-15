@@ -1,0 +1,27 @@
+<div class="paralelos-container">
+  <h1 class="titulo">Investigación Operativa</h1>
+
+  <div class="selector-materia">
+    <button [class.activo]="materiaSeleccionada === 1" (click)="seleccionarMateria(1)">Inv.Op 1</button>
+    <button [class.activo]="materiaSeleccionada === 2" (click)="seleccionarMateria(2)">Inv.Op 2</button>
+  </div>
+
+  <div class="seccion-paralelos">
+    <div class="top-bar">
+      <h2>Paralelos - Operativa {{ materiaSeleccionada }}</h2>
+      <div class="acciones">
+        <button (click)="agregarParalelo()">➕ Añadir</button>
+        <button (click)="eliminarParalelo()">🗑️ Eliminar</button>
+      </div>
+    </div>
+
+    <div class="paralelos-lista">
+      <div class="paralelo-card" *ngFor="let paralelo of obtenerParalelosActuales()">
+        <div class="icono">📘</div>
+        <div class="nombre">{{ paralelo }}</div>
+      </div>
+    </div>
+
+    <button class="btn-clase" (click)="entrarClases()"> Añadir Material</button>
+  </div>
+</div>
