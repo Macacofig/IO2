@@ -1,0 +1,143 @@
+.paralelos-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #454179, #1d2b51);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.titulo {
+  text-align: center;
+  color: white;
+  margin: 20px 0;
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.selector-materia {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.selector-materia button {
+  padding: 30px 50px;
+  font-size: 13px;
+  border: none;
+  border-radius: 15px;
+  background-color: #39346f;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.selector-materia button.activo,
+.selector-materia button:hover {
+  background-color: #7f7fd5;
+}
+
+.seccion-paralelos {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.top-bar h2 {
+  font-size: 20px;
+  margin: 0;
+  color: #333;
+}
+
+.acciones button {
+  background-color: #3e3c92;
+  color: white;
+  border: none;
+  margin-left: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.acciones button:hover {
+  background-color: #2d2b7a;
+}
+
+.paralelos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.paralelo-card {
+  background-color: #f2f2fc;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.icono {
+  font-size: 22px;
+  margin-right: 15px;
+}
+
+.nombre {
+  font-size: 16px;
+  color: #333;
+}
+
+.btn-clase {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-clase:hover {
+  background-color: #e55353;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .seccion-paralelos {
+    padding: 25px 20px;
+  }
+
+  .titulo {
+    font-size: 26px;
+  }
+
+  .top-bar h2 {
+    font-size: 18px;
+  }
+
+  .acciones button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .btn-clase {
+    font-size: 14px;
+  }
+}

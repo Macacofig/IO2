@@ -1,0 +1,39 @@
+<div class="iniciosesion-container">
+  <div class="cartas-login">
+    <div class="header-login">
+      <div class="logo">
+        <span class="logo-texto">IO</span>
+      </div>
+      <h2>Bienvenido a Investigación Operativa</h2>
+      <p>Por favor, ingresa los datos a continuación</p>
+    </div>
+    <form (ngSubmit)="ingresar()">
+      <input
+        type="text"
+        [(ngModel)]="correo"
+        name="correo"
+        placeholder="Correo electrónico"
+        required
+        (input)="verificarDatos()"
+      />
+      <input
+        type="text"
+        [(ngModel)]="numero"
+        name="numero"
+        placeholder="Número"
+        required
+        (input)="verificarDatos()"
+      />
+      <input
+        type="password"
+        [(ngModel)]="passwpord"
+        name="contraseña"
+        placeholder="Contraseña"
+        [disabled]="!passwpordHabilitada"
+        required
+      />
+      <button type="submit">Ingresar</button>
+    </form>
+  </div>
+</div>
+
