@@ -1,18 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ConfigService } from '@nestjs/config';
-import { SERVER_PORT } from './config/constants';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
-  const port = configService.get(SERVER_PORT);
+
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:4200' 
+  ];
+
   app.enableCors({
-    origin: 'http://localhost:4200', // Angular local
-    methods: 'GET,POST,PUT,DELETE',
-    credentials: true,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('No permitido por CORS'));
+      }
+    },
+    methods: 'GET,POST,PUT,DELETE,PATCH', // Métodos HTTP permitidos
+    credentials: true // Si necesitas cookies o cabeceras autorizadas
   });
-  await app.listen(port);
+
+  await app.listen(3000);
 }
 bootstrap();
 
