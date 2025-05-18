@@ -1,0 +1,120 @@
+.paginadocente-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #454179, #1d2b51);
+  padding: 20px;
+}
+
+/* Título */
+.titulo-principal {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Menú de navegación (Ejercicios, Documentos, Presentaciones) */
+.menu-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.menu-tabs span {
+  color: #3d2e84;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-tabs span:hover {
+  background-color: #e3e4f0;
+}
+
+/* Contenido */
+.contenido-documentos {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+}
+
+/* Cards estilo login adaptadas */
+.card-doc {
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.card-doc:hover {
+  transform: translateY(-5px);
+}
+
+.icono-doc {
+  font-size: 36px;
+  color: #3d2e84;
+  margin-bottom: 10px;
+}
+
+.grid-documentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 20px;
+}
+
+/* Botón flotante reutilizando el estilo del botón login */
+.boton-agregar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: #3498db;
+  color: white;
+  font-size: 30px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 6px 14px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+.boton-agregar:hover {
+  background-color: #2980b9;
+}
+
+/* Rescursivo*/
+@media (max-width: 600px) {
+  .menu-tabs {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap; 
+    overflow-x: auto;   
+  }
+
+  .menu-tabs span {
+    font-size: 13px;       
+    padding: 6px 10px;     
+    white-space: nowrap;   /* evita que el texto se rompa */
+  }
+
+  .grid-documentos {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .titulo-principal {
+    font-size: 20px;
+  }
+}
