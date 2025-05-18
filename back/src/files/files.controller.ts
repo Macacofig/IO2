@@ -1,7 +1,8 @@
-import { BadRequestException, Body, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
+import { Response } from 'express';
 
 @Controller('files')
 export class FilesController {
@@ -36,5 +37,37 @@ export class FilesController {
 
     // Aquí podrías enviar todo a tu servicio
     return this.filesService.saveFileToDatabase(file, materia, tema);
+  }
+
+
+  @Get('allfiles')
+  async getAllFiles() {
+    const files = await this.filesService.getAllFiles();
+
+    // Generar una lista con información y URLs de descarga
+    return files.map(file => ({
+      id: file.id,
+      filename: file.filename,
+      mimetype: file.mimetype,
+      size: file.size,
+      materia: file.materia,
+      tema: file.tema,
+      downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+    }));
+  }
+
+  @Get(':id/download')
+  async downloadFile(@Param('id') id: number, @Res() res: Response) {
+    const file = await this.filesService.getFileById(id);
+    if (!file) {
+      throw new NotFoundException('Archivo no encontrado');
+    }
+
+    res.set({
+      'Content-Type': file.mimetype,
+      'Content-Disposition': `attachment; filename="${file.filename}"`,
+    });
+
+    res.send(file.content);
   }
 }

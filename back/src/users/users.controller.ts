@@ -75,12 +75,12 @@ export class UsersController {
   /**********************************************************************************************************/
   /**********************************************************************************************************/
   @Post('login')
-  async login(@Body() body: { email: string, materia: string}) 
+  async login(@Body() body: { email: string, materia: string, password: string }) 
   {
     try
     {
-      const { email, materia } = body;
-      return await this.usuarioservice.loginSelect(email, materia);
+      const { email, materia, password } = body;
+      return await this.usuarioservice.loginSelect(email, materia, password);
     } catch (error) 
     {
       if (error instanceof TimeoutError) 

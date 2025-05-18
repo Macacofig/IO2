@@ -14,7 +14,7 @@ export class FileEntity {
   @Column()
   size: number;
 
-  @Column({ type: 'blob' }) 
+  @Column({ type: 'longblob' }) 
   content: Buffer;
 
   @Column()

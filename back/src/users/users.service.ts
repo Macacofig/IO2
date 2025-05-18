@@ -40,16 +40,36 @@ async create(createUserDto: CreateUserDto): Promise<User>
 /************************************************************************************************************/
 /************************************************************************************************************/
 
-  async loginSelect(email: string, materia: string): Promise<any> 
+  async loginSelect(email: string, materia: string, password: string): Promise<number> 
   {
-    const user = await this.userRepository.findOne({
-      where: { email: email, materia: materia },});
-
-    if (!user) 
+    let number;
+    if (email === '')
     {
-      throw new NotFoundException({ message: 'Usuario no encontrado' });
+      if (password === 'InvestigacionOperativa')
+      {
+        number = 0;
+      }
     }
-
-    return { message: 'Usuario encontrado' };
+    else
+    {
+      const user = await this.userRepository.findOne({
+      where: { email: email, materia: materia },});
+      if (!user) 
+      {
+        throw new NotFoundException({ message: 'Usuario no encontrado' });
+      }
+      else
+      {
+        if (materia === 'Investigacion Operativa 1')
+        {
+          number = 1;
+        }
+        if (materia === 'Investigacion Operativa 2')
+        {
+          number = 2;
+        }
+      }
+    }
+    return number;
   }
 }

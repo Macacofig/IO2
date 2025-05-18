@@ -25,4 +25,17 @@ constructor(
 
     return await this.filesRepository.save(newFile);
   }
+
+  async getAllFiles(): Promise<FileEntity[]> {
+  return await this.filesRepository.find();
+  }
+
+  async getFileById(id: number): Promise<FileEntity> 
+  {
+    const file = await this.filesRepository.findOneBy({ id });
+    if (!file) {
+      throw new Error(`File with id ${id} not found`);
+    }
+    return file;
+  } 
 }
