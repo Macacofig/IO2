@@ -11,33 +11,39 @@ import { CommonModule } from '@angular/common';
 })
 
 export class IniciosesionComponent {
-  correo: string = '';
-  numero: string = '';
-  passwpord: string = '';
-  passwpordHabilitada: boolean = false;
+  email: string = '';
+  materia: string = '';
+  password: string = '';
 
-  // Credenciales especiales para desbloquear
-  correoEspecial = 'especial@ejemplo.com';
-  numeroEspecial = '123456';
+  passwordE: boolean = false;
+  materiaE: boolean = false;
+
+  // Credencial especial
+  correoEspecial = 'rlujan@ucb.edu.bo';
 
   constructor(private router: Router) {}
 
   verificarDatos() {
-    // Desbloquear contraseña solo si coinciden correo y número
-    this.passwpordHabilitada = 
-      this.correo === this.correoEspecial && this.numero === this.numeroEspecial;
+    const esEspecial = this.email === this.correoEspecial;
+    this.passwordE = esEspecial;
+    this.materiaE = !esEspecial;
   }
 
   ingresar() {
-    // Si están desbloqueados, validar contraseña y redirigir a Página A
-    if (this.passwpordHabilitada) {
-      if (this.passwpord === 'claveSegura') {
-        this.router.navigate(['/paralelos']); // Página para usuarios especiales
+    if (this.passwordE) {
+      // Usuario especial: requiere contraseña
+      if (this.password === 'InvestigacionOperativa') {
+        this.router.navigate(['/paralelos']);
       } else {
         alert('Contraseña incorrecta');
       }
     } else {
-      this.router.navigate(['/home']); // Página general
+      // Usuario normal: redirige sin contraseña
+      if (this.materia) {
+        this.router.navigate(['/home']);
+      } else {
+        alert('Selecciona una materia');
+      }
     }
   }
 }

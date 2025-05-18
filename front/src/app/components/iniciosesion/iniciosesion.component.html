@@ -10,30 +10,36 @@
     <form (ngSubmit)="ingresar()">
       <input
         type="text"
-        [(ngModel)]="correo"
+        [(ngModel)]="email"
         name="correo"
-        placeholder="Correo electrónico"
+        placeholder="Ingresa tu Correo Académico"
         required
-        pattern="^[a-zA-Z]+\.[a-zA-Z]++@ucb\.edu\.bo$"
-        title="El correo debe ser de la institucion"
+        pattern="^[a-zA-Z]+\.[a-zA-Z]+@ucb\.edu\.bo$"
+        title="El correo debe ser de la institución"
         (input)="verificarDatos()"
       />
-      <input
-        type="text"
-        [(ngModel)]="numero"
-        name="numero"
-        placeholder="Número"
+
+      <select
+        [(ngModel)]="materia"
+        name="materia"
+        [disabled]="!materiaE"
         required
-        (input)="verificarDatos()"
-      />
+        (change)="verificarDatos()"
+      >
+        <option value="" disabled selected>Selecciona la materia</option>
+        <option value="1 - Investigación Operativa 1">Investigación Operativa 1</option>
+        <option value="2 - Investigación Operativa 2">Investigación Operativa 2</option>
+      </select>
+
       <input
         type="password"
-        [(ngModel)]="passwpord"
+        [(ngModel)]="password"
         name="contraseña"
         placeholder="Contraseña"
-        [disabled]="!passwpordHabilitada"
+        [disabled]="!passwordE"
         required
       />
+
       <button type="submit">Ingresar</button>
     </form>
   </div>
