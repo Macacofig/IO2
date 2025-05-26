@@ -16,7 +16,7 @@ export class ParalelosComponent {
   paralelosOp1: string[] = ['Paralelo 1', 'Paralelo 2'];
   paralelosOp2: string[] = ['Paralelo 1'];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private apiService: ApiService) {}
 
   seleccionarMateria(num: number) {
     this.materiaSeleccionada = num;
@@ -27,6 +27,15 @@ export class ParalelosComponent {
   }
 
   agregarParalelo() {
+    this.apiService.getUsuarios().subscribe({
+      next: (usuarios) => {
+        console.log('Usuarios:', usuarios);
+        // Aquí puedes usar los datos si lo necesitas
+      },
+      error: (err) => {
+        console.error('Error al obtener usuarios:', err);
+      }
+    });
     const lista = this.obtenerParalelosActuales();
     const nuevoNombre = `Paralelo ${lista.length + 1}`;
     if (this.materiaSeleccionada === 1) {
