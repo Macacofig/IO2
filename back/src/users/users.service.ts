@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
@@ -14,28 +14,42 @@ export class UsersService {
   
 /************************************************************************************************************/
 /************************************************************************************************************/
-async create(createUserDto: CreateUserDto): Promise<User> 
-{
-  try 
-  {
-    // Verifica cuántos usuarios hay
-    const userCount = await this.userRepository.count();
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    try {
+      // 1) Si no hay estudiantes en la tabla, guarda directamente
+      const userCount = await this.userRepository.count();
+      if (userCount === 0) {
+        const firstUser = this.userRepository.create(createUserDto);
+        return await this.userRepository.save(firstUser);
+      }
 
-    // Si ya hay usuarios, verifica si hay duplicados
-    if (userCount > 0) 
-    {
-      const existingUser = await this.userRepository.findOne({
-        where: { phone: createUserDto.phone.toString(), materia: createUserDto.materia }});
+      // 2) Si ya existen estudiantes, comprueba combinación phone–materia–paralelo
+      const duplicate = await this.userRepository.findOne({
+        where: {
+          email: createUserDto.email,
+          materia: createUserDto.materia,
+          paralelo: createUserDto.paralelo,
+        },
+      });
+
+      if (duplicate) {
+        // Ya existe un usuario con la misma email, materia y paralelo
+        throw new ConflictException('El usuario ya está inscrito en esa materia y paralelo');
+      }
+
+      // No hay duplicado: guarda normalmente
+      const user = this.userRepository.create(createUserDto);
+      return await this.userRepository.save(user);
+
+    } catch (error) {
+      // Si ya es una excepción controlada (ConflictException), la relanzamos
+      if (error instanceof ConflictException) {
+        throw error;
+      }
+      // Cualquier otro error inesperado:
+      throw new InternalServerErrorException('No se pudo guardar el usuario');
     }
-    // Si no hay usuarios o no hay duplicados, se guarda el nuevo usuario
-    const user = this.userRepository.create(createUserDto);
-    return await this.userRepository.save(user);
-
-  } catch (error) 
-  {
-    throw new InternalServerErrorException('No se pudo guardar el usuario');
   }
-}
 
 /************************************************************************************************************/
 /************************************************************************************************************/
@@ -43,7 +57,7 @@ async create(createUserDto: CreateUserDto): Promise<User>
   async loginSelect(email: string, materia: string, password: string): Promise<number> 
   {
     let number;
-    if (email === '')
+    if (email === 'rlujan@ucb.edu.bo')
     {
       if (password === 'InvestigacionOperativa')
       {
@@ -71,5 +85,28 @@ async create(createUserDto: CreateUserDto): Promise<User>
       }
     }
     return number;
+  }
+  /************************************************************************************************************/
+  /************************************************************************************************************/
+  async getParalelosByMateria(materia: string): Promise<string[]> {
+    const users = await this.userRepository
+      .createQueryBuilder('user')
+      .select('DISTINCT user.paralelo', 'paralelo')
+      .where('user.materia = :materia', { materia })
+      .getRawMany();
+
+    if (users.length === 0) {
+      throw new NotFoundException({ message: 'No se encontraron paralelos para la materia especificada' });
+    }
+
+    return users.map(user => user.paralelo);
+  }
+
+  async deleteusersParaleloMateria(materia: string, paralelo: string): Promise<void> {
+    const result = await this.userRepository.delete({ materia, paralelo });
+
+    if (result.affected === 0) {
+      throw new NotFoundException({ message: 'No se encontraron usuarios para eliminar con la materia y paralelo especificados' });
+    }
   }
 }
