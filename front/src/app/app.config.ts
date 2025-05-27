@@ -1,7 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { PreloadAllModules, provideRouter, withDebugTracing, withPreloading } from '@angular/router';
-
 import { APP_ROUTES } from './app-routing.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
