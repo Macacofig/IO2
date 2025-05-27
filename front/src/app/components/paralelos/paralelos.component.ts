@@ -54,6 +54,6 @@ export class ParalelosComponent {
   }
 
   entrarClases() {
-    this.router.navigate(['/clases']);
+    this.router.navigate(['/paginadocente']);
   }
 }
