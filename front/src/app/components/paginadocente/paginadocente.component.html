@@ -1,0 +1,45 @@
+<div class="paginadocente-container">
+  <header class="encabezado">
+    <h1>INVESTIGACION OPERATIVA 1</h1>
+    <nav class="menu-tabs">
+      <span (click)="seleccionarTab('ejercicios')">Ejercicios</span>
+      <span (click)="seleccionarTab('documentos')">Documentos</span>
+      <span (click)="seleccionarTab('presentaciones')">Presentaciones</span>
+    </nav>
+  </header>
+
+  <!-- Sección para Documentos -->
+<section class="contenido" *ngIf="tabSeleccionado === 'documentos'">
+  <h3 class="titulo-seccion">Lista documentos</h3>
+  <div class="grid-documentos">
+    <div class="card-doc" *ngFor="let doc of documentos">
+      <div class="icono-doc">📄</div>
+      <p>{{ doc.nombre }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Sección para Ejercicios -->
+<section class="contenido" *ngIf="tabSeleccionado === 'ejercicios'">
+  <h3 class="titulo-seccion">Lista ejercicios</h3>
+  <div class="grid-documentos">
+    <div class="card-doc" *ngFor="let ejercicio of ejercicios">
+      <div class="icono-doc">📘</div>
+      <p>{{ ejercicio.nombre }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Sección para Presentaciones -->
+<section class="contenido" *ngIf="tabSeleccionado === 'presentaciones'">
+  <h3 class="titulo-seccion">Lista presentaciones</h3>
+  <div class="grid-documentos">
+    <div class="card-doc" *ngFor="let presentacion of presentaciones">
+      <div class="icono-doc">📊</div>
+      <p>{{ presentacion.nombre }}</p>
+    </div>
+  </div>
+</section>
+  <!-- Botón flotante para agregar documentos -->
+  <button class="boton-agregar" (click)="abrirModalAgregar()">+</button>
+</div>

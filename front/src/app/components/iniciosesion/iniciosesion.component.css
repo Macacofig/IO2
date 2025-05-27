@@ -1,0 +1,147 @@
+.iniciosesion-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #454179, #1d2b51);
+  padding: 20px;
+}
+
+.cartas-login {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.header-login h2 {
+  margin: 15px 0 5px;
+  font-size: 24px;
+  color: #2c3e50;
+}
+
+.header-login p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+input[type="text"] {
+  width: 90%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #3d2e84;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #3498db;
+}
+
+select {
+  width: 99%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #3d2e84;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+  appearance: none; /* Elimina estilo nativo */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%233d2e84' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px 16px;
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: #3498db;
+}
+
+
+input[type="text"],
+input[type="password"] {
+  width: 90%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #3d2e84;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #3498db;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  background-color: #3498db;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-texto {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .cartas-login {
+    padding: 30px 20px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logo-texto {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .subtext {
+    font-size: 13px;
+  }
+
+  button, .form input {
+    font-size: 15px;
+  }
+}

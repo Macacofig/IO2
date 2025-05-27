@@ -1,0 +1,46 @@
+<div class="iniciosesion-container">
+  <div class="cartas-login">
+    <div class="header-login">
+      <div class="logo">
+        <span class="logo-texto">IO</span>
+      </div>
+      <h2>Bienvenido a Investigación Operativa</h2>
+      <p>Por favor, ingresa los datos a continuación</p>
+    </div>
+    <form (ngSubmit)="ingresar()">
+      <input
+        type="text"
+        [(ngModel)]="email"
+        name="correo"
+        placeholder="Ingresa tu Correo Académico"
+        required
+        pattern="^[a-zA-Z]+\.[a-zA-Z]+@ucb\.edu\.bo$"
+        title="El correo debe ser de la institución"
+        (input)="verificarDatos()"
+      />
+
+      <select
+        [(ngModel)]="materia"
+        name="materia"
+        [disabled]="!materiaE"
+        required
+        (change)="verificarDatos()"
+      >
+        <option value="" disabled selected>Selecciona la materia</option>
+        <option value="Investigación Operativa 1">Investigacion Operativa 1</option>
+        <option value="Investigación Operativa 2">Investigacion Operativa 2</option>
+      </select>
+
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="contraseña"
+        placeholder="Contraseña"
+        [disabled]="!passwordE"
+        required
+      />
+
+      <button type="submit">Ingresar</button>
+    </form>
+  </div>
+</div>
