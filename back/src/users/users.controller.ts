@@ -27,7 +27,17 @@ export class UsersController {
     private readonly usuarioservice: UsersService
   ) {}
   
-
+  @Get()
+  async getUsers() {
+    try {
+      return await {hola: 'mundo'};
+    } catch (error) {
+      if (error instanceof TimeoutError) {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      throw new InternalServerErrorException('Hubo un problema al obtener los usuarios. Intenta más tarde.');
+    }
+  }
   /*Guardar Los estudiantes desde Excels*/
   /**********************************************************************************************************/
   /**********************************************************************************************************/
