@@ -1,13 +1,16 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, InternalServerErrorException, NotFoundException, Param, Post, RequestTimeoutException, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { Response } from 'express';
+import { TimeoutError } from 'rxjs';
 
 @Controller('files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', {
     storage: memoryStorage(), // ✅ Guarda en memoria (NO en disco)
@@ -39,23 +42,9 @@ export class FilesController {
     return this.filesService.saveFileToDatabase(file, materia, tema);
   }
 
-
-  @Get('allfiles')
-  async getAllFiles() {
-    const files = await this.filesService.getAllFiles();
-
-    // Generar una lista con información y URLs de descarga
-    return files.map(file => ({
-      id: file.id,
-      filename: file.filename,
-      mimetype: file.mimetype,
-      size: file.size,
-      materia: file.materia,
-      tema: file.tema,
-      downloadUrl: `http://localhost:3000/files/${file.id}/download`,
-    }));
-  }
-
+  /*Descargar un archivo por ID */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
   @Get(':id/download')
   async downloadFile(@Param('id') id: number, @Res() res: Response) {
     const file = await this.filesService.getFileById(id);
@@ -69,5 +58,221 @@ export class FilesController {
     });
 
     res.send(file.content);
+  }
+
+  /* Obtener archivos de Markov IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Markov')
+  async getFilesMarkov() 
+  {
+    try 
+    {
+      return await  this.filesService.getFilesMarkovIO2();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+  
+  /* Obtener archivos de Colas IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Colas')
+  async getFilesColas() 
+  {
+    try 
+    {
+      return await  this.filesService.getFilesColasIO2();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+  /* Obtener archivos de Simulacion IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Simulacion')
+  async getFilesSimulacion() 
+  {
+    try
+    {
+      return await  this.filesService.getFilesSimulacionIO2();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+  /* Obtener archivos de Decisiones IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Decisiones')
+  async getFilesDecisiones() 
+  {
+    try
+    {
+      return await  this.filesService.getFilesDecisionesIO2();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+  /* Obtener archivos de Inventarios IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Inventarios')
+  async getFilesInventarios() 
+  {
+    try
+    {
+      return await  this.filesService.getFilesInventariosIO2();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+  
+  /* Obtener archivos de Programación Lineal y Dual IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('ProgramacionLineal')
+  async getFilesProgramacionLineal()
+  {
+    try
+    {
+      return await this.filesService.getFilesProgramacionLinealIO1();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+  
+  /* Obtener archivos de Análisis Post Optimal IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('AnalisisPostOptimal')
+  async getFilesAnalisisPostOptimal()
+  {
+    try
+    {
+      return await this.filesService.getFilesAnalisisPostOptimalIO1();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+  
+  /* Obtener archivos de Transporte, Asignación y Trasbordo IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('TransporteAsignacionTrasbordo')
+  async getFilesTransporteAsignacionTrasbordo()
+  {
+    try
+    {
+      return await this.filesService.getFilesTransporteAsignacionTrasbordoIO1();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+  /* Obtener archivos de Redes: PERT/CPM IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('RedesPERTCPM')
+  async getFilesRedesPERTCPM()
+  {
+    try
+    {
+      return await this.filesService.getFilesRedesPERTCPMIO1();
+    }catch (error) 
+    {
+      if (error instanceof TimeoutError) 
+      {  // Verifica si el error es por tiempo de espera
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if(error instanceof NotFoundException)
+      {
+        throw error;
+      }
+      // Si es otro tipo de error, lanzamos un error interno
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
   }
 }
