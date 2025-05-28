@@ -1,11 +1,15 @@
 .paralelos-container {
   min-height: 100vh;
+  min-width: 100vw;
   background: linear-gradient(135deg, #454179, #1d2b51);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+
+  z-index: 5;
+  position: fixed;
 }
 
 .titulo {
@@ -116,6 +120,12 @@
 
 .btn-clase:hover {
   background-color: #e55353;
+}
+
+app-formparalelo {
+  position: fixed;
+  z-index: 10;
+  display: none;
 }
 
 /* Responsive */

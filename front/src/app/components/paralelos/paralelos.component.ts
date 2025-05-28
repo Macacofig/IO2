@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FormparaleloComponent } from '../formparalelo/formparalelo.component';
 
 @Component({
   selector: 'app-paralelos',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule, FormparaleloComponent],
   templateUrl: './paralelos.component.html',
   styleUrl: './paralelos.component.css'
 })
@@ -43,6 +44,9 @@ export class ParalelosComponent {
     } else {
       this.paralelosOp2.push(nuevoNombre);
     }
+
+    const form = document.getElementById('formParalelo') as HTMLFormElement;
+    form.style.display = 'block';
   }
 
   eliminarParalelo() {
