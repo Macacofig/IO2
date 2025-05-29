@@ -68,18 +68,26 @@ export class FilesController {
   {
     try 
     {
-      return await  this.filesService.getFilesMarkovIO2();
-    }catch (error) 
-    {
+      const files = await this.filesService.getFilesMarkovIO2();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      }));
+    
+    } catch (error) {
       if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
+      {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if(error instanceof NotFoundException)
+      if (error instanceof NotFoundException) 
       {
         throw error;
       }
-      // Si es otro tipo de error, lanzamos un error interno
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
@@ -92,18 +100,26 @@ export class FilesController {
   {
     try 
     {
-      return await  this.filesService.getFilesColasIO2();
-    }catch (error) 
-    {
+      const files = await this.filesService.getFilesColasIO2();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      }));
+      
+    } catch (error) {
       if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
+      {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if(error instanceof NotFoundException)
+      if (error instanceof NotFoundException) 
       {
         throw error;
       }
-      // Si es otro tipo de error, lanzamos un error interno
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
@@ -114,20 +130,28 @@ export class FilesController {
   @Get('Simulacion')
   async getFilesSimulacion() 
   {
-    try
+    try 
     {
-      return await  this.filesService.getFilesSimulacionIO2();
-    }catch (error) 
-    {
+      const files = await this.filesService.getFilesSimulacionIO2();
+        
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      }));
+      
+    } catch (error) {
       if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
+      {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if(error instanceof NotFoundException)
+      if (error instanceof NotFoundException) 
       {
         throw error;
       }
-      // Si es otro tipo de error, lanzamos un error interno
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
@@ -138,20 +162,28 @@ export class FilesController {
   @Get('Decisiones')
   async getFilesDecisiones() 
   {
-    try
+    try 
     {
-      return await  this.filesService.getFilesDecisionesIO2();
-    }catch (error) 
-    {
+      const files = await this.filesService.getFilesDecisionesIO2();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      }));
+      
+    } catch (error) {
       if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
+      {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if(error instanceof NotFoundException)
+      if (error instanceof NotFoundException) 
       {
         throw error;
       }
-      // Si es otro tipo de error, lanzamos un error interno
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
@@ -160,25 +192,33 @@ export class FilesController {
   /*********************************************************************************************************/
   /*********************************************************************************************************/
   @Get('Inventarios')
-  async getFilesInventarios() 
+async getFilesInventarios() 
+{
+  try 
   {
-    try
+    const files = await this.filesService.getFilesInventariosIO2();
+
+    // Retorna solo los campos requeridos
+    return files.map(file => ({
+      id: file.id,
+      nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+      materia: file.materia,
+      tema: file.tema,
+      downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+    }));
+    
+  } catch (error) {
+    if (error instanceof TimeoutError) 
     {
-      return await  this.filesService.getFilesInventariosIO2();
-    }catch (error) 
-    {
-      if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
-        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
-      }
-      if(error instanceof NotFoundException)
-      {
-        throw error;
-      }
-      // Si es otro tipo de error, lanzamos un error interno
-      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+      throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
     }
+    if (error instanceof NotFoundException) 
+    {
+      throw error;
+    }
+    throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
   }
+}
   
   /* Obtener archivos de Programación Lineal y Dual IO1 */
   /*********************************************************************************************************/
@@ -186,20 +226,28 @@ export class FilesController {
   @Get('ProgramacionLineal')
   async getFilesProgramacionLineal()
   {
-    try
+    try 
     {
-      return await this.filesService.getFilesProgramacionLinealIO1();
-    }catch (error) 
-    {
+      const files = await this.filesService.getFilesProgramacionLinealIO1();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      }));
+    
+    } catch (error) {
       if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
+      {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if(error instanceof NotFoundException)
+      if (error instanceof NotFoundException) 
       {
         throw error;
       }
-      // Si es otro tipo de error, lanzamos un error interno
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
@@ -210,20 +258,28 @@ export class FilesController {
   @Get('AnalisisPostOptimal')
   async getFilesAnalisisPostOptimal()
   {
-    try
+    try 
     {
-      return await this.filesService.getFilesAnalisisPostOptimalIO1();
-    }catch (error) 
-    {
+      const files = await this.filesService.getFilesAnalisisPostOptimalIO1();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      }));
+    
+    } catch (error) {
       if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
+      {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if(error instanceof NotFoundException)
+      if (error instanceof NotFoundException) 
       {
         throw error;
       }
-      // Si es otro tipo de error, lanzamos un error interno
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
@@ -234,20 +290,28 @@ export class FilesController {
   @Get('TransporteAsignacionTrasbordo')
   async getFilesTransporteAsignacionTrasbordo()
   {
-    try
+    try 
     {
-      return await this.filesService.getFilesTransporteAsignacionTrasbordoIO1();
-    }catch (error) 
-    {
+      const files = await this.filesService.getFilesTransporteAsignacionTrasbordoIO1();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      }));
+    
+    } catch (error) {
       if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
+      {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if(error instanceof NotFoundException)
+      if (error instanceof NotFoundException) 
       {
         throw error;
       }
-      // Si es otro tipo de error, lanzamos un error interno
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
@@ -258,20 +322,28 @@ export class FilesController {
   @Get('RedesPERTCPM')
   async getFilesRedesPERTCPM()
   {
-    try
+    try 
     {
-      return await this.filesService.getFilesRedesPERTCPMIO1();
-    }catch (error) 
-    {
+      const files = await this.filesService.getFilesRedesPERTCPMIO1();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      }));
+    
+    } catch (error) {
       if (error instanceof TimeoutError) 
-      {  // Verifica si el error es por tiempo de espera
+      {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if(error instanceof NotFoundException)
+      if (error instanceof NotFoundException) 
       {
         throw error;
       }
-      // Si es otro tipo de error, lanzamos un error interno
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }

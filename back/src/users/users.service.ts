@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
@@ -54,38 +54,28 @@ export class UsersService {
 /************************************************************************************************************/
 /************************************************************************************************************/
 
-  async loginSelect(email: string, materia: string, password: string): Promise<number> 
-  {
-    let number;
-    if (email === 'rlujan@ucb.edu.bo')
-    {
-      if (password === 'InvestigacionOperativa')
-      {
-        number = 0;
-      }
+  async loginSelect(email: string, materia: string, password: string): Promise<{ tipo: number }> {
+  if (email === 'rlujan@ucb.edu.bo') {
+    if (password === 'InvestigacionOperativa') {
+      return { tipo: 0 }; // Admin o docente
+    } else {
+      throw new UnauthorizedException('Contraseña incorrecta');
     }
-    else
-    {
-      const user = await this.userRepository.findOne({
-      where: { email: email, materia: materia },});
-      if (!user) 
-      {
-        throw new NotFoundException({ message: 'Usuario no encontrado' });
-      }
-      else
-      {
-        if (materia === 'Investigacion Operativa 1')
-        {
-          number = 1;
-        }
-        if (materia === 'Investigacion Operativa 2')
-        {
-          number = 2;
-        }
-      }
+  } else {
+    const user = await this.userRepository.findOne({ where: { email, materia } });
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado');
     }
-    return number;
+
+    if (materia === 'Investigacion Operativa 1') {
+      return { tipo: 1 }; // Estudiante IO1
+    } else if (materia === 'Investigacion Operativa 2') {
+      return { tipo: 2 }; // Estudiante IO2
+    } else {
+      throw new BadRequestException('Materia no reconocida');
+    }
   }
+}
   /************************************************************************************************************/
   /************************************************************************************************************/
   async getParalelosByMateria(materia: string): Promise<string[]> {
