@@ -113,18 +113,12 @@ export class UsersController {
   /**********************************************************************************************************/
   /**********************************************************************************************************/
   
-<<<<<<< HEAD
-  @Get('paralelos-materia')
-  async getParalelosByMateria(@Body('materia') materia: string) 
-  {
-=======
   // Recuperar Paralelos
   
-   @Post('paralelos-materia')
+  @Post('paralelos-materia')
   async getParalelosByMateria(@Body('materia') materia: string) 
   {
     console.log(materia)
->>>>>>> df18a3fe21b257a6d709bc7b961717d041c610c8
     try 
     {
       return await this.usuarioservice.getParalelosByMateria(materia);
@@ -136,7 +130,6 @@ export class UsersController {
         throw error;
       }
       throw new InternalServerErrorException('Hubo un problema al obtener los paralelos. Intenta más tarde.');
-<<<<<<< HEAD
     }
   }
  
@@ -158,8 +151,4 @@ export class UsersController {
       throw new InternalServerErrorException('Hubo un problema al eliminar los usuarios. Intenta más tarde.');
     }
   }
-=======
-    }
-  }
->>>>>>> df18a3fe21b257a6d709bc7b961717d041c610c8
 }
