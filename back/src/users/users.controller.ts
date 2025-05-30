@@ -9,6 +9,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
   Get,
+  Delete,
 } from '@nestjs/common';
 import { UploadUsersService } from './excel/upload-users.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -108,6 +109,43 @@ export class UsersController {
     }
   }
 
+  /* Obtener paralelos por materia */
   /**********************************************************************************************************/
   /**********************************************************************************************************/
+  
+  @Get('paralelos-materia')
+  async getParalelosByMateria(@Body('materia') materia: string) 
+  {
+    try 
+    {
+      return await this.usuarioservice.getParalelosByMateria(materia);
+    } 
+    catch (error) 
+    {
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema al obtener los paralelos. Intenta más tarde.');
+    }
+  }
+ 
+  /* Eliminar los usuarios de una materia y paralelo */
+  /**********************************************************************************************************/
+  /**********************************************************************************************************/
+  @Delete('delete-users')
+  async deleteUsers(@Body() body: {materia: string, paralelo: string}) 
+  {
+    try 
+    {
+      const { materia, paralelo } = body;
+      await this.usuarioservice.deleteusersParaleloMateria(materia, paralelo);
+      return { message: 'Usuarios eliminados correctamente' };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema al eliminar los usuarios. Intenta más tarde.');
+    }
+  }
 }

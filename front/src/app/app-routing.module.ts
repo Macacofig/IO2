@@ -3,8 +3,7 @@ import { IniciosesionComponent } from './components/iniciosesion/iniciosesion.co
 import { PaginainicioComponent } from './components/paginainicio/paginainicio.component';
 import { ParalelosComponent } from './components/paralelos/paralelos.component';
 import { PaginadocenteComponent } from './components/paginadocente/paginadocente.component';
-
-import { FormparaleloComponent } from './components/formparalelo/formparalelo.component';
+import { PaginaestudiantesComponent } from './components/paginaestudiantes/paginaestudiantes.component';
 
 export const APP_ROUTES: Route[] = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -12,6 +11,6 @@ export const APP_ROUTES: Route[] = [
   { path: 'iniciosesion', component: IniciosesionComponent},
   { path: 'paralelos', component: ParalelosComponent },
   { path: 'paginadocente', component: PaginadocenteComponent },
-  { path: 'formparalelo', component: FormparaleloComponent },
+  { path: 'paginaestudiante', component: PaginaestudiantesComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ]

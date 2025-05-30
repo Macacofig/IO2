@@ -7,6 +7,8 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/users.entity';
 import { FilesModule } from './files/files.module';
 import { FileEntity } from './files/files.entity';
+import { LinkesModule } from './linkes/linkes.module';
+import { LinkesEntity } from './linkes/linkes.entity';
 
 @Module({
   imports: [
@@ -22,13 +24,14 @@ import { FileEntity } from './files/files.entity';
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [User, FileEntity], // Asegúrate de agregar las entidades correspondientes aquí
+        entities: [User, FileEntity, LinkesEntity], // Asegúrate de agregar las entidades correspondientes aquí
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     UsersModule,
     FilesModule,
+    LinkesModule,
     // Otros módulos aquí
   ],
   controllers: [AppController],
