@@ -72,4 +72,20 @@ async create(createUserDto: CreateUserDto): Promise<User>
     }
     return number;
   }
+
+  async getParalelosByMateria(materia: string): Promise<string[]> {
+    const users = await this.userRepository
+      .createQueryBuilder('user')
+      .select('DISTINCT user.paralelo', 'paralelo')
+      .where('user.materia = :materia', { materia })
+      .getRawMany();
+    
+     
+    if (users.length === 0) {
+      throw new NotFoundException({ message: 'No se encontraron paralelos para la materia especificada' });
+    }
+
+    return users.map(user => user.paralelo);
+  }
 }
+

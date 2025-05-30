@@ -110,4 +110,24 @@ export class UsersController {
 
   /**********************************************************************************************************/
   /**********************************************************************************************************/
+  
+  // Recuperar Paralelos
+  
+   @Post('paralelos-materia')
+  async getParalelosByMateria(@Body('materia') materia: string) 
+  {
+    console.log(materia)
+    try 
+    {
+      return await this.usuarioservice.getParalelosByMateria(materia);
+    } 
+    catch (error) 
+    {
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema al obtener los paralelos. Intenta más tarde.');
+    }
+  }
 }
