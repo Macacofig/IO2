@@ -34,6 +34,22 @@ export class ParalelosComponent {
     )
   }
 
+  ngOnInit() {
+    try {
+      if(!(this.apiService.isAuthenticated()))
+      {
+        throw new Error('Usuario no autenticado');
+
+      }
+      
+    } catch (error) {
+      console.error("sin token");
+      // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+    this.router.navigate(['/iniciosesion']);
+      
+    }
+  }
+
   seleccionarMateria(num: number) {
     this.materiaSeleccionada = num;
   }
