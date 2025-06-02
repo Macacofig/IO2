@@ -2,15 +2,15 @@
     <div class="cont-form">
         <h2 class="cont-titulo">Eliminar paralelo</h2>
         <form class="form" action="">
-            <select name="prueba" id="materia" class="selector">
+            <select name="materiaEl" id="materiaEl" class="selector">
                 <option value="" selected id="defecto">Seleccionar materia</option>
                 <option value="Investigacion Operativa 1">Investigacion Operativa 1</option>
                 <option value="Investigacion Operativa 2">Investigacion Operativa 2</option>
             </select>
-            <input type="text" placeholder="Ingresa el número de paralelo" name="paralelo" id="paralelo" class="inputs">
+            <input type="text" placeholder="Ingresa el número de paralelo" name="paraleloEl" id="paraleloEl" class="inputs">
             <div class="cont-botones">
-                <button (click)="eliminar()" id="btn-agregar" class="btns">Eliminar Paralelo</button>
-                <button (click)="cancelar()" id="btn-cancelar" class="btns">Cancelar</button>
+                <button type="button" (click)="eliminar()" id="btn-agregar" class="btns">Eliminar Paralelo</button>
+                <button type="button" (click)="cancelar()" id="btn-cancelar" class="btns">Cancelar</button>
             </div>
         </form>
     </div>

@@ -19,19 +19,30 @@ export class FormelimparComponent {
   }
 
   eliminar() {
-    const mat = (document.getElementById('materia') as HTMLInputElement).value;
-    const par = (document.getElementById('paralelo') as HTMLInputElement).value;
+    const materiaSelect = document.getElementById('materiaEl') as HTMLSelectElement;
+    const paraleloInput = document.getElementById('paraleloEl') as HTMLInputElement;
+
+    const mat = materiaSelect.value.trim();
+    const par = paraleloInput.value.trim();
+
+    console.log('Materia:', materiaSelect);
+    console.log('Paralelo:', paraleloInput);
 
     // if (!mat || !par) {
     //   alert('Por favor completa todos los campos.');
     //   return;
     // }
-    console.log(mat, par)
 
-    this.http.delete('http://localhost:3000/users/delete-users/${mat}/${par}').subscribe({
+    this.http.request('DELETE', 'http://localhost:3000/users/delete-users', {
+    body: {
+      materia: mat,
+      paralelo: par
+    }
+    }).subscribe({
       next: (res) => {
         console.log('Eliminado correctamente:', res);
         alert('Paralelo eliminado correctamente');
+        window.location.reload();
       },
       error: (err) => {
         console.error('Error al eliminar:', err);

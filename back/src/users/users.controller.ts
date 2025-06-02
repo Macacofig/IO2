@@ -138,12 +138,10 @@ export class UsersController {
   /**********************************************************************************************************/
   /**********************************************************************************************************/
   @Delete('delete-users')
-  async deleteUsers(
-    @Param('materia') materia: string,
-    @Param('paralelo') paralelo: string
-  ) 
-  {
-    try 
+  async deleteUsers(@Body() body: { materia: string, paralelo: string }) {
+  const { materia, paralelo } = body;
+  console.log(body)
+  try 
     {
       await this.usuarioservice.deleteusersParaleloMateria(materia, paralelo);
       return { message: 'Usuarios eliminados correctamente' };

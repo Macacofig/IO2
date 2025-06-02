@@ -37,8 +37,9 @@ export class FormparaleloComponent {
 
     this.http.post('http://localhost:3000/users/upload-excel', formData).subscribe({
       next: (res) => {
-        alert('Archivo subido y procesado correctamente');
+        alert('paralelo agregado correctamente');
         console.log(res);
+        window.location.reload();
       },
       error: (err) => {
         console.error('Error al subir:', err);
