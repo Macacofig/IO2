@@ -20,7 +20,7 @@ export class ParalelosComponent {
   paralelosOp2: string[] = [];
   parelelosService: ParalelosService = inject(ParalelosService);
 
-  constructor(private router: Router, private paralelosService: ParalelosService) {
+  constructor(private router: Router, private paralelosService: ParalelosService, private apiService: ApiService) {
     this.parelelosService.obtenerParalelosMateria("Investigacion Operativa 1").subscribe(
       data => this.paralelosOp1 = data,
       error => console.log('Error al obtener paralelos de la materia 1', error),
