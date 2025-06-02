@@ -18,6 +18,22 @@ export class ParalelosComponent {
 
   constructor(private router: Router, private apiService: ApiService) {}
 
+  ngOnInit() {
+    try {
+      if(!(this.apiService.isAuthenticated()))
+      {
+        throw new Error('Usuario no autenticado');
+
+      }
+      
+    } catch (error) {
+      console.error("sin token");
+      // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+    this.router.navigate(['/iniciosesion']);
+      
+    }
+  }
+
   seleccionarMateria(num: number) {
     this.materiaSeleccionada = num;
   }
@@ -27,22 +43,27 @@ export class ParalelosComponent {
   }
 
   agregarParalelo() {
-    this.apiService.getUsuarios().subscribe({
-      next: (usuarios) => {
-        console.log('Usuarios:', usuarios);
-        // Aquí puedes usar los datos si lo necesitas
-      },
-      error: (err) => {
-        console.error('Error al obtener usuarios:', err);
-      }
+    // this.apiService.getUsuarios().subscribe({
+    //   next: (usuarios) => {
+    //     console.log('Usuarios:', usuarios);
+    //     // Aquí puedes usar los datos si lo necesitas
+    //   },
+    //   error: (err) => {
+    //     console.error('Error al obtener usuarios:', err);
+    //   }
+    // });
+    // const lista = this.obtenerParalelosActuales();
+    // const nuevoNombre = `Paralelo ${lista.length + 1}`;
+    // if (this.materiaSeleccionada === 1) {
+    //   this.paralelosOp1.push(nuevoNombre);
+    // } else {
+    //   this.paralelosOp2.push(nuevoNombre);
+    // }
+    this.apiService.postRequest('users/algo', "see").subscribe({
+      next: (res) => console.log('Respuesta:', res),
+      error: (err) => console.error('Error:', err)
     });
-    const lista = this.obtenerParalelosActuales();
-    const nuevoNombre = `Paralelo ${lista.length + 1}`;
-    if (this.materiaSeleccionada === 1) {
-      this.paralelosOp1.push(nuevoNombre);
-    } else {
-      this.paralelosOp2.push(nuevoNombre);
-    }
+
   }
 
   eliminarParalelo() {

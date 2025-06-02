@@ -10,6 +10,7 @@ import {
   NotFoundException,
   Get,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UploadUsersService } from './excel/upload-users.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -19,6 +20,7 @@ import * as path from 'path';
 import { UsersService } from './users.service';
 import { TimeoutError } from 'rxjs';
 import * as os from 'os';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
@@ -26,7 +28,12 @@ export class UsersController {
     private readonly uploadUsersService: UploadUsersService,
     private readonly usuarioservice: UsersService
   ) {}
-  
+  @UseGuards(AuthGuard('jwt'))
+  @Post('algo')
+  async algo(@Body() body: any) {
+    console.log("llegue")
+    return {res:"he vuelto del back"};
+  }
   @Get()
   async getUsers() {
     try {

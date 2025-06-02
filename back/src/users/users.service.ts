@@ -3,14 +3,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService
   ) {}
 
+  
   
 /************************************************************************************************************/
 /************************************************************************************************************/
@@ -54,10 +57,11 @@ export class UsersService {
 /************************************************************************************************************/
 /************************************************************************************************************/
 
-  async loginSelect(email: string, materia: string, password: string): Promise<{ tipo: number }> {
+  async loginSelect(email: string, materia: string, password: string): Promise<{ tipo: any }> {
   if (email === 'rlujan@ucb.edu.bo') {
     if (password === 'InvestigacionOperativa') {
-      return { tipo: 0 }; // Admin o docente
+      const user = {email : email, password: password}; // Admin
+      return { tipo: this.jwtService.sign(user) }; // Admin o docente
     } else {
       throw new UnauthorizedException('Contraseña incorrecta');
     }
