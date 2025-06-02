@@ -1,22 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ParalelosService } from '../../services/paralelos.service';
+import { FormparaleloComponent } from '../formparalelo/formparalelo.component';
+import { FormelimparComponent } from '../formelimpar/formelimpar.component';
 
 @Component({
   selector: 'app-paralelos',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule, FormparaleloComponent, FormelimparComponent],
   templateUrl: './paralelos.component.html',
   styleUrl: './paralelos.component.css'
 })
 
 export class ParalelosComponent {
   materiaSeleccionada = 1;
-  paralelosOp1: string[] = ['Paralelo 1', 'Paralelo 2'];
-  paralelosOp2: string[] = ['Paralelo 1'];
+  paralelosOp1: string[] = [];
+  paralelosOp2: string[] = [];
+  parelelosService: ParalelosService = inject(ParalelosService);
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(private router: Router, private paralelosService: ParalelosService, private apiService: ApiService) {
+    this.parelelosService.obtenerParalelosMateria("Investigacion Operativa 1").subscribe(
+      data => this.paralelosOp1 = data,
+      error => console.log('Error al obtener paralelos de la materia 1', error),
+      () => console.log('Paralelos de la materia 1 obtenidos exitosamente') 
+    )
+    
+    this.parelelosService.obtenerParalelosMateria("Investigacion Operativa 2").subscribe(
+      data => this.paralelosOp2 = data,
+      error => console.log('Error al obtener paralelos de la materia 1:', error),
+      () => alert('Paralelos de la materia 1 obtenidos exitosamente') 
+    )
+  }
 
   ngOnInit() {
     try {
@@ -59,19 +75,20 @@ export class ParalelosComponent {
     // } else {
     //   this.paralelosOp2.push(nuevoNombre);
     // }
-    this.apiService.postRequest('users/algo', "see").subscribe({
-      next: (res) => console.log('Respuesta:', res),
-      error: (err) => console.error('Error:', err)
-    });
 
+    const form = document.getElementById('formParalelo') as HTMLFormElement;
+    form.style.display = 'block';
   }
 
   eliminarParalelo() {
-    if (this.materiaSeleccionada === 1 && this.paralelosOp1.length > 0) {
-      this.paralelosOp1.pop();
-    } else if (this.materiaSeleccionada === 2 && this.paralelosOp2.length > 0) {
-      this.paralelosOp2.pop();
-    }
+    // if (this.materiaSeleccionada === 1 && this.paralelosOp1.length > 0) {
+    //   this.paralelosOp1.pop();
+    // } else if (this.materiaSeleccionada === 2 && this.paralelosOp2.length > 0) {
+    //   this.paralelosOp2.pop();
+    // }
+
+    const form = document.getElementById('formEliminar') as HTMLFormElement;
+    form.style.display = 'block';
   }
 
   entrarClases() {

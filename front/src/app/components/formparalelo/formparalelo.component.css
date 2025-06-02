@@ -1,0 +1,88 @@
+.fondo {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont-form {
+    width: 40vw;
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cont-titulo {
+    margin: 0 0 15px 0;
+    font-size: 2em;
+}
+
+.form {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 90%;
+}
+
+.selector {
+    margin: 0 0 18px 0;
+    height: 6vh;
+    border-radius: 5px;
+    font-size: 1.1em;
+    border: 2px solid black;
+}
+
+#defecto {
+    color: #797979;
+}
+
+label {
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+}
+
+.inputs {
+    margin: 0 0 18px 0;
+    height: 5vh;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+#file {
+    font-size: 1em;
+    margin: 0 0 15px 0;
+}
+
+.cont-botones {
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.btns {
+    font-size: 1em;
+    border-radius: 10px;
+    border: none;
+    padding: 0 25px 0 25px;
+    font-weight: bold;
+}
+
+#btn-agregar {
+    background-color: #7f7fd5;
+    color: white;
+}
+
+#btn-cancelar {
+    background-color: rgb(226, 71, 71);
+    color: white;
+}
