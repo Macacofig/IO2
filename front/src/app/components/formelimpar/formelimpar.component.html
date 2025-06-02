@@ -1,6 +1,6 @@
-<div class="fondo" id="formParalelo">
+<div class="fondo" id="formEliminar">
     <div class="cont-form">
-        <h2 class="cont-titulo">Registro de paralelo</h2>
+        <h2 class="cont-titulo">Eliminar paralelo</h2>
         <form class="form" action="">
             <select name="prueba" id="materia" class="selector">
                 <option value="" selected id="defecto">Seleccionar materia</option>
@@ -8,11 +8,8 @@
                 <option value="Investigacion Operativa 2">Investigacion Operativa 2</option>
             </select>
             <input type="text" placeholder="Ingresa el número de paralelo" name="paralelo" id="paralelo" class="inputs">
-            <label for="file">Sube el archivo con la lista de estudiantes:</label>
-            <input type="file" name="file" accept=".xlsx, .xls" id="file">
-
             <div class="cont-botones">
-                <button id="btn-agregar" class="btns" (click)="agregar()">Agregar Paralelo</button>
+                <button (click)="eliminar()" id="btn-agregar" class="btns">Eliminar Paralelo</button>
                 <button (click)="cancelar()" id="btn-cancelar" class="btns">Cancelar</button>
             </div>
         </form>

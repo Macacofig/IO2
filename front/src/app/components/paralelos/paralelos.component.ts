@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ParalelosService } from '../../services/paralelos.service';
 import { FormparaleloComponent } from '../formparalelo/formparalelo.component';
+import { FormelimparComponent } from '../formelimpar/formelimpar.component';
 
 @Component({
   selector: 'app-paralelos',
-  imports: [CommonModule,FormsModule, FormparaleloComponent],
+  imports: [CommonModule,FormsModule, FormparaleloComponent, FormelimparComponent],
   templateUrl: './paralelos.component.html',
   styleUrl: './paralelos.component.css'
 })
@@ -64,11 +65,14 @@ export class ParalelosComponent {
   }
 
   eliminarParalelo() {
-    if (this.materiaSeleccionada === 1 && this.paralelosOp1.length > 0) {
-      this.paralelosOp1.pop();
-    } else if (this.materiaSeleccionada === 2 && this.paralelosOp2.length > 0) {
-      this.paralelosOp2.pop();
-    }
+    // if (this.materiaSeleccionada === 1 && this.paralelosOp1.length > 0) {
+    //   this.paralelosOp1.pop();
+    // } else if (this.materiaSeleccionada === 2 && this.paralelosOp2.length > 0) {
+    //   this.paralelosOp2.pop();
+    // }
+
+    const form = document.getElementById('formEliminar') as HTMLFormElement;
+    form.style.display = 'block';
   }
 
   entrarClases() {

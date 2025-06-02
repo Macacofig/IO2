@@ -26,4 +26,7 @@ export class ParalelosService {
   return this.http.post(`${this.url}upload-excel`, formData);
 }
 
+  eliminarParalelo(materia: string, paralelo: string): Observable<any> {
+    return this.http.post(`${this.url}delete-users`, { materia, paralelo });
+  }
 }

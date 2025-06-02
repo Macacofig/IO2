@@ -11,6 +11,7 @@ export class FormparaleloComponent {
 
   constructor(private http: HttpClient) {}
 
+
   cancelar() {
     const form = document.getElementById('formParalelo') as HTMLFormElement;
     if (form) {

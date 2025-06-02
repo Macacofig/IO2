@@ -10,6 +10,7 @@ import {
   NotFoundException,
   Get,
   Delete,
+  Param
 } from '@nestjs/common';
 import { UploadUsersService } from './excel/upload-users.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -137,11 +138,13 @@ export class UsersController {
   /**********************************************************************************************************/
   /**********************************************************************************************************/
   @Delete('delete-users')
-  async deleteUsers(@Body() body: {materia: string, paralelo: string}) 
+  async deleteUsers(
+    @Param('materia') materia: string,
+    @Param('paralelo') paralelo: string
+  ) 
   {
     try 
     {
-      const { materia, paralelo } = body;
       await this.usuarioservice.deleteusersParaleloMateria(materia, paralelo);
       return { message: 'Usuarios eliminados correctamente' };
     } catch (error) {
