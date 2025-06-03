@@ -347,4 +347,283 @@ async getFilesInventarios()
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
+
+    /* Obtener archivos de Markov IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('MarkovD')
+  async getFilesMarkovD() 
+  {
+    try 
+    {
+      const files = await this.filesService.getFilesMarkovIO2D();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+  
+  /* Obtener archivos de Colas IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('ColasD')
+  async getFilesColasD() 
+  {
+    try 
+    {
+      const files = await this.filesService.getFilesColasIO2D();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+      
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+  /* Obtener archivos de Simulacion IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('SimulacionD')
+  async getFilesSimulacionD() 
+  {
+    try 
+    {
+      const files = await this.filesService.getFilesSimulacionIO2D();
+        
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+      
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+  /* Obtener archivos de Decisiones IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('DecisionesD')
+  async getFilesDecisionesD() 
+  {
+    try 
+    {
+      const files = await this.filesService.getFilesDecisionesIO2D();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+      
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+  /* Obtener archivos de Inventarios IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('InventariosD')
+async getFilesInventariosD() 
+{
+  try 
+  {
+    const files = await this.filesService.getFilesInventariosIO2D();
+
+    // Retorna solo los campos requeridos
+    return files.map(file => ({
+      id: file.id,
+      nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+      materia: file.materia,
+      tema: file.tema,
+    }));
+    
+  } catch (error) {
+    if (error instanceof TimeoutError) 
+    {
+      throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+    }
+    if (error instanceof NotFoundException) 
+    {
+      throw error;
+    }
+    throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+  }
+}
+  
+  /* Obtener archivos de Programación Lineal y Dual IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('ProgramacionLinealD')
+  async getFilesProgramacionLinealD()
+  {
+    try 
+    {
+      const files = await this.filesService.getFilesProgramacionLinealIO1D();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+  
+  /* Obtener archivos de Análisis Post Optimal IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('AnalisisPostOptimalD')
+  async getFilesAnalisisPostOptimalD()
+  {
+    try 
+    {
+      const files = await this.filesService.getFilesAnalisisPostOptimalIO1D();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+  
+  /* Obtener archivos de Transporte, Asignación y Trasbordo IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('TransporteAsignacionTrasbordoD')
+  async getFilesTransporteAsignacionTrasbordoD()
+  {
+    try 
+    {
+      const files = await this.filesService.getFilesTransporteAsignacionTrasbordoIO1D();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+  /* Obtener archivos de Redes: PERT/CPM IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('RedesPERTCPMD')
+  async getFilesRedesPERTCPMD()
+  {
+    try 
+    {
+      const files = await this.filesService.getFilesRedesPERTCPMIO1D();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
 }
