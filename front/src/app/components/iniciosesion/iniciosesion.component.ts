@@ -49,7 +49,7 @@ export class IniciosesionComponent {
     this.authService.login(usuario).subscribe(
       (respuesta) => {
         console.log('Respuesta del backend:', respuesta);
-        
+        localStorage.setItem('access_token', respuesta.tipo );
 
         if (this.email === this.correoEspecial) {
           // Solo rluzjan@ucb.edu.bo debe ingresar con contraseña
@@ -75,5 +75,6 @@ export class IniciosesionComponent {
         alert(this.mensajeError);
       }
     );
+
   }
 }

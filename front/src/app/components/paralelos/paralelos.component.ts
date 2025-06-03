@@ -20,7 +20,7 @@ export class ParalelosComponent {
   paralelosOp2: string[] = [];
   parelelosService: ParalelosService = inject(ParalelosService);
 
-  constructor(private router: Router, private paralelosService: ParalelosService) {
+  constructor(private router: Router, private paralelosService: ParalelosService, private apiService: ApiService) {
     this.parelelosService.obtenerParalelosMateria("Investigacion Operativa 1").subscribe(
       data => this.paralelosOp1 = data,
       error => console.log('Error al obtener paralelos de la materia 1', error),
@@ -32,6 +32,22 @@ export class ParalelosComponent {
       error => console.log('Error al obtener paralelos de la materia 1:', error),
       () => alert('Paralelos de la materia 1 obtenidos exitosamente') 
     )
+  }
+
+  ngOnInit() {
+    try {
+      if(!(this.apiService.isAuthenticated()))
+      {
+        throw new Error('Usuario no autenticado');
+
+      }
+      
+    } catch (error) {
+      console.error("sin token");
+      // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+    this.router.navigate(['/iniciosesion']);
+      
+    }
   }
 
   seleccionarMateria(num: number) {

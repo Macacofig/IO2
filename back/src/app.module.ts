@@ -10,6 +10,7 @@ import { FileEntity } from './files/files.entity';
 import { LinkesModule } from './linkes/linkes.module';
 import { LinkesEntity } from './linkes/linkes.entity';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,13 +26,14 @@ import { LinkesEntity } from './linkes/linkes.entity';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [User, FileEntity, LinkesEntity], // Asegúrate de agregar las entidades correspondientes aquí
-        synchronize: true,
+        synchronize: false,
       }),
       inject: [ConfigService],
     }),
     UsersModule,
     FilesModule,
     LinkesModule,
+   
     // Otros módulos aquí
   ],
   controllers: [AppController],
