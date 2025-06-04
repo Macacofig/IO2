@@ -52,11 +52,6 @@
     font-size: 1.1em;
 }
 
-#file {
-    font-size: 1em;
-    margin: 0 0 15px 0;
-}
-
 .cont-botones {
     height: 45%;
     display: flex;
@@ -72,7 +67,7 @@
     font-weight: bold;
 }
 
-#btn-agregar {
+#btn-el {
     background-color: #7f7fd5;
     color: white;
 }
