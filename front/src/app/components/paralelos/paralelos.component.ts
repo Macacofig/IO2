@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ParalelosService } from '../../services/paralelos.service';
 import { FormparaleloComponent } from '../formparalelo/formparalelo.component';
 import { FormelimparComponent } from '../formelimpar/formelimpar.component';
+import { MateriaService } from '../../services/materia.service';
 
 @Component({
   selector: 'app-paralelos',
@@ -20,7 +21,7 @@ export class ParalelosComponent {
   paralelosOp2: string[] = [];
   parelelosService: ParalelosService = inject(ParalelosService);
 
-  constructor(private router: Router, private paralelosService: ParalelosService, private apiService: ApiService) {
+  constructor(private router: Router, private paralelosService: ParalelosService, private apiService: ApiService, private materiaService: MateriaService ) {
     this.parelelosService.obtenerParalelosMateria("Investigacion Operativa 1").subscribe(
       data => this.paralelosOp1 = data,
       error => console.log('Error al obtener paralelos de la materia 1', error),
@@ -50,9 +51,17 @@ export class ParalelosComponent {
     }
   }
 
-  seleccionarMateria(num: number) {
-    this.materiaSeleccionada = num;
-  }
+   seleccionarMateria(num: number): void {
+  this.materiaSeleccionada = num;
+
+  const materiaNombre = num === 1
+    ? 'Investigacion Operativa 1'
+    : 'Investigacion Operativa 2';
+
+  console.log('Materia seleccionada en paralelos:', materiaNombre);
+  this.materiaService.setMateria(materiaNombre);
+}
+
 
   obtenerParalelosActuales(): string[] {
     return this.materiaSeleccionada === 1 ? this.paralelosOp1 : this.paralelosOp2;
@@ -92,6 +101,12 @@ export class ParalelosComponent {
   }
 
   entrarClases() {
-    this.router.navigate(['/paginadocente']);
+    if (this.materiaSeleccionada === 1) {
+      this.router.navigate(['/paginadocente1']); // Ruta para Investigación Operativa 1
+    } else if (this.materiaSeleccionada === 2) {
+      this.router.navigate(['/paginadocente2']); // Ruta para Investigación Operativa 2
+    } else {
+      console.warn('No se ha seleccionado una materia válida');
+    }
   }
 }
