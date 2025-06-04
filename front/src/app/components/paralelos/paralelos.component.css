@@ -134,6 +134,28 @@ app-formelimpar {
   display: none;
 }
 
+.boton-cerrar-sesion {
+  position: display;
+  top: 20px;
+  right: 20px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.boton-cerrar-sesion:hover {
+  background-color: #c0392b;
+  box-shadow: 0 4px 16px rgba(231, 76, 60, 0.25);
+}
+
 /* Responsive */
 @media (max-width: 500px) {
   .seccion-paralelos {

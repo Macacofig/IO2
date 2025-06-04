@@ -1,7 +1,14 @@
 <div class="paginadocente-container">
+  <button class="boton-cerrar-sesion" (click)="logout()">Cerrar sesión</button>
+  
   <header class="encabezado">
     <h1 class="titulo-principal">INVESTIGACION OPERATIVA 1</h1>
   </header>
+
+  <!-- Botón Volver -->
+  <button class="boton-volver" (click)="volverAParalelos()">
+    <span class="icono-volver">&#8592;</span> Volver
+  </button>
 
   <!-- Documentos -->
   <section class="contenido" *ngIf="tabSeleccionado === 'documentos'">

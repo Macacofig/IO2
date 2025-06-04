@@ -30,7 +30,8 @@ export class PaginadocenteComponent implements OnInit {
     'Programación Lineal y Dual',
     'Post Optimal',
     'Asignación y Trasbordo',
-    'Redes: PERT/CPM'
+    'Redes: PERT/CPM', 
+    'Cadenas de Markov'
   ];
 
   competenciaLabels: { [key: string]: string } = {
@@ -38,11 +39,13 @@ export class PaginadocenteComponent implements OnInit {
     'Post Optimal': 'Mod2: Analisis Post-Optimal',
     'Asignación y Trasbordo': 'Mod3: Transporte Asignacion Transbordo',
     'Redes: PERT/CPM': 'Mod4: Redes: PERT/CPM',
+    'Cadenas de Markov': 'Cadenas de Markov'
   };
 
   constructor(
     private authService: AuthService,
     private materiaService: MateriaService,
+    private router: Router,
     private http: HttpClient
   ) {
     this.materiaService.materiaSeleccionada$.subscribe(materia => {
@@ -69,6 +72,10 @@ export class PaginadocenteComponent implements OnInit {
     this.mostrarFormulario = false;
     this.archivoSeleccionado = undefined!;
     this.competenciaSeleccionada = '';
+  }
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/iniciosesion']);
   }
 
   onFileChange(event: Event): void {
@@ -100,42 +107,51 @@ export class PaginadocenteComponent implements OnInit {
   obtenerItemsPorCompetencia(competencia: string): any[] {
     return this.documentos.filter(doc => doc.competencia === competencia);
   }
-
+  ngOnInit() {
+    console.log("hola")
+    this.cargarDocumentosPorCompetencia();
+  }
   cargarDocumentosPorCompetencia(): void {
-  this.authService.OrdenarMarkov().subscribe((data: any) => {
-    this.documentos = data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp1'
-    }));
-  });
+    this.authService.OrdenarMarkov().subscribe((data: any) => {
+      this.documentos = data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Cadenas de Markov'
+      }));
+    });
+    
+    this.authService.OrdenarColas().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Comp2'
+      })));
+    });
 
-  this.authService.OrdenarColas().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp2'
-    })));
-  });
+    // this.authService.OrdenarSimulacion().subscribe((data: any) => {
+      //   this.documentos.push(...data.map((doc: any) => ({
+        //     nombre: doc.nombre,
+        //     competencia: 'Comp3'
+        //   })));
+        // });
+        
+        this.authService.OrdenarDecisiones().subscribe((data: any) => {
+          this.documentos.push(...data.map((doc: any) => ({
+            
+            nombre: doc.nombre,
+            competencia: 'Comp4'
+          })));
+        });
+        console.log(this.documentos.toString())
+        
+        // this.authService.OrdenarInventarios().subscribe((data: any) => {
+    //   this.documentos.push(...data.map((doc: any) => ({
+    //     nombre: doc.nombre,
+    //     competencia: 'Comp5'
+    //   })));
+    // });
+  }
 
-  this.authService.OrdenarSimulacion().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp3'
-    })));
-  });
-
-  this.authService.OrdenarDecisiones().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp4'
-    })));
-  });
-
-  this.authService.OrdenarInventarios().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp5'
-    })));
-  });
+  volverAParalelos() {
+    this.router.navigate(['/paralelos']);
   }
 
   cancelar() {
@@ -214,5 +230,4 @@ export class PaginadocenteComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
 }
