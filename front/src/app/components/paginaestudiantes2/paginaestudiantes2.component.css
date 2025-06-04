@@ -1,4 +1,4 @@
-.paginadocente2-container {
+.paginaestudiantes2-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,9 +13,8 @@
   text-align: center;
   color: white;
   margin: 20px 0;
-  font-size: 3rem; /* Aumentado */
+  font-size: 3rem;
   font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -38,9 +37,26 @@
   padding-left: 1rem;
 }
 
-
-.nombres-archivos{
+.nombres-archivos {
   color: black;
+  margin: 0.5rem 0;
+}
+
+/* Enlace para ver documento */
+.ver-archivo {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background-color: #3d2e84;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.ver-archivo:hover {
+  background-color: #2a2266;
 }
 
 /* Menú de navegación */
@@ -138,12 +154,22 @@
 }
 
 .modal-formulario input,
+.modal-formulario select,
+.modal-formulario textarea,
 .modal-formulario button {
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 0.5rem;
   border: 1px solid #ccc;
   width: 100%;
+  font-family: inherit;
+}
+
+.modal-formulario textarea {
+  min-height: 100px;
+  resize: vertical;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
 .modal-formulario button {
@@ -158,20 +184,18 @@
   background-color: #2a2266;
 }
 
-.modal-formulario select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
-  width: 100%;
-  background-color: #f9f9f9;
-  color: #333;
-}
-
 .modal-formulario label {
   font-weight: bold;
-  margin-top: 0.5rem;
   color: #3d2e84;
+  margin-top: 0.5rem;
+}
+
+/* Botones alineados */
+.acciones-formulario {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 /* Contenido principal */
@@ -187,7 +211,7 @@
   font-size: 1.5rem;
 }
 
-.titulo-subir{
+.titulo-subir {
   margin-bottom: 1rem;
   font-size: 1.5rem;
   color: black;
@@ -243,6 +267,10 @@
   }
 
   .titulo-principal {
-    font-size: 1.25rem;
+    font-size: 1.25rem;
+  }
+
+  .modal-formulario {
+    padding: 1rem;
   }
 }
