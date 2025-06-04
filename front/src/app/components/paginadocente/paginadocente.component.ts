@@ -1,7 +1,10 @@
+import { AuthService } from '../../services/auth.service';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MateriaService } from '../../services/materia.service';
+
 import { ParalelosService } from '../../services/paralelos.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,42 +12,130 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-paginadocente',
   imports: [CommonModule, FormsModule],
   templateUrl: './paginadocente.component.html',
-  styleUrl: './paginadocente.component.css'
+  styleUrls: ['./paginadocente.component.css']
 })
 export class PaginadocenteComponent implements OnInit {
 
-  constructor(private http: HttpClient){}
-  tabSeleccionado: string = 'documentos';
+  mostrarFormulario = false;
+  menuAbierto = false;
 
-  documentos = [
-    { nombre: 'Documento 1' },
-    { nombre: 'Documento 2' },
-    { nombre: 'Documento 3' }
+  archivoSeleccionado!: File;
+  materiaSeleccionada: string = '';
+  competenciaSeleccionada: string = '';
+  tabSeleccionado = 'documentos';
+
+  documentos: { nombre: string; competencia: string }[] = [];
+
+  competencias: string[] = [
+    'Programación Lineal y Dual',
+    'Post Optimal',
+    'Asignación y Trasbordo',
+    'Redes: PERT/CPM'
   ];
 
-  ejercicios = [
-    { nombre: 'Ejercicio 1' },
-    { nombre: 'Ejercicio 2' },
-    { nombre: 'Ejercicio 3' }
-  ];
+  competenciaLabels: { [key: string]: string } = {
+    'Programación Lineal y Dual': 'Mod1: Programación Lineal y Dual',
+    'Post Optimal': 'Mod2: Analisis Post-Optimal',
+    'Asignación y Trasbordo': 'Mod3: Transporte Asignacion Transbordo',
+    'Redes: PERT/CPM': 'Mod4: Redes: PERT/CPM',
+  };
 
-  presentaciones = [
-    { nombre: 'Presentación 1' }
-  ];
+  constructor(
+    private authService: AuthService,
+    private materiaService: MateriaService,
+    private http: HttpClient
+  ) {
+    this.materiaService.materiaSeleccionada$.subscribe(materia => {
+      console.log('Materia seleccionada en paginadocente:', materia);
+      this.materiaSeleccionada = materia;
 
-  seleccionarTab(tab: string): void {
-    this.tabSeleccionado = tab;
+      if (this.materiaSeleccionada) {
+        this.cargarDocumentosPorCompetencia();
+      }
+    });
   }
 
-  abrirModalAgregar(): void {
-    // Aquí va la lógica para abrir un modal (más adelante lo puedes implementar con Angular Material o un componente propio)
-    if (this.tabSeleccionado === 'documentos') {
-      this.documentos.push({ nombre: `Documento ${this.documentos.length + 1}` });
-    } else if (this.tabSeleccionado === 'ejercicios') {
-      this.ejercicios.push({ nombre: `Ejercicio ${this.ejercicios.length + 1}` });
-    } else if (this.tabSeleccionado === 'presentaciones') {
-      this.presentaciones.push({ nombre: `Presentación ${this.presentaciones.length + 1}` });
+  toggleMenu(): void {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
+  abrirFormulario(tipo: string): void {
+    this.tabSeleccionado = tipo;
+    this.mostrarFormulario = true;
+    this.menuAbierto = false;
+  }
+
+  cerrarFormulario(): void {
+    this.mostrarFormulario = false;
+    this.archivoSeleccionado = undefined!;
+    this.competenciaSeleccionada = '';
+  }
+
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.archivoSeleccionado = input.files[0];
     }
+  }
+
+  subirArchivo(): void {
+    if (this.archivoSeleccionado && this.materiaSeleccionada && this.competenciaSeleccionada) {
+      this.authService
+        .cargarArchivo(this.archivoSeleccionado, this.materiaSeleccionada, this.competenciaSeleccionada)
+        .subscribe({
+          next: () => {
+            this.documentos.push({
+              nombre: this.archivoSeleccionado.name,
+              competencia: this.competenciaSeleccionada
+            });
+            this.cerrarFormulario();
+          },
+          error: (err) => console.error('Error al subir archivo', err)
+        });
+    } else {
+      alert('Completa todos los campos y selecciona un archivo');
+    }
+  }
+
+  obtenerItemsPorCompetencia(competencia: string): any[] {
+    return this.documentos.filter(doc => doc.competencia === competencia);
+  }
+
+  cargarDocumentosPorCompetencia(): void {
+  this.authService.OrdenarMarkov().subscribe((data: any) => {
+    this.documentos = data.map((doc: any) => ({
+      nombre: doc.nombre,
+      competencia: 'Comp1'
+    }));
+  });
+
+  this.authService.OrdenarColas().subscribe((data: any) => {
+    this.documentos.push(...data.map((doc: any) => ({
+      nombre: doc.nombre,
+      competencia: 'Comp2'
+    })));
+  });
+
+  this.authService.OrdenarSimulacion().subscribe((data: any) => {
+    this.documentos.push(...data.map((doc: any) => ({
+      nombre: doc.nombre,
+      competencia: 'Comp3'
+    })));
+  });
+
+  this.authService.OrdenarDecisiones().subscribe((data: any) => {
+    this.documentos.push(...data.map((doc: any) => ({
+      nombre: doc.nombre,
+      competencia: 'Comp4'
+    })));
+  });
+
+  this.authService.OrdenarInventarios().subscribe((data: any) => {
+    this.documentos.push(...data.map((doc: any) => ({
+      nombre: doc.nombre,
+      competencia: 'Comp5'
+    })));
+  });
   }
 
   cancelar() {
