@@ -45,4 +45,25 @@
       <li (click)="abrirFormulario('documentos')">Documento</li>
     </ul>
   </div>
+
+  <div class="eliminarEst">
+    <button class="btn-eliminarEst" (click)="desplFormEliminarEst2()">Eliminar Estudiante</button>
+  </div>
+</div>
+
+<div class="fondo" id="formElEstudiante">
+    <div class="cont-form">
+        <h2 class="cont-titulo">Eliminar Estudiante</h2>
+        <form class="form" action="">
+            <select name="paralelosMat" id="paralelosMat" class="selector">
+                <option value="" selected id="defecto">Seleccionar paralelo</option>
+                <option *ngFor="let paralelo of paralelos" [value]="paralelo">{{ paralelo }}</option>
+            </select>
+            <input type="text" placeholder="Ingresa el correo del estudiante" name="correoEst" id="correoEst" class="inputs">
+            <div class="cont-botones">
+                <button type="button" (click)="eliminarUsuario2()" id="btn-eliminar-est" class="btns">Eliminar Estudiante</button>
+                <button type="button" (click)="cancelar()" id="btn-cancelar-form" class="btns">Cancelar</button>
+            </div>
+        </form>
+    </div>
 </div>

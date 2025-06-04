@@ -144,13 +144,12 @@ export class PaginadocenteComponent implements OnInit {
       form.style.display = 'none';
     }
   }
-
-  materiaEst1 : String = 'Investigacion Operativa 3';
+  
   paralelos : String[] = [];
   parelelosService: ParalelosService = inject(ParalelosService);
   usuarios : String[] = [];
 
-  recuperarParalelosPorMateria() {
+  desplFormEliminarEst() {
     const formdesp = document.getElementById('formElEstudiante') as HTMLElement;
     formdesp.style.display = 'flex';
 
