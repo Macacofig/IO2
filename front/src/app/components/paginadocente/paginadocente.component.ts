@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MateriaService } from '../../services/materia.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paginadocente',
@@ -25,7 +26,8 @@ export class PaginadocenteComponent {
     'Programación Lineal y Dual',
     'Post Optimal',
     'Asignación y Trasbordo',
-    'Redes: PERT/CPM'
+    'Redes: PERT/CPM', 
+    'Cadenas de Markov'
   ];
 
   competenciaLabels: { [key: string]: string } = {
@@ -33,11 +35,13 @@ export class PaginadocenteComponent {
     'Post Optimal': 'Mod2: Analisis Post-Optimal',
     'Asignación y Trasbordo': 'Mod3: Transporte Asignacion Transbordo',
     'Redes: PERT/CPM': 'Mod4: Redes: PERT/CPM',
+    'Cadenas de Markov': 'Cadenas de Markov'
   };
 
   constructor(
     private authService: AuthService,
-    private materiaService: MateriaService
+    private materiaService: MateriaService,
+    private router: Router
   ) {
     this.materiaService.materiaSeleccionada$.subscribe(materia => {
       console.log('Materia seleccionada en paginadocente:', materia);
@@ -63,6 +67,10 @@ export class PaginadocenteComponent {
     this.mostrarFormulario = false;
     this.archivoSeleccionado = undefined!;
     this.competenciaSeleccionada = '';
+  }
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/iniciosesion']);
   }
 
   onFileChange(event: Event): void {
@@ -94,41 +102,50 @@ export class PaginadocenteComponent {
   obtenerItemsPorCompetencia(competencia: string): any[] {
     return this.documentos.filter(doc => doc.competencia === competencia);
   }
-
+  ngOnInit() {
+    console.log("hola")
+    this.cargarDocumentosPorCompetencia();
+  }
   cargarDocumentosPorCompetencia(): void {
-  this.authService.OrdenarMarkov().subscribe((data: any) => {
-    this.documentos = data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp1'
-    }));
-  });
+    this.authService.OrdenarMarkov().subscribe((data: any) => {
+      this.documentos = data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Cadenas de Markov'
+      }));
+    });
+    
+    this.authService.OrdenarColas().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Comp2'
+      })));
+    });
 
-  this.authService.OrdenarColas().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp2'
-    })));
-  });
+    // this.authService.OrdenarSimulacion().subscribe((data: any) => {
+      //   this.documentos.push(...data.map((doc: any) => ({
+        //     nombre: doc.nombre,
+        //     competencia: 'Comp3'
+        //   })));
+        // });
+        
+        this.authService.OrdenarDecisiones().subscribe((data: any) => {
+          this.documentos.push(...data.map((doc: any) => ({
+            
+            nombre: doc.nombre,
+            competencia: 'Comp4'
+          })));
+        });
+        console.log(this.documentos.toString())
+        
+        // this.authService.OrdenarInventarios().subscribe((data: any) => {
+    //   this.documentos.push(...data.map((doc: any) => ({
+    //     nombre: doc.nombre,
+    //     competencia: 'Comp5'
+    //   })));
+    // });
+  }
 
-  this.authService.OrdenarSimulacion().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp3'
-    })));
-  });
-
-  this.authService.OrdenarDecisiones().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp4'
-    })));
-  });
-
-  this.authService.OrdenarInventarios().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp5'
-    })));
-  });
+  volverAParalelos() {
+    this.router.navigate(['/paralelos']);
   }
 }
