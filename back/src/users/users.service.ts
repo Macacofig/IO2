@@ -57,11 +57,12 @@ export class UsersService {
 /************************************************************************************************************/
 /************************************************************************************************************/
 
-  async loginSelect(email: string, materia: string, password: string): Promise<{ tipo: any }> {
+  async loginSelect(email: string, materia: string, password: string): Promise<{ jwt: string, tipo: number }> {
   if (email === 'rlujan@ucb.edu.bo') {
     if (password === 'InvestigacionOperativa') {
       const user = {email : email, password: password}; // Admin
-      return { tipo: this.jwtService.sign(user) }; // Admin o docente
+      console.log("here");
+      return { jwt: this.jwtService.sign(user) , tipo: 0}; // Admin o docente
     } else {
       throw new UnauthorizedException('Contraseña incorrecta');
     }
@@ -70,11 +71,13 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('Usuario no encontrado');
     }
-
-    if (materia === 'Investigacion Operativa 1') {
-      return { tipo: 1 }; // Estudiante IO1
-    } else if (materia === 'Investigacion Operativa 2') {
-      return { tipo: 2 }; // Estudiante IO2
+    console.log(materia);
+    if (materia === 'Investigación Operativa 1') {
+      console.log("here1");
+      return { jwt: "",tipo: 1 }; // Estudiante IO1
+    } else if (materia === 'Investigación Operativa 2') {
+      console.log("here2");
+      return { jwt:"", tipo: 2 }; // Estudiante IO2
     } else {
       throw new BadRequestException('Materia no reconocida');
     }
