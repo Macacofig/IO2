@@ -31,10 +31,10 @@ export class PaginadocenteComponent {
   ];
 
   competenciaLabels: { [key: string]: string } = {
-    'Programación Lineal y Dual': 'Mod1: Programación Lineal y Dual',
-    'Post Optimal': 'Mod2: Analisis Post-Optimal',
-    'Asignación y Trasbordo': 'Mod3: Transporte Asignacion Transbordo',
-    'Redes: PERT/CPM': 'Mod4: Redes: PERT/CPM',
+    'Programación Lineal y Dual': 'Programación Lineal y Dual',
+    'Post Optimal': 'Analisis Post-Optimal',
+    'Asignación y Trasbordo': 'Transporte Asignacion Transbordo',
+    'Redes: PERT/CPM': 'Redes: PERT/CPM',
     'Cadenas de Markov': 'Cadenas de Markov'
   };
 
@@ -48,7 +48,6 @@ export class PaginadocenteComponent {
       this.materiaSeleccionada = materia;
 
       if (this.materiaSeleccionada) {
-        this.cargarDocumentosPorCompetencia();
       }
     });
   }
@@ -107,42 +106,58 @@ export class PaginadocenteComponent {
     this.cargarDocumentosPorCompetencia();
   }
   cargarDocumentosPorCompetencia(): void {
-    this.authService.OrdenarMarkov().subscribe((data: any) => {
-      this.documentos = data.map((doc: any) => ({
-        nombre: doc.nombre,
-        competencia: 'Cadenas de Markov'
-      }));
-    });
-    
-    this.authService.OrdenarColas().subscribe((data: any) => {
+    this.authService.OrdenarProgramacion().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Comp2'
+        competencia: 'Programación Lineal y Dual'
       })));
     });
 
-    // this.authService.OrdenarSimulacion().subscribe((data: any) => {
-      //   this.documentos.push(...data.map((doc: any) => ({
-        //     nombre: doc.nombre,
-        //     competencia: 'Comp3'
-        //   })));
-        // });
-        
-        this.authService.OrdenarDecisiones().subscribe((data: any) => {
-          this.documentos.push(...data.map((doc: any) => ({
-            
-            nombre: doc.nombre,
-            competencia: 'Comp4'
-          })));
-        });
-        console.log(this.documentos.toString())
-        
-        // this.authService.OrdenarInventarios().subscribe((data: any) => {
+    this.authService.OrdenarRedes().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Redes: PERT/CPM'
+      })));
+    });
+    
+
+    // this.authService.OrdenarMarkov().subscribe((data: any) => {
+    //   this.documentos = data.map((doc: any) => ({
+    //     nombre: doc.nombre,
+    //     competencia: 'Cadenas de Markov'
+    //   }));
+    // });
+    
+    // this.authService.OrdenarColas().subscribe((data: any) => {
     //   this.documentos.push(...data.map((doc: any) => ({
     //     nombre: doc.nombre,
-    //     competencia: 'Comp5'
+    //     competencia: 'Comp2'
     //   })));
     // });
+
+    // // this.authService.OrdenarSimulacion().subscribe((data: any) => {
+    //   //   this.documentos.push(...data.map((doc: any) => ({
+    //     //     nombre: doc.nombre,
+    //     //     competencia: 'Comp3'
+    //     //   })));
+    //     // });
+        
+    //     this.authService.OrdenarDecisiones().subscribe((data: any) => {
+    //       this.documentos.push(...data.map((doc: any) => ({
+            
+    //         nombre: doc.nombre,
+    //         competencia: 'Comp4'
+    //       })));
+    //     });
+    //     console.log(this.documentos.toString())
+        
+    //     // this.authService.OrdenarInventarios().subscribe((data: any) => {
+    // //   this.documentos.push(...data.map((doc: any) => ({
+    // //     nombre: doc.nombre,
+    // //     competencia: 'Comp5'
+    // //   })));
+    // // });
+
   }
 
   volverAParalelos() {
