@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'app-paginadocente',
   imports: [CommonModule, FormsModule],
@@ -10,7 +11,23 @@ import { CommonModule } from '@angular/common';
 })
 export class PaginadocenteComponent {
  tabSeleccionado: string = 'documentos';
+  constructor(private router: Router, private apiService : ApiService) {}
 
+  ngOnInit() {
+    try {
+      if(!(this.apiService.isAuthenticated()))
+      {
+        throw new Error('Usuario no autenticado');
+
+      }
+      
+    } catch (error) {
+      console.error("sin token");
+      // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+    this.router.navigate(['/iniciosesion']);
+      
+    }
+  }
   documentos = [
     { nombre: 'Documento 1' },
     { nombre: 'Documento 2' },

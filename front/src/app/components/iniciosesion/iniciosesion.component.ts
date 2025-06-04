@@ -50,6 +50,7 @@ export class IniciosesionComponent {
       localStorage.setItem('access_token', respuesta.jwt);
       switch (respuesta.tipo) {
         case 0:
+          console.log('Usuario es docente o administrador');
           this.router.navigate(['/paralelos']); // Admin o docente
           break;
         case 1:
