@@ -18,10 +18,17 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/users/login`, usuario);
   }
 
+  // Cerrar sesión
+  logout() {
+    localStorage.removeItem('access_token');
+    this.userSubject.next(null);
+  }
+
   // Cargar archivos
   cargarArchivo(file: File, materia: string, tema: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
+    
     formData.append('materia', materia);
     formData.append('tema', tema);
 

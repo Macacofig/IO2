@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MateriaService } from '../../services/materia.service';
+import { ParalelosService } from '../../services/paralelos.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-paginadocente2',
@@ -10,19 +12,22 @@ import { MateriaService } from '../../services/materia.service';
   templateUrl: './paginadocente2.component.html',
   styleUrls: ['./paginadocente2.component.css']
 })
-export class Paginadocente2Component {
+export class Paginadocente2Component implements OnInit {
+
+  ngOnInit(): void {}
+
   mostrarFormulario = false;
   menuAbierto = false;
 
   archivoSeleccionado!: File;
-  materiaSeleccionada: string = '';
+  materiaSeleccionada: string = 'Investigacion Operativa 2';
   competenciaSeleccionada: string = '';
   tabSeleccionado = 'documentos';
 
   documentos: { nombre: string; competencia: string }[] = [];
 
   competencias: string[] = [
-    'Cadenas de Márkov',
+    'Cadenas de Markov',
     'Teoría de Líneas de Espera',
     'Simulación de Sistemas',
     'Toma de Decisiones Multicriterio',
@@ -39,7 +44,8 @@ export class Paginadocente2Component {
 
   constructor(
     private authService: AuthService,
-    private materiaService: MateriaService
+    private materiaService: MateriaService,
+    private http: HttpClient
   ) {
     this.materiaService.materiaSeleccionada$.subscribe(materia => {
       console.log('Materia seleccionada en paginadocente:', materia);
@@ -132,5 +138,81 @@ export class Paginadocente2Component {
       competencia: 'Comp5'
     })));
   });
+  }
+
+  cancelar() {
+    const form = document.getElementById('formElEstudiante') as HTMLFormElement;
+    if (form) {
+      form.style.display = 'none';
+    }
+  }
+  
+  paralelos : String[] = [];
+  parelelosService: ParalelosService = inject(ParalelosService);
+  usuarios : String[] = [];
+
+  desplFormEliminarEst2() {
+    const formdesp = document.getElementById('formElEstudiante') as HTMLElement;
+    formdesp.style.display = 'flex';
+
+    const materiaEst = "Investigacion Operativa 2";
+    console.log(materiaEst);
+
+    do {
+      this.parelelosService.obtenerParalelosMateria(materiaEst).subscribe(
+      data => this.paralelos = data,
+      error => console.log('Error al obtener paralelos de la materia:', error),
+      () => console.log('Paralelos de la materia obtenidos exitosamente')
+    )
+    } while (!this.paralelos);
+
+    // this.parelelosService.obtenerParalelosMateria(materiaEst).subscribe(
+    //   data => this.paralelos = data,
+    //   error => console.log('Error al obtener paralelos de la materia:', error),
+    //   () => console.log('Paralelos de la materia obtenidos exitosamente')
+    // )
+
+    console.log(this.paralelos);
+
+    // this.parelelosService.obtenerUsuarios().subscribe(
+    //   data => this.usuarios = data,
+    //   error => console.log('Error al obtener usuarios:', error),
+    //   () => console.log('Usuarios obtenidos exitosamente')
+    // )
+
+    this.parelelosService.obtenerUsuariosPorParalelo("Investigacion Operativa 2", "3").subscribe(
+      data => this.usuarios = data,
+      error => console.log('Error al obtener usuarios por paralelo:', error),
+      () => console.log('Usuarios por paralelo obtenidos exitosamente')
+    )
+
+    console.log(this.usuarios);  
+  };
+
+  eliminarUsuario2() {
+    const email = (document.getElementById('correoEst') as HTMLInputElement).value.trim();
+    const paralelo = (document.getElementById('paralelosMat') as HTMLSelectElement).value.trim();
+
+    console.log('Email:', email);
+    console.log('Paralelo:', paralelo);
+
+    // alert(`Usuario a eliminar: ${email} del paralelo: ${paralelo}`);
+
+    this.http.request('DELETE', 'http://localhost:3000/users/delete-user-paralelo', {
+    body: {
+      email: email,
+      paralelo: paralelo
+    }
+    }).subscribe({
+      next: (res) => {
+        console.log('Usuario Eliminado correctamente:', res);
+        alert('Usuario eliminado correctamente');
+        window.location.reload();
+      },
+      error: (err) => {
+        console.error('Error al eliminar usuario:', err);
+        alert('Ocurrió un error al eliminar el usuario');
+      }
+    });
   }
 }

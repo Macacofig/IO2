@@ -357,7 +357,7 @@ async getFilesInventarios()
     try 
     {
       const files = await this.filesService.getFilesMarkovIO2D();
-
+      console.log("estoy en markovD",files.toString());
       // Retorna solo los campos requeridos
       return files.map(file => ({
         id: file.id,
@@ -480,8 +480,9 @@ async getFilesInventariosD()
 {
   try 
   {
+    console.log("here5")
     const files = await this.filesService.getFilesInventariosIO2D();
-
+    console.log(files.toString());
     // Retorna solo los campos requeridos
     return files.map(file => ({
       id: file.id,

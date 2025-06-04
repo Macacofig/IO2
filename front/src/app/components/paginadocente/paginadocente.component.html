@@ -1,7 +1,14 @@
 <div class="paginadocente-container">
+  <button class="boton-cerrar-sesion" (click)="logout()">Cerrar sesión</button>
+  
   <header class="encabezado">
     <h1 class="titulo-principal">INVESTIGACION OPERATIVA 1</h1>
   </header>
+
+  <!-- Botón Volver -->
+  <button class="boton-volver" (click)="volverAParalelos()">
+    <span class="icono-volver">&#8592;</span> Volver
+  </button>
 
   <!-- Documentos -->
   <section class="contenido" *ngIf="tabSeleccionado === 'documentos'">
@@ -45,4 +52,27 @@
       <li (click)="abrirFormulario('documentos')">Documento</li>
     </ul>
   </div>
+
+  <div class="eliminarEst">
+    <button class="btn-eliminarEst" (click)="desplFormEliminarEst()">Eliminar Estudiante</button>
+  </div>
+</div>
+
+
+
+<div class="fondo" id="formElEstudiante">
+    <div class="cont-form">
+        <h2 class="cont-titulo">Eliminar Estudiante</h2>
+        <form class="form" action="">
+            <select name="paralelosMat" id="paralelosMat" class="selector">
+                <option value="" selected id="defecto">Seleccionar paralelo</option>
+                <option *ngFor="let paralelo of paralelos" [value]="paralelo">{{ paralelo }}</option>
+            </select>
+            <input type="text" placeholder="Ingresa el correo del estudiante" name="correoEst" id="correoEst" class="inputs">
+            <div class="cont-botones">
+                <button type="button" (click)="eliminarUsuario()" id="btn-eliminar-est" class="btns">Eliminar Estudiante</button>
+                <button type="button" (click)="cancelar()" id="btn-cancelar-form" class="btns">Cancelar</button>
+            </div>
+        </form>
+    </div>
 </div>
