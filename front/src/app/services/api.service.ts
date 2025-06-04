@@ -77,7 +77,7 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/files/upload`, {});
   }
 
-  /*---------ARCHIVOS IO2------- */
+  /*---------ARCHIVOS IO2 DOCENTE------- */
   OrdenarMarkov(): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/files/MarkovD`);
   }
@@ -98,7 +98,7 @@ export class ApiService {
     return this.http.get<any[]>(`${this.baseUrl}/files/InventariosD`);
   }
 
-  /*---------ARCHIVOS IO1------- */
+  /*---------ARCHIVOS IO1 DOCENTE====------- */
   OrdenarProgramacion(): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/files/ProgramacionLinealD`);
   }
@@ -113,5 +113,43 @@ export class ApiService {
 
   OrdenarRedes(): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/files/RedesPERTCPMD`);
+  }
+
+   /*---------ARCHIVOS IO2 ESTUDIANTE------- */
+  OrdenarMarkovE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/Markov`);
+  }
+
+  OrdenarColasE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/Colas`);
+  }
+
+  OrdenarSimulacionE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/Simulacion`);
+  }
+
+  OrdenarDecisionesE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/Decisiones`);
+  }
+
+  OrdenarInventariosE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/Inventarios`);
+  }
+
+  /*---------ARCHIVOS IO1 ESTUDIANTE------- */
+  OrdenarProgramacionE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/ProgramacionLineal`);
+  }
+
+  OrdenarAnalisisE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/AnalisisPostOptimal`);
+  }
+
+  OrdenarTransporteE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/TransporteAsignacionTrasbordo`);
+  }
+
+  OrdenarRedesE(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/files/RedesPERTCPM`);
   }
 }

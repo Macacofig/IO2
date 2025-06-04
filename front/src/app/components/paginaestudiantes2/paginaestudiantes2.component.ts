@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-paginaestudiantes',
+  selector: 'app-paginaestudiantes2',
   imports: [CommonModule, FormsModule],
-  templateUrl: './paginaestudiantes.component.html',
-  styleUrl: './paginaestudiantes.component.css'
+  templateUrl: './paginaestudiantes2.component.html',
+  styleUrl: './paginaestudiantes2.component.css'
 })
-export class PaginaestudiantesComponent {
+export class Paginaestudiantes2Component {
  documentos: any[] = [];
   competencias: string[] = ['C1', 'C2', 'C3', 'C4'];
   competenciaLabels: any = {
