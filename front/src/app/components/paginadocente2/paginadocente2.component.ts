@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 import { MateriaService } from '../../services/materia.service';
 
 @Component({
-  selector: 'app-paginadocente',
+  selector: 'app-paginadocente2',
   imports: [CommonModule, FormsModule],
-  templateUrl: './paginadocente.component.html',
-  styleUrls: ['./paginadocente.component.css']
+  templateUrl: './paginadocente2.component.html',
+  styleUrls: ['./paginadocente2.component.css']
 })
-export class PaginadocenteComponent {
+export class Paginadocente2Component {
   mostrarFormulario = false;
   menuAbierto = false;
 
@@ -22,17 +22,19 @@ export class PaginadocenteComponent {
   documentos: { nombre: string; competencia: string }[] = [];
 
   competencias: string[] = [
-    'Programación Lineal y Dual',
-    'Post Optimal',
-    'Asignación y Trasbordo',
-    'Redes: PERT/CPM'
+    'Cadenas de Márkov',
+    'Teoría de Líneas de Espera',
+    'Simulación de Sistemas',
+    'Toma de Decisiones Multicriterio',
+    'Gestión de Inventarios'
   ];
 
   competenciaLabels: { [key: string]: string } = {
-    'Programación Lineal y Dual': 'Mod1: Programación Lineal y Dual',
-    'Post Optimal': 'Mod2: Analisis Post-Optimal',
-    'Asignación y Trasbordo': 'Mod3: Transporte Asignacion Transbordo',
-    'Redes: PERT/CPM': 'Mod4: Redes: PERT/CPM',
+    'Cadenas de Markov': 'Mod1: Cadenas de Markov',
+    'Teoría de Líneas de Espera': 'Mod2: Teoría de Líneas de Espera',
+    'Simulación de Sistemas': 'Mod3: Simulación de Sistemas',
+    'Toma de Decisiones Multicriterio': 'Mod4: Toma de Decisiones Multicriterio',
+    'Gestión de Inventarios': 'Mod5: Gestión de Inventarios'
   };
 
   constructor(
