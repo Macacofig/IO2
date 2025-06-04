@@ -159,4 +159,38 @@ export class UsersController {
       throw new InternalServerErrorException('Hubo un problema al eliminar los usuarios. Intenta más tarde.');
     }
   }
+
+
+  @Get('emails')
+  async getAllEmails() {
+    try {
+      return await this.usuarioservice.getAllEmails();
+    } catch (error) {
+      throw new InternalServerErrorException('Error al obtener los correos');
+    }
+  }
+
+  @Delete('delete-user-paralelo')
+  async deleteByEmailAndParalelo(@Body() body: { email: string; paralelo: string }) {
+    const { email, paralelo } = body;
+    try {
+      await this.usuarioservice.deleteByEmailAndParalelo(email, paralelo);
+      return { message: 'Usuario eliminado correctamente' };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error al eliminar el usuario');
+    }
+  }
+
+  @Post('emails-by-materia-paralelo')
+  async getEmailsByMateriaParalelo(@Body() body: { materia: string; paralelo: string }) {
+    const { materia, paralelo } = body;
+    try {
+      return await this.usuarioservice.getEmailsByMateriaParalelo(materia, paralelo);
+    } catch (error) {
+      throw new InternalServerErrorException('Error al obtener correos');
+    }
+  }
 }

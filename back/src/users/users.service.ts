@@ -103,5 +103,39 @@ export class UsersService {
       throw new NotFoundException({ message: 'No se encontraron usuarios para eliminar con la materia y paralelo especificados' });
     }
   }
+
+
+
+  async getAllEmails(): Promise<string[]> {
+  const result = await this.userRepository
+    .createQueryBuilder('user')
+    .select('user.email')
+    .where('user.email IS NOT NULL')
+    .getRawMany();
+
+    return result.map(row => row.user_email);
+  }
+
+  async deleteByEmailAndParalelo(email: string, paralelo: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { email, paralelo } });
+
+    if (!user) {
+      throw new NotFoundException('No se encontró un usuario con ese email y paralelo');
+    }
+
+    await this.userRepository.remove(user);
+  }
+
+  async getEmailsByMateriaParalelo(materia: string, paralelo: string): Promise<string[]> {
+    const result = await this.userRepository
+      .createQueryBuilder('user')
+      .select('user.email')
+      .where('user.materia = :materia', { materia })
+      .andWhere('user.paralelo = :paralelo', { paralelo })
+      .andWhere('user.email IS NOT NULL')
+      .getRawMany();
+
+    return result.map(row => row.user_email); // porque getRawMany usa alias `user_email`
+  }
 }
 

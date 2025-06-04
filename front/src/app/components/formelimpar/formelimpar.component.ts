@@ -28,10 +28,10 @@ export class FormelimparComponent {
     console.log('Materia:', materiaSelect);
     console.log('Paralelo:', paraleloInput);
 
-    // if (!mat || !par) {
-    //   alert('Por favor completa todos los campos.');
-    //   return;
-    // }
+    if (!mat || !par) {
+      alert('Por favor completa todos los campos.');
+      return;
+    }
 
     this.http.request('DELETE', 'http://localhost:3000/users/delete-users', {
     body: {
