@@ -7,6 +7,7 @@ import { ParalelosService } from '../../services/paralelos.service';
 import { FormparaleloComponent } from '../formparalelo/formparalelo.component';
 import { FormelimparComponent } from '../formelimpar/formelimpar.component';
 import { MateriaService } from '../../services/materia.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-paralelos',
@@ -21,7 +22,7 @@ export class ParalelosComponent {
   paralelosOp2: string[] = [];
   parelelosService: ParalelosService = inject(ParalelosService);
 
-  constructor(private router: Router, private paralelosService: ParalelosService, private apiService: ApiService, private materiaService: MateriaService ) {
+  constructor(private router: Router, private paralelosService: ParalelosService, private apiService: ApiService, private materiaService: MateriaService, private authService: AuthService ) {
     this.parelelosService.obtenerParalelosMateria("Investigacion Operativa 1").subscribe(
       data => this.paralelosOp1 = data,
       error => console.log('Error al obtener paralelos de la materia 1', error),
@@ -108,5 +109,11 @@ export class ParalelosComponent {
     } else {
       console.warn('No se ha seleccionado una materia válida');
     }
+  }
+
+  // Botón para cerrar sesión
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/iniciosesion']);
   }
 }

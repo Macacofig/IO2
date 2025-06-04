@@ -1,3 +1,24 @@
+.boton-cerrar-sesion {
+  position: display;
+  top: 20px;
+  right: 20px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.boton-cerrar-sesion:hover {
+  background-color: #c0392b;
+  box-shadow: 0 4px 16px rgba(231, 76, 60, 0.25);
+}
 .paginadocente-container {
   display: flex;
   flex-direction: column;
@@ -220,6 +241,37 @@
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 1rem;
   padding-bottom: 2rem;
+}
+
+/* Botón Volver */
+.boton-volver {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 28px 12px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.boton-volver:hover {
+  background-color: #2176bd;
+  box-shadow: 0 4px 16px rgba(52,152,219,0.25);
+}
+
+.icono-volver {
+  font-size: 20px;
+  margin-right: 4px;
 }
 
 /* Responsivo */
