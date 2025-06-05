@@ -23,6 +23,11 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       materia,
       tema,
     });
+    // console.log("superhere")
+    // const algo =  await this.filesRepository.query('select * from files' );
+    // algo.forEach((element: any) => {
+    //   console.log(element);
+    // })
 
     return await this.filesRepository.save(newFile);
   }

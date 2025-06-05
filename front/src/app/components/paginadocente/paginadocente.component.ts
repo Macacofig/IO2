@@ -28,18 +28,16 @@ export class PaginadocenteComponent implements OnInit {
 
   competencias: string[] = [
     'Programación Lineal y Dual',
-    'Post Optimal',
-    'Asignación y Trasbordo',
+    'Analisis Post-Optimal',
+    'Transporte Asignacion Transbordo',
     'Redes: PERT/CPM', 
-    'Cadenas de Markov'
   ];
 
   competenciaLabels: { [key: string]: string } = {
     'Programación Lineal y Dual': 'Programación Lineal y Dual',
-    'Post Optimal': 'Analisis Post-Optimal',
-    'Asignación y Trasbordo': 'Transporte Asignacion Transbordo',
+    'Analisis Post-Optimal': 'Analisis Post-Optimal',
+    'Transporte Asignacion Transbordo': 'Transporte Asignacion Transbordo',
     'Redes: PERT/CPM': 'Redes: PERT/CPM',
-    'Cadenas de Markov': 'Cadenas de Markov'
   };
 
   constructor(
@@ -86,6 +84,7 @@ export class PaginadocenteComponent implements OnInit {
 
   subirArchivo(): void {
     if (this.archivoSeleccionado && this.materiaSeleccionada && this.competenciaSeleccionada) {
+      console.log('Subiendo archivo:', this.archivoSeleccionado.name);
       this.authService
         .cargarArchivo(this.archivoSeleccionado, this.materiaSeleccionada, this.competenciaSeleccionada)
         .subscribe({
@@ -118,50 +117,32 @@ export class PaginadocenteComponent implements OnInit {
       })));
     });
 
+    
+    this.authService.OrdenarAnalisis().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Analisis Post-Optimal'
+      })));
+    });
+    
+    this.authService.OrdenarTransporte().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Transporte Asignacion Transbordo'
+      })));
+    });
+
     this.authService.OrdenarRedes().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
         competencia: 'Redes: PERT/CPM'
       })));
     });
-    
 
-    // this.authService.OrdenarMarkov().subscribe((data: any) => {
-    //   this.documentos = data.map((doc: any) => ({
-    //     nombre: doc.nombre,
-    //     competencia: 'Cadenas de Markov'
-    //   }));
-    // });
-    
-    // this.authService.OrdenarColas().subscribe((data: any) => {
-    //   this.documentos.push(...data.map((doc: any) => ({
-    //     nombre: doc.nombre,
-    //     competencia: 'Comp2'
-    //   })));
-    // });
 
-    // // this.authService.OrdenarSimulacion().subscribe((data: any) => {
-    //   //   this.documentos.push(...data.map((doc: any) => ({
-    //     //     nombre: doc.nombre,
-    //     //     competencia: 'Comp3'
-    //     //   })));
-    //     // });
-        
-    //     this.authService.OrdenarDecisiones().subscribe((data: any) => {
-    //       this.documentos.push(...data.map((doc: any) => ({
-            
-    //         nombre: doc.nombre,
-    //         competencia: 'Comp4'
-    //       })));
-    //     });
-    //     console.log(this.documentos.toString())
-        
-    //     // this.authService.OrdenarInventarios().subscribe((data: any) => {
-    // //   this.documentos.push(...data.map((doc: any) => ({
-    // //     nombre: doc.nombre,
-    // //     competencia: 'Comp5'
-    // //   })));
-    // // });
+
+    
+    
 
   }
 
