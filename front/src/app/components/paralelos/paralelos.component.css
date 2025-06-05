@@ -1,3 +1,7 @@
+*{
+  font-family: serif;
+}
+
 .paralelos-container {
   min-height: 100vh;
   min-width: 100vw;
@@ -7,10 +11,10 @@
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
-
   z-index: 5;
   position: fixed;
 }
+
 
 .titulo {
   text-align: center;
@@ -135,15 +139,15 @@ app-formelimpar {
 }
 
 .boton-cerrar-sesion {
-  position: display;
+  position: absolute;
   top: 20px;
   right: 20px;
   background-color: #e74c3c;
   color: #fff;
   border: none;
   border-radius: 25px;
-  padding: 12px 28px;
-  font-size: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   z-index: 1000;

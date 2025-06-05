@@ -1,7 +1,14 @@
 <div class="paginaestudiantes2-container">
+  <button class="boton-cerrar-sesion" (click)="logout()">Cerrar sesión</button>
+
   <header class="encabezado">
     <h1 class="titulo-principal">INVESTIGACIÓN OPERATIVA 2</h1>
   </header>
+
+  <!-- Botón Volver -->
+  <button class="boton-volver" (click)="volverAInicio()">
+    <span class="icono-volver">&#8592;</span> Volver
+  </button>
 
   <!-- Contenido de documentos organizados por competencia -->
   <section class="contenido">
@@ -13,7 +20,7 @@
         <div class="card-doc" *ngFor="let doc of obtenerItemsPorCompetencia(competencia)">
           <div class="icono-doc">📄</div>
           <p class="nombres-archivos">{{ doc.nombre }}</p>
-          <a [href]="doc.url" target="_blank" class="ver-archivo">Ver</a>
+          <button class="boton-descargar" (click)="descargarDocumento(doc)">Descargar</button>
         </div>
       </div>
     </div>

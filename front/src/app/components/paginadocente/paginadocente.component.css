@@ -1,13 +1,17 @@
+*{
+  font-family: serif;
+}
+
 .boton-cerrar-sesion {
-  position: display;
+  position: absolute;
   top: 20px;
-  right: 20px;
+  right: 60px;
   background-color: #e74c3c;
   color: #fff;
   border: none;
   border-radius: 25px;
-  padding: 12px 28px;
-  font-size: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   z-index: 1000;
@@ -25,8 +29,6 @@
   align-items: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #454179, #1d2b51);
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #ffffff;
   z-index: 5;
   position: absolute;
@@ -36,10 +38,9 @@
 .titulo-principal {
   text-align: center;
   color: white;
-  margin: 20px 0;
+  margin: 60px 0;
   font-size: 3rem; /* Aumentado */
   font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -124,13 +125,13 @@
 }
 
 .btn-eliminarEst {
-  width: 240px;
-  height: 60px;
+  width: 203px;
+  height: 46px;
   border-radius: 20px;
   background-color: #3498db;
   font-weight: bolder;
   color: white;
-  font-size: 22px;
+  font-size: 17px;
   border: none;
   cursor: pointer;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -246,7 +247,7 @@
 
 /* Cards */
 .card-doc {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -282,8 +283,8 @@
   color: #fff;
   border: none;
   border-radius: 25px;
-  padding: 12px 28px 12px 18px;
-  font-size: 16px;
+  padding: 7px 20px 10px 14px;
+  font-size: 13px;
   font-weight: bold;
   cursor: pointer;
   z-index: 1000;

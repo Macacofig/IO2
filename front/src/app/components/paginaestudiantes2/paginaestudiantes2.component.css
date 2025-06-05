@@ -1,3 +1,7 @@
+*{
+  font-family: serif;
+}
+
 .paginaestudiantes2-container {
   display: flex;
   flex-direction: column;
@@ -5,7 +9,6 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #454179, #1d2b51);
   padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #ffffff;
 }
 
@@ -43,8 +46,8 @@
 }
 
 /* Enlace para ver documento */
-.ver-archivo {
-  display: inline-block;
+.boton-descargar {
+    display: inline-block;
   margin-top: 0.5rem;
   background-color: #3d2e84;
   color: white;
@@ -54,8 +57,7 @@
   transition: background-color 0.3s ease;
   font-size: 0.9rem;
 }
-
-.ver-archivo:hover {
+.boton-descargar:hover {
   background-color: #2a2266;
 }
 
@@ -110,6 +112,28 @@
   background-color: #2980b9;
 }
 
+.boton-cerrar-sesion {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.boton-cerrar-sesion:hover {
+  background-color: #c0392b;
+  box-shadow: 0 4px 16px rgba(231, 76, 60, 0.25);
+}
+
 .submenu {
   position: absolute;
   bottom: 70px;
@@ -162,7 +186,6 @@
   border-radius: 0.5rem;
   border: 1px solid #ccc;
   width: 100%;
-  font-family: inherit;
 }
 
 .modal-formulario textarea {
@@ -245,6 +268,38 @@
   gap: 1rem;
   padding-bottom: 2rem;
 }
+
+/* Botón Volver */
+.boton-volver {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 7px 20px 10px 14px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.boton-volver:hover {
+  background-color: #2176bd;
+  box-shadow: 0 4px 16px rgba(52,152,219,0.25);
+}
+
+.icono-volver {
+  font-size: 20px;
+  margin-right: 4px;
+}
+
 
 /* Responsivo */
 @media (max-width: 600px) {
