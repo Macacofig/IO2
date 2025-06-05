@@ -35,7 +35,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/files/upload`, formData);
   }
 
-  // Métodos IO2
+  // Métodos IO2 docente
   OrdenarMarkov() {
     return this.http.get(`${this.apiUrl}/files/MarkovD`);
   }
@@ -56,7 +56,7 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/files/InventariosD`);
   }
 
-  // Métodos IO1
+  // Métodos IO1 docente
   OrdenarProgramacion() {
     return this.http.get(`${this.apiUrl}/files/ProgramacionLinealD`);
   }
@@ -71,5 +71,43 @@ export class AuthService {
 
   OrdenarRedes() {
     return this.http.get(`${this.apiUrl}/files/RedesPERTCPMD`);
+  }
+
+  // Métodos IO2 estudiante
+  OrdenarMarkovE() {
+    return this.http.get(`${this.apiUrl}/files/Markov`);
+  }
+
+  OrdenarColasE() {
+    return this.http.get(`${this.apiUrl}/files/Colas`);
+  }
+
+  OrdenarSimulacionE() {
+    return this.http.get(`${this.apiUrl}/files/Simulacion`);
+  }
+
+  OrdenarDecisionesE() {
+    return this.http.get(`${this.apiUrl}/files/Decisiones`);
+  }
+
+  OrdenarInventariosE() {
+    return this.http.get(`${this.apiUrl}/files/Inventarios`);
+  }
+
+  // Métodos IO1 estudiante
+  OrdenarProgramacionE() {
+    return this.http.get(`${this.apiUrl}/files/ProgramacionLineal`);
+  }
+
+  OrdenarAnalisisE() {
+    return this.http.get(`${this.apiUrl}/files/AnalisisPostOptimal`);
+  }
+
+  OrdenarTransporteE() {
+    return this.http.get(`${this.apiUrl}/files/TransporteAsignacionTrasbordo`);
+  }
+
+  OrdenarRedesE() {
+    return this.http.get(`${this.apiUrl}/files/RedesPERTCPM`);
   }
 }

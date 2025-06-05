@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
 })
 
 export class IniciosesionComponent {
-  email: string = '';
+   email: string = '';
   materia: string = '';
   password: string = '';
 
@@ -38,42 +38,48 @@ export class IniciosesionComponent {
   }
 
   ingresar() {
-  const usuario = {
-    email: this.email,
-    materia: this.materia,
-    password: this.password
-  };
+    const usuario = {
+      email: this.email,
+      materia: this.materia,
+      password: this.password
+    };
 
-  this.authService.login(usuario).subscribe(
-    (respuesta) => {
-      console.log('Respuesta del backend:', respuesta);
-      localStorage.setItem('access_token', respuesta.jwt);
-      switch (respuesta.tipo) {
-        case 0:
-          console.log('Usuario es docente o administrador');
-          this.router.navigate(['/paralelos']); // Admin o docente
-          break;
-        case 1:
-        case 2:
-          this.router.navigate(['/paginaestudiante']); // Estudiantes
-          break;
-        default:
-          this.mensajeError = 'Tipo de usuario no reconocido';
-          alert(this.mensajeError);
-          break;
+    this.authService.login(usuario).subscribe(
+      (respuesta) => {
+        console.log('Respuesta del backend:', respuesta);
+        localStorage.setItem('access_token', respuesta.jwt);
+
+        const esEspecial = this.email === this.correoEspecial;
+
+        if (esEspecial) {
+          this.router.navigate(['/paralelos']); // Docente o admin
+        } else {
+          switch (this.materia) {
+            case 'Investigacion Operativa 1':
+              this.router.navigate(['/paginaestudiante']);
+              break;
+            case 'Investigacion Operativa 2':
+              this.router.navigate(['/paginaestudiante2']);
+              break;
+            default:
+              this.mensajeError = 'Materia no reconocida';
+              alert(this.mensajeError);
+              break;
+          }
+        }
+      },
+      (error) => {
+        console.error('Error desde backend:', error);
+        if (error.status === 404) {
+          this.mensajeError = 'Usuario no encontrado';
+        } else if (error.status === 401) {
+          this.mensajeError = 'Contraseña incorrecta';
+        } else {
+          this.mensajeError = 'Error en el inicio de sesión';
+        }
+        alert(this.mensajeError);
       }
-    },
-    (error) => {
-      console.error('Error desde backend:', error);
-      if (error.status === 404) {
-        this.mensajeError = 'Usuario no encontrado';
-      } else if (error.status === 401) {
-        this.mensajeError = 'Contraseña incorrecta';
-      } else {
-        this.mensajeError = 'Error en el inicio de sesión';
-      }
-      alert(this.mensajeError);
-    }
-  );
+    );
+  }
 }
-}
+

@@ -5,16 +5,16 @@ import { PaginainicioComponent } from "./components/paginainicio/paginainicio.co
 import { ParalelosComponent } from "./components/paralelos/paralelos.component";
 import { IniciosesionComponent } from './components/iniciosesion/iniciosesion.component';
 import { PaginadocenteComponent } from './components/paginadocente/paginadocente.component';
+import { PaginaestudiantesComponent } from "./components/paginaestudiantes/paginaestudiantes.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, 
-    PaginainicioComponent, 
+  imports: [RouterOutlet,
+    PaginainicioComponent,
     ParalelosComponent,
     PaginadocenteComponent,
     IniciosesionComponent,
-    HttpClientModule 
-  ],
+    HttpClientModule, PaginaestudiantesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
