@@ -70,9 +70,67 @@
 #btn-el {
     background-color: #7f7fd5;
     color: white;
+    transition: background 0.3s;
 }
 
 #btn-cancelar {
     background-color: rgb(226, 71, 71);
     color: white;
+    transition: background 0.3s;
+}
+
+#btn-el:hover {
+  background-color: #6161a4;
+}
+
+#btn-cancelar:hover {
+  background-color: rgb(188, 58, 58);
+}
+
+@media (max-width: 800px) {
+  .cont-form {
+    width: 70vw;
+  }
+
+  .cont-titulo {
+    font-size: 1.7em;
+  }
+
+  .inputs {
+    font-size: 1em;
+  }
+
+  .selector {
+    font-size: 1em;
+  }
+
+  #file {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 1000px) {
+  .cont-form {
+    width: 65vw;
+    height: 45vh;
+  }
+
+  .inputs {
+    height: 8vh;
+  }
+
+  .selector {
+    height: 9vh;
+  }
+
+  .cont-botones {
+    height: 100%;
+    flex-direction: column;
+  }
+
+  .btns {
+    margin: 5px 0 5px 0;
+    width: 100%;
+    height: 40%;
+  }
 }
