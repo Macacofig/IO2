@@ -138,12 +138,6 @@ export class PaginadocenteComponent implements OnInit {
         competencia: 'Redes: PERT/CPM'
       })));
     });
-
-
-
-    
-    
-
   }
 
   volverAParalelos() {

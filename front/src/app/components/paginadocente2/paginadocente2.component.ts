@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MateriaService } from '../../services/materia.service';
+
 import { ParalelosService } from '../../services/paralelos.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,37 +16,36 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Paginadocente2Component implements OnInit {
 
-  ngOnInit(): void {}
-
   mostrarFormulario = false;
   menuAbierto = false;
 
   archivoSeleccionado!: File;
-  materiaSeleccionada: string = 'Investigacion Operativa 2';
+  materiaSeleccionada: string = '';
   competenciaSeleccionada: string = '';
   tabSeleccionado = 'documentos';
 
   documentos: { nombre: string; competencia: string }[] = [];
 
   competencias: string[] = [
-    'Cadenas de Markov',
+    'Cadenas de Márkov',
     'Teoría de Líneas de Espera',
     'Simulación de Sistemas',
     'Toma de Decisiones Multicriterio',
-    'Gestión de Inventarios'
+    'Gestión de Inventarios' 
   ];
 
   competenciaLabels: { [key: string]: string } = {
-    'Cadenas de Markov': 'Mod1: Cadenas de Markov',
-    'Teoría de Líneas de Espera': 'Mod2: Teoría de Líneas de Espera',
-    'Simulación de Sistemas': 'Mod3: Simulación de Sistemas',
-    'Toma de Decisiones Multicriterio': 'Mod4: Toma de Decisiones Multicriterio',
-    'Gestión de Inventarios': 'Mod5: Gestión de Inventarios'
+    'Cadenas de Márkov': 'Cadenas de Márkov',
+    'Teoría de Líneas de Espera': 'Teoría de Líneas de Espera',
+    'Simulación de Sistemas': 'Simulación de Sistemas',
+    'Toma de Decisiones Multicriterio': 'Toma de Decisiones Multicriterio',
+    'Gestión de Inventarios': 'Gestión de Inventarios'
   };
 
   constructor(
     private authService: AuthService,
     private materiaService: MateriaService,
+    private router: Router,
     private http: HttpClient
   ) {
     this.materiaService.materiaSeleccionada$.subscribe(materia => {
@@ -52,7 +53,6 @@ export class Paginadocente2Component implements OnInit {
       this.materiaSeleccionada = materia;
 
       if (this.materiaSeleccionada) {
-        this.cargarDocumentosPorCompetencia();
       }
     });
   }
@@ -72,6 +72,10 @@ export class Paginadocente2Component implements OnInit {
     this.archivoSeleccionado = undefined!;
     this.competenciaSeleccionada = '';
   }
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/iniciosesion']);
+  }
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -82,6 +86,7 @@ export class Paginadocente2Component implements OnInit {
 
   subirArchivo(): void {
     if (this.archivoSeleccionado && this.materiaSeleccionada && this.competenciaSeleccionada) {
+      console.log('Subiendo archivo:', this.archivoSeleccionado.name);
       this.authService
         .cargarArchivo(this.archivoSeleccionado, this.materiaSeleccionada, this.competenciaSeleccionada)
         .subscribe({
@@ -102,42 +107,49 @@ export class Paginadocente2Component implements OnInit {
   obtenerItemsPorCompetencia(competencia: string): any[] {
     return this.documentos.filter(doc => doc.competencia === competencia);
   }
-
+  ngOnInit() {
+    console.log("hola")
+    this.cargarDocumentosPorCompetencia();
+  }
   cargarDocumentosPorCompetencia(): void {
-  this.authService.OrdenarMarkov().subscribe((data: any) => {
-    this.documentos = data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp1'
-    }));
-  });
+    this.authService.OrdenarProgramacion().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Programación Lineal y Dual'
+      })));
+    });
 
-  this.authService.OrdenarColas().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp2'
-    })));
-  });
+    
+    this.authService.OrdenarAnalisis().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Analisis Post-Optimal'
+      })));
+    });
+    
+    this.authService.OrdenarTransporte().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Transporte Asignacion Transbordo'
+      })));
+    });
 
-  this.authService.OrdenarSimulacion().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp3'
-    })));
-  });
+    this.authService.OrdenarRedes().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Redes: PERT/CPM'
+      })));
+    });
 
-  this.authService.OrdenarDecisiones().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp4'
-    })));
-  });
 
-  this.authService.OrdenarInventarios().subscribe((data: any) => {
-    this.documentos.push(...data.map((doc: any) => ({
-      nombre: doc.nombre,
-      competencia: 'Comp5'
-    })));
-  });
+
+    
+    
+
+  }
+
+  volverAParalelos() {
+    this.router.navigate(['/paralelos']);
   }
 
   cancelar() {
@@ -151,11 +163,11 @@ export class Paginadocente2Component implements OnInit {
   parelelosService: ParalelosService = inject(ParalelosService);
   usuarios : String[] = [];
 
-  desplFormEliminarEst2() {
+  desplFormEliminarEst() {
     const formdesp = document.getElementById('formElEstudiante') as HTMLElement;
     formdesp.style.display = 'flex';
 
-    const materiaEst = "Investigacion Operativa 2";
+    const materiaEst = "Investigacion Operativa 1";
     console.log(materiaEst);
 
     do {
@@ -180,7 +192,7 @@ export class Paginadocente2Component implements OnInit {
     //   () => console.log('Usuarios obtenidos exitosamente')
     // )
 
-    this.parelelosService.obtenerUsuariosPorParalelo("Investigacion Operativa 2", "3").subscribe(
+    this.parelelosService.obtenerUsuariosPorParalelo("Investigacion Operativa 1", "1").subscribe(
       data => this.usuarios = data,
       error => console.log('Error al obtener usuarios por paralelo:', error),
       () => console.log('Usuarios por paralelo obtenidos exitosamente')
@@ -189,7 +201,7 @@ export class Paginadocente2Component implements OnInit {
     console.log(this.usuarios);  
   };
 
-  eliminarUsuario2() {
+  eliminarUsuario() {
     const email = (document.getElementById('correoEst') as HTMLInputElement).value.trim();
     const paralelo = (document.getElementById('paralelosMat') as HTMLSelectElement).value.trim();
 
@@ -215,4 +227,5 @@ export class Paginadocente2Component implements OnInit {
       }
     });
   }
+
 }
