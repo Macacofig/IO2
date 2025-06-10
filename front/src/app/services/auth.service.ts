@@ -9,7 +9,7 @@ export class AuthService {
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable(); 
 
-  private apiUrl = 'http://localhost:3000'; // URL base del backend
+  private apiUrl = 'https://educationio.onrender.com'; // URL base del backend
 
   constructor(private http: HttpClient) {}
 

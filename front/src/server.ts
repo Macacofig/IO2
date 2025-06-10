@@ -37,7 +37,7 @@ export function app(): express.Express {
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4000;
+  const port = process.env['PORT'] || 4200;
   const server = app();
   server.listen(port, () => {
     console.log(`Servidor Node Express en http://localhost:${port}`);

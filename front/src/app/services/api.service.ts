@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'https://educationio.onrender.com';
   private token: string | null = null; 
   
   constructor(private http: HttpClient) {
