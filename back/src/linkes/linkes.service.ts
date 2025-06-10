@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LinkesEntity } from './linkes.entity';
 import { Repository } from 'typeorm';
@@ -11,11 +11,25 @@ export class LinkesService {
   /* Registar un nuevo link */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
-  async createLink(link: string, materia: string, tema: string): Promise<any> 
+  async createLink(link: string,nombre:string, materia: string, tema: string): Promise<any> 
   {
-    const newLink = this.linkesRepository.create({link, materia, tema});
+    const newLink = this.linkesRepository.create({link, nombre, materia, tema});
     return await this.linkesRepository.save(newLink);
   }
+  
+/* Obtener archivos de la Markov IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  async deleteLink(nombre: string): Promise<void>
+  {
+    const link = await this.linkesRepository.findOne({ where: { nombre } });
+  
+    if (!link) {
+      throw new NotFoundException('No se encontró un link con ese nombre');
+    }
+  
+    await this.linkesRepository.remove(link);  
+  }  
   
   /* Obtener archivos de la Markov IO2 */
   /*********************************************************************************************************/

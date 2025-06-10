@@ -9,6 +9,9 @@ export class LinkesEntity {
   link: string;
 
   @Column()
+  nombre: string;
+
+  @Column()
   materia: string;
 
   @Column()

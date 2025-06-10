@@ -1,4 +1,4 @@
-import { Body, Controller, Get, InternalServerErrorException, NotFoundException, Post, RequestTimeoutException } from '@nestjs/common';
+import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Post, RequestTimeoutException } from '@nestjs/common';
 import { LinkesService } from './linkes.service';
 import { LinkesDto } from './dto/linkes.dto';
 import { TimeoutError } from 'rxjs';
@@ -12,10 +12,20 @@ export class LinkesController
     /*********************************************************************************************************/
     /*********************************************************************************************************/
     @Post('register')
-    async registerLink(@Body() dto: {link: string, materia: string, tema: string})
+    async registerLink(@Body() dto: {link: string, nombre:string, materia: string, tema: string})
     {
-        const { link, materia, tema } = dto;
-        return this.linkesService.createLink(link, materia, tema);
+        const { link, nombre, materia, tema } = dto;
+        return this.linkesService.createLink(link, nombre, materia, tema);
+    }
+
+    /* Eliminar Link */
+    /*********************************************************************************************************/
+    /*********************************************************************************************************/
+    @Delete('delete')
+    async deleteLink(@Body() body: { nombre: string }) 
+    {
+        const { nombre } = body;
+        return this.linkesService.deleteLink(nombre);
     }
     /* Obtener archivos de Markov IO2 */
     /*********************************************************************************************************/
