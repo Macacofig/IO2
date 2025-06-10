@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, InternalServerErrorException, NotFoundException, Param, Post, RequestTimeoutException, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Param, Post, RequestTimeoutException, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
@@ -60,6 +60,28 @@ export class FilesController {
     res.send(file.content);
   }
 
+  /* ELIMINAR ARCHIVOS */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Delete('delete')
+  async deleteFile(@Body() body: {filename:string}) 
+  {
+    const {filename}= body;
+    try {
+      await this.filesService.deleteFile(filename);
+      return { message: 'Archivo eliminado correctamente' };
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
   /* Obtener archivos de Markov IO2 */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
@@ -76,7 +98,7 @@ export class FilesController {
         nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
         materia: file.materia,
         tema: file.tema,
-        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
       }));
     
     } catch (error) {
@@ -108,7 +130,7 @@ export class FilesController {
         nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
         materia: file.materia,
         tema: file.tema,
-        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
       }));
       
     } catch (error) {
@@ -140,7 +162,7 @@ export class FilesController {
         nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
         materia: file.materia,
         tema: file.tema,
-        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
       }));
       
     } catch (error) {
@@ -172,7 +194,7 @@ export class FilesController {
         nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
         materia: file.materia,
         tema: file.tema,
-        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
       }));
       
     } catch (error) {
@@ -204,7 +226,7 @@ async getFilesInventarios()
       nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
       materia: file.materia,
       tema: file.tema,
-      downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+      downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
     }));
     
   } catch (error) {
@@ -236,7 +258,7 @@ async getFilesInventarios()
         nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
         materia: file.materia,
         tema: file.tema,
-        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
       }));
     
     } catch (error) {
@@ -268,7 +290,7 @@ async getFilesInventarios()
         nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
         materia: file.materia,
         tema: file.tema,
-        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
       }));
     
     } catch (error) {
@@ -300,7 +322,7 @@ async getFilesInventarios()
         nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
         materia: file.materia,
         tema: file.tema,
-        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
       }));
     
     } catch (error) {
@@ -332,7 +354,7 @@ async getFilesInventarios()
         nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
         materia: file.materia,
         tema: file.tema,
-        downloadUrl: `http://localhost:3000/files/${file.id}/download`,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
       }));
     
     } catch (error) {

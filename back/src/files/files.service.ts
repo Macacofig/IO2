@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FileEntity } from './files.entity';
 import { Repository } from 'typeorm';
@@ -44,6 +44,19 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
     return file;
   } 
 
+  /* Eliminar file */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  async deleteFile(filename: string): Promise<void>
+  {
+    const file = await this.filesRepository.findOne({ where: { filename } });
+
+    if (!file) {
+      throw new NotFoundException('No se encontró un archivo con ese nombre');
+    }
+
+    await this.filesRepository.remove(file);
+  }
 
   /* Obtener archivos de la Markov IO2 */
   /*********************************************************************************************************/
