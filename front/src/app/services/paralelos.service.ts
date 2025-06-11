@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 export class ParalelosService {
 
 
-  url: string = 'http://localhost:3000/users/';
+  url: string = 'https://educationio.onrender.com/users/';
 
   constructor(private http: HttpClient) { }
 
   obtenerParalelosMateria(materia: string): Observable<string[]> {
     console.log(materia);
-    return this.http.post<string[]>(`http://localhost:3000/users/paralelos-materia`, { materia } );
+    return this.http.post<string[]>(`https://educationio.onrender.com/users/paralelos-materia`, { materia } );
   }
 
   subirExcelUsuarios(file: File, materia: string, paralelo: string): Observable<any> {
@@ -42,6 +42,6 @@ export class ParalelosService {
   obtenerUsuariosPorParalelo(materia: string, paralelo: string): Observable<string[]> {
     console.log(materia);
     console.log(paralelo);
-    return this.http.post<string[]>(`http://localhost:3000/users/emails-by-materia-paralelo`, { materia, paralelo } );
+    return this.http.post<string[]>(`https://educationio.onrender.com/users/emails-by-materia-paralelo`, { materia, paralelo } );
   }
 }

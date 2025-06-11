@@ -33,7 +33,7 @@ export class FormelimparComponent {
       return;
     }
 
-    this.http.request('DELETE', 'http://localhost:3000/users/delete-users', {
+    this.http.request('DELETE', 'https://educationio.onrender.com/users/delete-users', {
     body: {
       materia: mat,
       paralelo: par

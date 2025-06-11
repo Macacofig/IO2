@@ -202,7 +202,7 @@ export class PaginadocenteComponent implements OnInit {
 
     // alert(`Usuario a eliminar: ${email} del paralelo: ${paralelo}`);
 
-    this.http.request('DELETE', 'http://localhost:3000/users/delete-user-paralelo', {
+    this.http.request('DELETE', 'https://educationio.onrender.com/users/delete-user-paralelo', {
     body: {
       email: email,
       paralelo: paralelo

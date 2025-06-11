@@ -35,7 +35,7 @@ export class FormparaleloComponent {
     formData.append('paralelo', paralelo);
     formData.append('file', file);
 
-    this.http.post('http://localhost:3000/users/upload-excel', formData).subscribe({
+    this.http.post('https://educationio.onrender.com/users/upload-excel', formData).subscribe({
       next: (res) => {
         alert('paralelo agregado correctamente');
         console.log(res);
