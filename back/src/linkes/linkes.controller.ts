@@ -11,12 +11,12 @@ export class LinkesController
     /* Registar un nuevo link */
     /*********************************************************************************************************/
     /*********************************************************************************************************/
-    @Post('register')
-    async registerLink(@Body() dto: {link: string, nombre:string, materia: string, tema: string})
-    {
-        const { link, nombre, materia, tema } = dto;
-        return this.linkesService.createLink(link, nombre, materia, tema);
-    }
+        @Post('register')
+        async registerLink(@Body() dto: {link: string, nombre:string, materia: string, tema: string})
+        {
+            const { link, nombre, materia, tema } = dto;
+            return this.linkesService.createLink(link, nombre, materia, tema);
+        }
 
     /* Eliminar Link */
     /*********************************************************************************************************/
@@ -66,7 +66,7 @@ export class LinkesController
     {
         try 
         {
-        const linkes = await this.linkesService.getFilesMarkovIO2D();
+        const linkes = await this.linkesService.getFilesColasIO2D();
 
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
@@ -85,6 +85,7 @@ export class LinkesController
         {
             throw error;
         }
+        console.error('Error en getFilesColasD:', error);
         throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
         }
     }

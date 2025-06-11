@@ -43,7 +43,7 @@ export class LinkesService {
         materia: 'Investigacion Operativa 2',
         tema: 'Cadenas de Markov',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC') 
+      .orderBy('linkes.nombre', 'ASC')
       .getMany();
   }
 
@@ -58,8 +58,8 @@ export class LinkesService {
         materia: 'Investigacion Operativa 2',
         tema: 'Teoría de Líneas de Espera',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC')
-      .getMany();
+      .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
+    .getMany();
   }
 
   /* Obtener archivos de la Simulacion IO2 */
@@ -73,8 +73,8 @@ export class LinkesService {
         materia: 'Investigacion Operativa 2',
         tema: 'Simulación de Sistemas',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC')
-      .getMany();
+      .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
+    .getMany();
   }
 
   /* Obtener archivos de la Decisiones IO2 */
@@ -88,8 +88,8 @@ export class LinkesService {
         materia: 'Investigacion Operativa 2',
         tema: 'Toma de Decisiones Multicriterio',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC')
-      .getMany();
+      .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
+    .getMany();
   }
 
   /* Obtener archivos de la Inventarios IO2 */
@@ -103,8 +103,8 @@ export class LinkesService {
         materia: 'Investigacion Operativa 2',
         tema: 'Gestión de Inventarios',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC')
-      .getMany();
+      .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
+    .getMany();
   }
 
   /* Obtener archivos de Programación Lineal y Dual IO1 */
@@ -118,8 +118,8 @@ export class LinkesService {
         materia: 'Investigacion Operativa 1',
         tema: 'Programación Lineal y Dual',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC')
-      .getMany();
+      .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
+    .getMany();
   }
 
   /* Obtener archivos de Post Optimal IO1 */
@@ -133,8 +133,8 @@ export class LinkesService {
         materia: 'Investigacion Operativa 1',
         tema: 'Post Optimal',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC')
-      .getMany();
+      .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
+    .getMany();
   }
 
   /* Obtener archivos de Asignación y Trasbordo IO1 */
@@ -148,8 +148,8 @@ export class LinkesService {
         materia: 'Investigacion Operativa 1',
         tema: 'Asignación y Trasbordo',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC')
-      .getMany();
+      .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
+    .getMany();
   }
 
   /* Obtener archivos de Redes: PERT/CPM IO1 */
@@ -163,7 +163,7 @@ export class LinkesService {
         materia: 'Investigacion Operativa 1',
         tema: 'Redes: PERT/CPM',
       })
-      .orderBy("SUBSTRING_INDEX(linkes.filename, '.', -1)", 'ASC')
-      .getMany();
+      .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
+    .getMany();
   }
 }

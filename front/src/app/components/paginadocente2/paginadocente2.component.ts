@@ -112,37 +112,42 @@ export class Paginadocente2Component implements OnInit {
     this.cargarDocumentosPorCompetencia();
   }
   cargarDocumentosPorCompetencia(): void {
-    this.authService.OrdenarProgramacion().subscribe((data: any) => {
+    this.authService.OrdenarMarkov().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Programación Lineal y Dual'
+        competencia: 'Cadenas de Márkov'
       })));
     });
 
     
-    this.authService.OrdenarAnalisis().subscribe((data: any) => {
+    this.authService.OrdenarColas().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Analisis Post-Optimal'
+        competencia: 'Teoría de Colas'
       })));
     });
     
-    this.authService.OrdenarTransporte().subscribe((data: any) => {
+    this.authService.OrdenarSimulacion().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Transporte Asignacion Transbordo'
+        competencia: 'Simulación de Sistemas'
       })));
     });
 
-    this.authService.OrdenarRedes().subscribe((data: any) => {
+    this.authService.OrdenarDecisiones().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Redes: PERT/CPM'
+        competencia: 'Toma de Decisiones Multicriterio'
       })));
     });
 
-
-
+    this.authService.OrdenarInventarios().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Toma de Decisiones Multicriterio'
+      })));
+    });
+    
     
     
 
