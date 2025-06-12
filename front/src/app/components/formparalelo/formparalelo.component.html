@@ -1,7 +1,7 @@
 <div class="fondo" id="formParalelo">
     <div class="cont-form">
         <h2 class="cont-titulo">Registro de paralelo</h2>
-        <form class="form" action="">
+        <form class="form" (submit)="agregar($event)">
             <select name="prueba" id="materia" class="selector">
                 <option value="" selected id="defecto">Seleccionar materia</option>
                 <option value="Investigacion Operativa 1">Investigacion Operativa 1</option>
@@ -12,7 +12,7 @@
             <input type="file" name="file" accept=".xlsx, .xls" id="file">
 
             <div class="cont-botones">
-                <button id="btn-agregar" class="btns" (click)="agregar()">Agregar Paralelo</button>
+                <button type="submit" id="btn-agregar" class="btns">Agregar Paralelo</button>
                 <button (click)="cancelar()" id="btn-cancelar" class="btns">Cancelar</button>
             </div>
         </form>
