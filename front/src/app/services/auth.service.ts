@@ -120,7 +120,7 @@ export class AuthService {
   return this.http.post(`${this.apiUrl}/linkes/register`, linkData);
   }
 
-  //Links IO2 docente
+  //Links IO2 docente y estudiantes
   LinksMarkov() {
     return this.http.get(`${this.apiUrl}/linkes/MarkovD`);
   }
@@ -141,7 +141,7 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/linkes/InventariosD`);
   }
 
-  // Links IO1 docente
+  // Links IO1 docente y estudiantes
   LinksProgramacion() {
     return this.http.get(`${this.apiUrl}/linkes/ProgramacionLinealD`);
   }
@@ -158,41 +158,4 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/linkes/RedesPERTCPMD`);
   }
 
-  // Links IO2 estudiante
-  OrdenarLinksMarkovE() {
-    return this.http.get(`${this.apiUrl}/linkes/MarkovE`);
-  }
-
-  OrdenarLinksColasE() {
-    return this.http.get(`${this.apiUrl}/linkes/ColasE`);
-  }
-
-  OrdenarLinksSimulacionE() {
-    return this.http.get(`${this.apiUrl}/linkes/SimulacionE`);
-  }
-
-  OrdenarLinksDecisionesE() {
-    return this.http.get(`${this.apiUrl}/linkes/DecisionesE`);
-  }
-
-  OrdenarLinksInventariosE() {
-    return this.http.get(`${this.apiUrl}/linkes/InventariosE`);
-  }
-
-  // Links IO1 estudiante
-  OrdenarLinksProgramacionE() {
-    return this.http.get(`${this.apiUrl}/linkes/ProgramacionLinealE`);
-  }
-
-  OrdenarLinksAnalisisE() {
-    return this.http.get(`${this.apiUrl}/linkes/AnalisisPostOptimalE`);
-  }
-
-  OrdenarLinksTransporteE() {
-    return this.http.get(`${this.apiUrl}/linkes/TransporteAsignacionTrasbordoE`);
-  }
-
-  OrdenarLinksRedesE() {
-    return this.http.get(`${this.apiUrl}/linkes/RedesPERTCPME`);
-  }
 }
