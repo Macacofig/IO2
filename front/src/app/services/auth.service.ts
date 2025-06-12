@@ -158,4 +158,41 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/linkes/RedesPERTCPMD`);
   }
 
+  // Links IO2 estudiante
+  OrdenarLinksMarkovE() {
+    return this.http.get(`${this.apiUrl}/linkes/MarkovE`);
+  }
+
+  OrdenarLinksColasE() {
+    return this.http.get(`${this.apiUrl}/linkes/ColasE`);
+  }
+
+  OrdenarLinksSimulacionE() {
+    return this.http.get(`${this.apiUrl}/linkes/SimulacionE`);
+  }
+
+  OrdenarLinksDecisionesE() {
+    return this.http.get(`${this.apiUrl}/linkes/DecisionesE`);
+  }
+
+  OrdenarLinksInventariosE() {
+    return this.http.get(`${this.apiUrl}/linkes/InventariosE`);
+  }
+
+  // Links IO1 estudiante
+  OrdenarLinksProgramacionE() {
+    return this.http.get(`${this.apiUrl}/linkes/ProgramacionLinealE`);
+  }
+
+  OrdenarLinksAnalisisE() {
+    return this.http.get(`${this.apiUrl}/linkes/AnalisisPostOptimalE`);
+  }
+
+  OrdenarLinksTransporteE() {
+    return this.http.get(`${this.apiUrl}/linkes/TransporteAsignacionTrasbordoE`);
+  }
+
+  OrdenarLinksRedesE() {
+    return this.http.get(`${this.apiUrl}/linkes/RedesPERTCPME`);
+  }
 }

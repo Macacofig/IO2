@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class PaginaestudiantesComponent {
   documentos: any[] = [];
   competencias: string[] = ['C1', 'C2', 'C3', 'C4'];
+
   competenciaLabels: any = {
     C1: 'Programación Lineal y Dual',
     C2: 'Análisis Post-Optimal',
@@ -28,7 +29,7 @@ export class PaginaestudiantesComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cargarDocumentosEstudiante();
+    this.cargarMaterialEstudiante();
   }
 
   logout() {
@@ -40,25 +41,71 @@ export class PaginaestudiantesComponent {
     this.router.navigate(['/iniciosesion']);
   }
 
-  cargarDocumentosEstudiante(): void {
+  cargarMaterialEstudiante(): void {
+    // DOCUMENTOS
     this.authService.OrdenarProgramacionE().subscribe((res: any) => {
-      console.log('Programación Lineal y Dual (C1):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C1' })));
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C1',
+        tipo: 'documento'
+      })));
     });
 
     this.authService.OrdenarAnalisisE().subscribe((res: any) => {
-      console.log('Análisis Post-Optimal (C2):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C2' })));
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C2',
+        tipo: 'documento'
+      })));
     });
 
     this.authService.OrdenarTransporteE().subscribe((res: any) => {
-      console.log('Transporte, Asignación y Trasbordo  (C3):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C3' })));
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C3',
+        tipo: 'documento'
+      })));
     });
 
     this.authService.OrdenarRedesE().subscribe((res: any) => {
-      console.log('Redes: PERT/CPM (C4):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C4' })));
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C4',
+        tipo: 'documento'
+      })));
+    });
+
+    // LINKS
+    this.authService.OrdenarLinksProgramacionE().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C1',
+        tipo: 'link'
+      })));
+    });
+
+    this.authService.OrdenarLinksAnalisisE().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C2',
+        tipo: 'link'
+      })));
+    });
+
+    this.authService.OrdenarLinksTransporteE().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C3',
+        tipo: 'link'
+      })));
+    });
+
+    this.authService.OrdenarLinksRedesE().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C4',
+        tipo: 'link'
+      })));
     });
   }
 
@@ -80,10 +127,18 @@ export class PaginaestudiantesComponent {
     console.log('Descargando documento:', doc);
   }
 
+  abrirLink(link: any): void {
+    if (!link || !link.url) {
+      console.error('❌ Link inválido:', link);
+      return;
+    }
 
-  obtenerItemsPorCompetencia(competencia: string): any[] {
-    const filtrados = this.documentos.filter(doc => doc.competencia === competencia);
-    return filtrados;
+    window.open(link.url, '_blank');
+    console.log('Abriendo link:', link);
+  }
+
+  obtenerItemsPorCompetencia(competencia: string, tipo: 'documento' | 'link'): any[] {
+    return this.documentos.filter(item => item.competencia === competencia && item.tipo === tipo);
   }
 
   toggleMenu(): void {
