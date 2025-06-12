@@ -1,6 +1,6 @@
 <div class="paginadocente2-container">
   <button class="boton-cerrar-sesion" (click)="logout()">Cerrar sesión</button>
-  
+
   <header class="encabezado">
     <h1 class="titulo-principal">INVESTIGACION OPERATIVA 2</h1>
   </header>
@@ -10,27 +10,49 @@
     <span class="icono-volver">&#8592;</span> Volver
   </button>
 
-  <!-- Documentos -->
-  <section class="contenido" *ngIf="tabSeleccionado === 'documentos'">
-    <h3 class="titulo-seccion">Lista documentos</h3>
-
+  <!-- Contenido agrupado por competencia -->
+  <section class="contenido">
     <div *ngFor="let competencia of competencias">
-      <h4 class="subtitulo-competencia">{{ competenciaLabels[competencia] }}</h4>
+      <h3 class="subtitulo-competencia">{{ competenciaLabels[competencia] }}</h3>
+
+      <!-- Lista de Documentos -->
+      <h4 class="titulo-seccion">Lista de documentos</h4>
       <div class="grid-documentos">
-        <div
-          class="card-doc"
-          *ngFor="let doc of obtenerItemsPorCompetencia(competencia)">
+        <div class="card-doc" *ngFor="let doc of obtenerItemsPorCompetencia(competencia)">
           <div class="icono-doc">📄</div>
           <p class="nombres-archivos">{{ doc.nombre }}</p>
+        </div>
+      </div>
+
+      <!-- Lista de Links -->
+      <h4 class="titulo-seccion">Lista de Links</h4>
+      <div class="grid-documentos">
+        <div class="card-doc" *ngFor="let link of obtenerLinksPorCompetencia(competencia)">
+          <div class="icono-doc">🔗</div>
+          <a [href]="link.url" target="_blank" class="nombres-archivos">{{ link.nombre }}</a>
         </div>
       </div>
     </div>
   </section>
 
+
   <!-- Formulario emergente -->
   <div *ngIf="mostrarFormulario" class="modal-formulario">
     <h3 class="titulo-subir">Subir {{ tabSeleccionado }}</h3>
-    <input class="nombres-archivos" type="file" (change)="onFileChange($event)" />
+
+    <!-- Mostrar input según el tipo de contenido -->
+    <ng-container *ngIf="tabSeleccionado === 'documentos'; else formularioLink">
+      <input class="nombres-archivos" type="file" (change)="onFileChange($event)" />
+    </ng-container>
+
+    <ng-template #formularioLink>
+      <label for="nombreLink">Nombre del Link:</label>
+      <input type="text" [(ngModel)]="nombreLink" placeholder="Ej: Video sobre redes" class="nombres-archivos" />
+
+      <label for="urlLink">URL del Link:</label>
+      <input type="text" [(ngModel)]="linkSeleccionado" placeholder="https://..." class="nombres-archivos" />
+    </ng-template>
+
 
     <label for="materia">Materia:</label>
     <input type="text" id="materia" [value]="materiaSeleccionada" readonly />
@@ -41,7 +63,7 @@
       <option *ngFor="let c of competencias" [value]="c">{{ competenciaLabels[c] }}</option>
     </select>
 
-    <button (click)="subirArchivo()">Subir</button>
+    <button (click)="subirContenido()">Subir</button>
     <button (click)="cerrarFormulario()">Cancelar</button>
   </div>
 
@@ -50,29 +72,30 @@
     <button class="boton-agregar" (click)="toggleMenu()">+</button>
     <ul class="submenu" *ngIf="menuAbierto">
       <li (click)="abrirFormulario('documentos')">Documento</li>
+      <li (click)="abrirFormulario('links')">Link</li> <!-- Nuevo -->
     </ul>
   </div>
 
+  <!-- Botón para eliminar estudiante -->
   <div class="eliminarEst">
-    <button class="btn-eliminarEst" (click)="desplFormEliminarEst()">Eliminar Estudiante</button>
-  </div>
-</div>
-
-
-
-<div class="fondo" id="formElEstudiante">
-    <div class="cont-form">
-        <h2 class="cont-titulo">Eliminar Estudiante</h2>
-        <form class="form" action="">
-            <select name="paralelosMat" id="paralelosMat" class="selector">
-                <option value="" selected id="defecto">Seleccionar paralelo</option>
-                <option *ngFor="let paralelo of paralelos" [value]="paralelo">{{ paralelo }}</option>
-            </select>
-            <input type="text" placeholder="Ingresa el correo del estudiante" name="correoEst" id="correoEst" class="inputs">
-            <div class="cont-botones">
-                <button type="button" (click)="eliminarUsuario()" id="btn-eliminar-est" class="btns">Eliminar Estudiante</button>
-                <button type="button" (click)="cancelar()" id="btn-cancelar-form" class="btns">Cancelar</button>
-            </div>
-        </form>
+      <button class="btn-eliminarEst" (click)="desplFormEliminarEst()">Eliminar Estudiante</button>
     </div>
+  </div>
+
+  <!-- Formulario para eliminar estudiante -->
+  <div class="fondo" id="formElEstudiante">
+    <div class="cont-form">
+      <h2 class="cont-titulo">Eliminar Estudiante</h2>
+      <form class="form" action="">
+        <select name="paralelosMat" id="paralelosMat" class="selector">
+          <option value="" selected id="defecto">Seleccionar paralelo</option>
+          <option *ngFor="let paralelo of paralelos" [value]="paralelo">{{ paralelo }}</option>
+        </select>
+        <input type="text" placeholder="Ingresa el correo del estudiante" name="correoEst" id="correoEst" class="inputs">
+        <div class="cont-botones">
+          <button type="button" (click)="eliminarUsuario()" id="btn-eliminar-est" class="btns">Eliminar Estudiante</button>
+          <button type="button" (click)="cancelar()" id="btn-cancelar-form" class="btns">Cancelar</button>
+        </div>
+      </form>
+   </div>
 </div>

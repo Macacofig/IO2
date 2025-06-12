@@ -5,28 +5,43 @@
     <h1 class="titulo-principal">INVESTIGACIÓN OPERATIVA 1</h1>
   </header>
 
-  <!-- Botón Volver -->
   <button class="boton-volver" (click)="volverAInicio()">
     <span class="icono-volver">&#8592;</span> Volver
   </button>
 
-  <!-- Contenido de documentos organizados por competencia -->
   <section class="contenido">
     <h3 class="titulo-seccion">Material disponible</h3>
 
     <div *ngFor="let competencia of competencias">
       <h4 class="subtitulo-competencia">{{ competenciaLabels[competencia] }}</h4>
-      <div class="grid-documentos">
-        <div class="card-doc" *ngFor="let doc of obtenerItemsPorCompetencia(competencia)">
-          <div class="icono-doc">📄</div>
-          <p class="nombres-archivos">{{ doc.nombre }}</p>
-          <button class="boton-descargar" (click)="descargarDocumento(doc)">Descargar</button>
+
+      <!-- Lista de Documentos -->
+      <div *ngIf="obtenerItemsPorCompetencia(competencia, 'documento').length > 0">
+        <h5>Lista de Documentos</h5>
+        <div class="grid-documentos">
+          <div class="card-doc" *ngFor="let doc of obtenerItemsPorCompetencia(competencia, 'documento')">
+            <div class="icono-doc">📄</div>
+            <p class="nombres-archivos">{{ doc.nombre }}</p>
+            <button class="boton-descargar" (click)="descargarDocumento(doc)">Descargar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de Links -->
+      <div *ngIf="obtenerItemsPorCompetencia(competencia, 'link').length > 0">
+        <h5>Lista de Links</h5>
+        <div class="grid-documentos">
+          <div class="card-doc" *ngFor="let link of obtenerItemsPorCompetencia(competencia, 'link')">
+            <div class="icono-doc">🔗</div>
+            <p class="nombres-archivos">{{ link.nombre }}</p>
+            <button class="boton-descargar" (click)="abrirLink(link)">Abrir link</button>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Botón flotante con menú para sugerencias -->
+  <!-- Botón flotante para sugerencias -->
   <div class="menu-agregar" [class.abierto]="menuAbierto">
     <button class="boton-agregar" (click)="toggleMenu()">+</button>
     <ul class="submenu" *ngIf="menuAbierto">
@@ -34,7 +49,7 @@
     </ul>
   </div>
 
-  <!-- Modal para sugerencias -->
+  <!-- Modal sugerencias -->
   <div *ngIf="mostrarFormulario" class="modal-formulario">
     <h3 class="titulo-subir">Enviar sugerencia</h3>
 
