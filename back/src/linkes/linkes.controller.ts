@@ -40,7 +40,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,  
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
@@ -71,7 +72,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
@@ -103,7 +105,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
@@ -134,7 +137,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
@@ -165,7 +169,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
@@ -196,7 +201,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
@@ -227,7 +233,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
@@ -258,7 +265,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
@@ -289,7 +297,8 @@ export class LinkesController
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
             id: link.id,
-            link: link.link,       
+            link: link.link,
+            nombre: link.nombre,
             materia: link.materia,
             tema: link.tema,
         }));
