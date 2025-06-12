@@ -7,6 +7,7 @@ import { MateriaService } from '../../services/materia.service';
 
 import { ParalelosService } from '../../services/paralelos.service';
 import { HttpClient } from '@angular/common/http';
+import { Url } from 'url';
 
 @Component({
   selector: 'app-paginadocente',
@@ -15,22 +16,28 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./paginadocente.component.css']
 })
 export class PaginadocenteComponent implements OnInit {
-
   mostrarFormulario = false;
   menuAbierto = false;
 
+  // Documentos
   archivoSeleccionado!: File;
-  materiaSeleccionada: string = '';
-  competenciaSeleccionada: string = '';
-  tabSeleccionado = 'documentos';
-
   documentos: { nombre: string; competencia: string }[] = [];
 
-  competencias: string[] = [
+  // Links
+  linkSeleccionado!: string;
+  nombreLink: string = '';
+  links: { nombre: string; url: string; competencia: string }[] = [];
+
+  // Estado UI
+  tabSeleccionado = 'documentos';
+  materiaSeleccionada = '';
+  competenciaSeleccionada = '';
+
+  competencias = [
     'Programación Lineal y Dual',
     'Analisis Post-Optimal',
     'Transporte Asignacion Transbordo',
-    'Redes: PERT/CPM', 
+    'Redes: PERT/CPM',
   ];
 
   competenciaLabels: { [key: string]: string } = {
@@ -44,15 +51,18 @@ export class PaginadocenteComponent implements OnInit {
     private authService: AuthService,
     private materiaService: MateriaService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private paralelosSvc: ParalelosService
   ) {
     this.materiaService.materiaSeleccionada$.subscribe(materia => {
-      console.log('Materia seleccionada en paginadocente:', materia);
       this.materiaSeleccionada = materia;
-
-      if (this.materiaSeleccionada) {
-      }
     });
+  }
+
+  ngOnInit() {
+    console.log('PaginadocenteComponent initialized');
+    this.cargarDocumentosPorCompetencia();
+    this.cargarLinksPorCompetencia();
   }
 
   toggleMenu(): void {
@@ -60,31 +70,59 @@ export class PaginadocenteComponent implements OnInit {
   }
 
   abrirFormulario(tipo: string): void {
-    this.tabSeleccionado = tipo;
-    this.mostrarFormulario = true;
-    this.menuAbierto = false;
-  }
+  this.tabSeleccionado = tipo;
+  console.log('Abriendo formulario para:', tipo);
+  this.mostrarFormulario = true;
+  this.menuAbierto = false;
+}
+
 
   cerrarFormulario(): void {
     this.mostrarFormulario = false;
     this.archivoSeleccionado = undefined!;
+    this.linkSeleccionado = '';
+    this.nombreLink = '';
     this.competenciaSeleccionada = '';
   }
-  logout(){
+
+  logout() {
     this.authService.logout();
     this.router.navigate(['/iniciosesion']);
   }
 
   onFileChange(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files?.length) {
+    this.archivoSeleccionado = input.files[0];
+    console.log('Archivo seleccionado:', this.archivoSeleccionado.name);
+  } else {
+    console.log('No se seleccionó archivo');
+  }
+}
+  onLinkChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.archivoSeleccionado = input.files[0];
+    this.linkSeleccionado = input.value;
+    console.log('Link seleccionado:', this.linkSeleccionado);
+  }
+
+  onNombreLinkChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.nombreLink = input.value;
+    console.log('Nombre del link:', this.nombreLink);
+  }
+
+  subirContenido(): void {
+  if (this.tabSeleccionado.toLowerCase() === 'links') {
+    console.log('Ejecutando subirLink()');
+    this.subirLink();
+  } else {
+    console.log('Ejecutando subirArchivo()');
+    this.subirArchivo();
     }
   }
 
   subirArchivo(): void {
     if (this.archivoSeleccionado && this.materiaSeleccionada && this.competenciaSeleccionada) {
-      console.log('Subiendo archivo:', this.archivoSeleccionado.name);
       this.authService
         .cargarArchivo(this.archivoSeleccionado, this.materiaSeleccionada, this.competenciaSeleccionada)
         .subscribe({
@@ -95,20 +133,48 @@ export class PaginadocenteComponent implements OnInit {
             });
             this.cerrarFormulario();
           },
-          error: (err) => console.error('Error al subir archivo', err)
+          error: err => console.error('Error al subir archivo', err)
         });
     } else {
       alert('Completa todos los campos y selecciona un archivo');
     }
   }
 
+  subirLink(): void {
+  if (this.linkSeleccionado && this.nombreLink && this.materiaSeleccionada && this.competenciaSeleccionada) {
+    console.log('Datos a enviar al backend:', {
+      link: this.linkSeleccionado,
+      nombre: this.nombreLink,
+      materia: this.materiaSeleccionada,
+      competencia: this.competenciaSeleccionada
+    });
+    this.authService
+      .subirLink(this.linkSeleccionado, this.nombreLink, this.materiaSeleccionada, this.competenciaSeleccionada)
+      .subscribe({
+        next: () => {
+          this.links.push({
+            nombre: this.nombreLink,
+            url: this.linkSeleccionado,
+            competencia: this.competenciaSeleccionada
+          });
+          this.cerrarFormulario();
+        },
+        error: err => console.error('Error al subir link', err)
+      });
+  } else {
+    alert('Completa todos los campos para el link');
+  }
+}
+
+
   obtenerItemsPorCompetencia(competencia: string): any[] {
-    return this.documentos.filter(doc => doc.competencia === competencia);
+    return this.documentos.filter(d => d.competencia === competencia);
   }
-  ngOnInit() {
-    console.log("hola")
-    this.cargarDocumentosPorCompetencia();
+
+  obtenerLinksPorCompetencia(competencia: string): any[] {
+    return this.links.filter(l => l.competencia === competencia);
   }
+
   cargarDocumentosPorCompetencia(): void {
     this.authService.OrdenarProgramacion().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
@@ -117,14 +183,14 @@ export class PaginadocenteComponent implements OnInit {
       })));
     });
 
-    
+
     this.authService.OrdenarAnalisis().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
         competencia: 'Analisis Post-Optimal'
       })));
     });
-    
+
     this.authService.OrdenarTransporte().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
@@ -140,6 +206,38 @@ export class PaginadocenteComponent implements OnInit {
     });
   }
 
+  cargarLinksPorCompetencia(): void {
+    this.authService.LinksProgramacion().subscribe((data: any) => {
+      this.links.push(...data.map((l: any) => ({
+        nombre: l.nombre,
+        url: l.url,
+        competencia: 'Programación Lineal y Dual'
+      })));
+    });
+    this.authService.LinksAnalisis().subscribe((data:any) => {
+      console.log("Links de programación recibidos:", data);
+      this.links.push(...data.map((l: any) => ({
+        nombre: l.nombre,
+        url: l.url,
+        competencia: 'Analisis Post-Optimal'
+      })));
+    });
+    this.authService.LinksTransporte().subscribe((data: any) => {
+      this.links.push(...data.map((l: any) => ({
+        nombre: l.nombre,
+        url: l.url,
+        competencia: 'Transporte Asignacion Transbordo'
+      })));
+    });
+    this.authService.LinksRedes().subscribe((data: any) => {
+      this.links.push(...data.map((l: any) => ({
+        nombre: l.nombre,
+        url: l.url,
+        competencia: 'Redes: PERT/CPM'
+      })));
+    });
+  }
+
   volverAParalelos() {
     this.router.navigate(['/paralelos']);
   }
@@ -150,7 +248,7 @@ export class PaginadocenteComponent implements OnInit {
       form.style.display = 'none';
     }
   }
-  
+
   paralelos : String[] = [];
   parelelosService: ParalelosService = inject(ParalelosService);
   usuarios : String[] = [];
@@ -190,7 +288,7 @@ export class PaginadocenteComponent implements OnInit {
       () => console.log('Usuarios por paralelo obtenidos exitosamente')
     )
 
-    console.log(this.usuarios);  
+    console.log(this.usuarios);
   };
 
   eliminarUsuario() {
@@ -200,7 +298,7 @@ export class PaginadocenteComponent implements OnInit {
     console.log('Email:', email);
     console.log('Paralelo:', paralelo);
 
-    // alert(`Usuario a eliminar: ${email} del paralelo: ${paralelo}`);
+    // alert(Usuario a eliminar: ${email} del paralelo: ${paralelo});
 
     this.http.request('DELETE', 'https://educationio.onrender.com/users/delete-user-paralelo', {
     body: {
