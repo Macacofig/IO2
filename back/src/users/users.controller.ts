@@ -74,6 +74,9 @@ export class UsersController {
     @Body('paralelo') paralelo: string,
   ) 
   {
+    console.log('Archivo recibido:', file?.originalname);
+    console.log('Materia:', materia);
+    console.log('Paralelo:', paralelo);
     if (!file) {
       throw new BadRequestException('No se ha subido ningún archivo');
     }
@@ -86,6 +89,9 @@ export class UsersController {
         message: 'Archivo procesado',
         details: result,
       };
+    } catch (err) {
+    console.error('❌ Error al procesar el Excel:', err);
+    throw new InternalServerErrorException();
     } finally {
       await fs.unlink(filePath);
     }
