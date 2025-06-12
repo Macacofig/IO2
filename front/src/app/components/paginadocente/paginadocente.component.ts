@@ -35,15 +35,15 @@ export class PaginadocenteComponent implements OnInit {
 
   competencias = [
     'Programación Lineal y Dual',
-    'Analisis Post-Optimal',
-    'Transporte Asignacion Transbordo',
+    'Análisis Post-Optimal',
+    'Transporte, Asignación y Trasbordo ',
     'Redes: PERT/CPM',
   ];
 
   competenciaLabels: { [key: string]: string } = {
     'Programación Lineal y Dual': 'Programación Lineal y Dual',
-    'Analisis Post-Optimal': 'Analisis Post-Optimal',
-    'Transporte Asignacion Transbordo': 'Transporte Asignacion Transbordo',
+    'Análisis Post-Optimal': 'Análisis Post-Optimal',
+    'Transporte, Asignación y Trasbordo ': 'Transporte, Asignación y Trasbordo ',
     'Redes: PERT/CPM': 'Redes: PERT/CPM',
   };
 
@@ -187,14 +187,14 @@ export class PaginadocenteComponent implements OnInit {
     this.authService.OrdenarAnalisis().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Analisis Post-Optimal'
+        competencia: 'Análisis Post-Optimal'
       })));
     });
 
     this.authService.OrdenarTransporte().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Transporte Asignacion Transbordo'
+        competencia: 'Transporte, Asignación y Trasbordo '
       })));
     });
 
@@ -219,14 +219,14 @@ export class PaginadocenteComponent implements OnInit {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Analisis Post-Optimal'
+        competencia: 'Análisis Post-Optimal'
       })));
     });
     this.authService.LinksTransporte().subscribe((data: any) => {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Transporte Asignacion Transbordo'
+        competencia: 'Transporte, Asignación y Trasbordo '
       })));
     });
     this.authService.LinksRedes().subscribe((data: any) => {

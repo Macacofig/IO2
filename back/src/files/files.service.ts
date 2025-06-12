@@ -68,7 +68,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 2',
-        tema: 'Cadenas de Markov',
+        tema: 'Cadenas de Márkov',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC') 
       .getMany();
@@ -158,7 +158,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Análisis Post Optimal',
+        tema: 'Análisis Post-Optimal',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();
@@ -179,7 +179,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .getMany();
   }
 
-  /* Obtener archivos de Redes: PERT/CPM IO1 */
+  /* Obtener archivos de Redes: PERT/CPM IO1 */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
   async getFilesRedesPERTCPMIO1(): Promise<FileEntity[]> 
@@ -204,7 +204,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 2',
-        tema: 'Cadenas de Markov',
+        tema: 'Cadenas de Márkov',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC') 
       .getMany();
@@ -294,7 +294,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Análisis Post Optimal',
+        tema: 'Análisis Post-Optimal',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();
@@ -315,7 +315,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .getMany();
   }
 
-  /* Obtener archivos de Redes: PERT/CPM IO1 */
+  /* Obtener archivos de Redes: PERT/CPM IO1 */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
   async getFilesRedesPERTCPMIO1D(): Promise<FileEntity[]> 

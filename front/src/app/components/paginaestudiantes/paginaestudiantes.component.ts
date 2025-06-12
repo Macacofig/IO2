@@ -14,10 +14,10 @@ export class PaginaestudiantesComponent {
   documentos: any[] = [];
   competencias: string[] = ['C1', 'C2', 'C3', 'C4'];
   competenciaLabels: any = {
-    C1: 'Programación Lineal',
-    C2: 'Análisis Post-Óptimo',
-    C3: 'Transporte, Asignación y Trasbordo',
-    C4: 'Redes, PERT y CPM'
+    C1: 'Programación Lineal y Dual',
+    C2: 'Análisis Post-Optimal',
+    C3: 'Transporte, Asignación y Trasbordo ',
+    C4: 'Redes: PERT/CPM'
   };
 
   competenciaSeleccionada: string = '';
@@ -42,22 +42,22 @@ export class PaginaestudiantesComponent {
 
   cargarDocumentosEstudiante(): void {
     this.authService.OrdenarProgramacionE().subscribe((res: any) => {
-      console.log('Programación Lineal (C1):', res);
+      console.log('Programación Lineal y Dual (C1):', res);
       this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C1' })));
     });
 
     this.authService.OrdenarAnalisisE().subscribe((res: any) => {
-      console.log('Análisis Post-Óptimo (C2):', res);
+      console.log('Análisis Post-Optimal (C2):', res);
       this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C2' })));
     });
 
     this.authService.OrdenarTransporteE().subscribe((res: any) => {
-      console.log('Transporte, Asignación y Trasbordo (C3):', res);
+      console.log('Transporte, Asignación y Trasbordo  (C3):', res);
       this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C3' })));
     });
 
     this.authService.OrdenarRedesE().subscribe((res: any) => {
-      console.log('Redes, PERT y CPM (C4):', res);
+      console.log('Redes: PERT/CPM (C4):', res);
       this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C4' })));
     });
   }

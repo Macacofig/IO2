@@ -41,7 +41,7 @@ export class LinkesService {
       .createQueryBuilder('linkes')
       .where('linkes.materia = :materia AND linkes.tema = :tema', {
         materia: 'Investigacion Operativa 2',
-        tema: 'Cadenas de Markov',
+        tema: 'Cadenas de Márkov',
       })
       .orderBy('linkes.nombre', 'ASC')
       .getMany();
@@ -131,7 +131,7 @@ export class LinkesService {
       .createQueryBuilder('linkes')
       .where('linkes.materia = :materia AND linkes.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Análisis Post Optimal',
+        tema: 'Análisis Post-Optimal',
       })
       .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
     .getMany();
