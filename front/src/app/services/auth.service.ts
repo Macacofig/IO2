@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AuthService {
   private userSubject = new BehaviorSubject<any>(null);
-  user$ = this.userSubject.asObservable(); 
+  user$ = this.userSubject.asObservable();
 
   private apiUrl = 'https://educationio.onrender.com'; // URL base del backend
 
@@ -28,10 +28,8 @@ export class AuthService {
   cargarArchivo(file: File, materia: string, tema: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    
     formData.append('materia', materia);
     formData.append('tema', tema);
-
     return this.http.post(`${this.apiUrl}/files/upload`, formData);
   }
 
@@ -110,4 +108,54 @@ export class AuthService {
   OrdenarRedesE() {
     return this.http.get(`${this.apiUrl}/files/RedesPERTCPM`);
   }
+
+  //Subir links
+  subirLink(link: string , nombre: string , materia: string, tema: string): Observable<any> {
+  const linkData = {
+    link,
+    nombre,
+    materia,
+    tema
+  };
+  return this.http.post(`${this.apiUrl}/linkes/register`, linkData);
+  }
+
+  //Links IO2 docente
+  LinksMarkov() {
+    return this.http.get(`${this.apiUrl}/linkes/MarkovD`);
+  }
+
+  LinksColas() {
+    return this.http.get(`${this.apiUrl}/linkes/ColasD`);
+  }
+
+  LinksSimulacion() {
+    return this.http.get(`${this.apiUrl}/linkes/SimulacionD`);
+  }
+
+  LinksDecisiones() {
+    return this.http.get(`${this.apiUrl}/linkes/DecisionesD`);
+  }
+
+  LinksInventarios() {
+    return this.http.get(`${this.apiUrl}/linkes/InventariosD`);
+  }
+
+  // Links IO1 docente
+  LinksProgramacion() {
+    return this.http.get(`${this.apiUrl}/linkes/ProgramacionLinealD`);
+  }
+
+  LinksAnalisis() {
+    return this.http.get(`${this.apiUrl}/linkes/AnalisisPostOptimalD`);
+  }
+
+  LinksTransporte() {
+    return this.http.get(`${this.apiUrl}/linkes/TransporteAsignacionTrasbordoD`);
+  }
+
+  LinksRedes() {
+    return this.http.get(`${this.apiUrl}/linkes/RedesPERTCPMD`);
+  }
+
 }

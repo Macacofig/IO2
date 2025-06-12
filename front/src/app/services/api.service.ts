@@ -9,8 +9,8 @@ import { catchError } from 'rxjs/operators';
 export class ApiService {
 
   private baseUrl = 'https://educationio.onrender.com';
-  private token: string | null = null; 
-  
+  private token: string | null = null;
+
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('access_token');
     console.log('Token inicial:', this.token);
@@ -72,9 +72,13 @@ export class ApiService {
     return this.http.get<any[]>(`${this.baseUrl}/users`);
   }
 
-  /*---------ARCHIVOS DOCENTE------- */
+  /*---------ARCHIVOS Y LINKS DOCENTE------- */
   CargarArchivos(): Observable<any> {
     return this.http.post(`${this.baseUrl}/files/upload`, {});
+  }
+
+  CargarLinks(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/linkes/register`, {});
   }
 
   /*---------ARCHIVOS IO2 DOCENTE------- */
@@ -151,5 +155,43 @@ export class ApiService {
 
   OrdenarRedesE(): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/files/RedesPERTCPM`);
+  }
+
+  /*---------LINKS IO2 DOCENTE------- */
+  OrdenarLinksMarkov(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/MarkovD`);
+  }
+
+  OrdenarLinksColas(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/ColasD`);
+  }
+
+  OrdenarLinksSimulacion(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/SimulacionD`);
+  }
+
+  OrdenarLinksDecisiones(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/DecisionesD`);
+  }
+
+  OrdenarLinksInventarios(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/InventariosD`);
+  }
+
+  /*---------LINKS IO1 DOCENTE------- */
+  OrdenarLinksProgramacion(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/ProgramacionLinealD`);
+  }
+
+  OrdenarLinksAnalisis(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/AnalisisPostOptimalD`);
+  }
+
+  OrdenarLinksTransporte(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/TransporteAsignacionTrasbordoD`);
+  }
+
+  OrdenarLinksRedes(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/linkes/RedesPERTCPMD`);
   }
 }
