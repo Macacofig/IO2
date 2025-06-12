@@ -47,6 +47,7 @@ export class LinkesController
         }));
         
         } catch (error) {
+            console.error('Error en RedesPERTCPMD:', error);
         if (error instanceof TimeoutError) 
         {
             throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
@@ -79,6 +80,7 @@ export class LinkesController
         }));
         
         } catch (error) {
+
         if (error instanceof TimeoutError) 
         {
             throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
@@ -100,7 +102,7 @@ export class LinkesController
     {
         try 
         {
-        const linkes = await this.linkesService.getFilesMarkovIO2D();
+        const linkes = await this.linkesService.getFilesSimulacionIO2D();
 
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
@@ -132,7 +134,7 @@ export class LinkesController
     {
         try 
         {
-        const linkes = await this.linkesService.getFilesMarkovIO2D();
+        const linkes = await this.linkesService.getFilesDecisionesIO2D();
 
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
@@ -164,7 +166,7 @@ export class LinkesController
     {
     try 
     {
-        const linkes = await this.linkesService.getFilesMarkovIO2D();
+        const linkes = await this.linkesService.getFilesInventariosIO2D();
 
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
@@ -196,7 +198,7 @@ export class LinkesController
     {
         try 
         {
-        const linkes = await this.linkesService.getFilesMarkovIO2D();
+        const linkes = await this.linkesService.getFilesProgramacionLinealIO1D();
 
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
@@ -228,7 +230,7 @@ export class LinkesController
     {
         try 
         {
-        const linkes = await this.linkesService.getFilesMarkovIO2D();
+        const linkes = await this.linkesService.getFilesAnalisisPostOptimalIO1D();
 
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
@@ -260,7 +262,7 @@ export class LinkesController
     {
         try 
         {
-        const linkes = await this.linkesService.getFilesMarkovIO2D();
+        const linkes = await this.linkesService.getFilesTransporteAsignacionTrasbordoIO1D();
 
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
@@ -292,7 +294,7 @@ export class LinkesController
     {
         try 
         {
-        const linkes = await this.linkesService.getFilesMarkovIO2D();
+        const linkes = await this.linkesService.getFilesRedesPERTCPMIO1D();
 
         // Retorna solo los campos requeridos
         return linkes.map(link => ({
