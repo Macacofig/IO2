@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class Paginaestudiantes2Component {
   documentos: any[] = [];
   competencias: string[] = ['C1', 'C2', 'C3', 'C4'];
+
   competenciaLabels: any = {
     C1: 'Cadenas de Márkov',
     C2: 'Teoría de Líneas de Espera',
@@ -29,7 +30,7 @@ export class Paginaestudiantes2Component {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cargarDocumentosEstudiante();
+    this.cargarMaterialEstudiante();
   }
 
   logout() {
@@ -41,30 +42,87 @@ export class Paginaestudiantes2Component {
     this.router.navigate(['/iniciosesion']);
   }
 
-  cargarDocumentosEstudiante(): void {
+  cargarMaterialEstudiante(): void {
+    // DOCUMENTOS
     this.authService.OrdenarMarkovE().subscribe((res: any) => {
-      console.log('Cadenas de Márkov (C1):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C1' })));
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C1',
+        tipo: 'documento'
+      })));
     });
 
     this.authService.OrdenarColasE().subscribe((res: any) => {
-      console.log('Teoría de Líneas de Espera (C2):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C2' })));
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C2',
+        tipo: 'documento'
+      })));
     });
 
     this.authService.OrdenarSimulacionE().subscribe((res: any) => {
-      console.log('Simulación de Sistemas (C3):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C3' })));
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C3',
+        tipo: 'documento'
+      })));
     });
 
     this.authService.OrdenarDecisionesE().subscribe((res: any) => {
-      console.log('Toma de Decisiones Multicriterio (C4):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C4' })));
+      this.documentos.push(...res.map((doc: any) => ({
+      ...doc,
+        competencia: 'C4',
+        tipo: 'documento'
+      })));
     });
 
     this.authService.OrdenarInventariosE().subscribe((res: any) => {
-      console.log('Gestión de Inventarios (C5):', res);
-      this.documentos.push(...res.map((doc: any) => ({ ...doc, competencia: 'C5' })));
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C5',
+        tipo: 'documento'
+      })));
+    });
+
+    // LINKS
+    this.authService.LinksMarkov().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C1',
+        tipo: 'link'
+      })));
+    });
+
+    this.authService.LinksColas().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C2',
+        tipo: 'link'
+      })));
+    });
+
+    this.authService.LinksSimulacion().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C3',
+        tipo: 'link'
+      })));
+    });
+
+    this.authService.LinksDecisiones().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C4',
+        tipo: 'link'
+      })));
+    });
+
+    this.authService.LinksInventarios().subscribe((res: any) => {
+      this.documentos.push(...res.map((link: any) => ({
+        ...link,
+        competencia: 'C5',
+        tipo: 'link'
+      })));
     });
   }
 
@@ -86,10 +144,19 @@ export class Paginaestudiantes2Component {
     console.log('Descargando documento:', doc);
   }
 
+  abrirLink(link: any): void {
+    if (!link || !link.link) {
+      console.error('❌ Link inválido:', link);
+      return;
+    }
 
-  obtenerItemsPorCompetencia(competencia: string): any[] {
-    const filtrados = this.documentos.filter(doc => doc.competencia === competencia);
-    return filtrados;
+    window.open(link.link, '_blank');
+    console.log('Abriendo link:', link);
+  }
+
+
+  obtenerItemsPorCompetencia(competencia: string, tipo: 'documento' | 'link'): any[] {
+    return this.documentos.filter(item => item.competencia === competencia && item.tipo === tipo);
   }
 
   toggleMenu(): void {

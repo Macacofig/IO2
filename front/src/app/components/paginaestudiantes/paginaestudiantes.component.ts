@@ -76,7 +76,7 @@ export class PaginaestudiantesComponent {
     });
 
     // LINKS
-    this.authService.OrdenarLinksProgramacionE().subscribe((res: any) => {
+    this.authService.LinksProgramacion().subscribe((res: any) => {
       this.documentos.push(...res.map((link: any) => ({
         ...link,
         competencia: 'C1',
@@ -84,7 +84,7 @@ export class PaginaestudiantesComponent {
       })));
     });
 
-    this.authService.OrdenarLinksAnalisisE().subscribe((res: any) => {
+    this.authService.LinksAnalisis().subscribe((res: any) => {
       this.documentos.push(...res.map((link: any) => ({
         ...link,
         competencia: 'C2',
@@ -92,7 +92,7 @@ export class PaginaestudiantesComponent {
       })));
     });
 
-    this.authService.OrdenarLinksTransporteE().subscribe((res: any) => {
+    this.authService.LinksTransporte().subscribe((res: any) => {
       this.documentos.push(...res.map((link: any) => ({
         ...link,
         competencia: 'C3',
@@ -100,7 +100,7 @@ export class PaginaestudiantesComponent {
       })));
     });
 
-    this.authService.OrdenarLinksRedesE().subscribe((res: any) => {
+    this.authService.LinksRedes().subscribe((res: any) => {
       this.documentos.push(...res.map((link: any) => ({
         ...link,
         competencia: 'C4',
@@ -128,14 +128,15 @@ export class PaginaestudiantesComponent {
   }
 
   abrirLink(link: any): void {
-    if (!link || !link.url) {
+    if (!link || !link.link) {
       console.error('❌ Link inválido:', link);
       return;
     }
 
-    window.open(link.url, '_blank');
+    window.open(link.link, '_blank');
     console.log('Abriendo link:', link);
   }
+
 
   obtenerItemsPorCompetencia(competencia: string, tipo: 'documento' | 'link'): any[] {
     return this.documentos.filter(item => item.competencia === competencia && item.tipo === tipo);
