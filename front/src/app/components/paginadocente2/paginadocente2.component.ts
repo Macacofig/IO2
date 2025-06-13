@@ -262,7 +262,7 @@ export class Paginadocente2Component implements OnInit {
       next: () => {
         alert('Documento eliminado correctamente');
 
-        this.documentos = this.documentos.filter(d => d !== doc);
+        this.documentos = this.documentos.filter(d => d.nombre !== doc.nombre);
         console.log('Documento eliminado:', doc);
       },
       error: err => {
@@ -276,7 +276,7 @@ export class Paginadocente2Component implements OnInit {
       next: () => {
         alert('Link eliminado correctamente');
 
-        this.links = this.links.filter(l => l !== link);
+        this.links = this.links.filter(l => l.nombre !== link.nombre);
         console.log('Link eliminado:', link);
       },
       error: err => {
