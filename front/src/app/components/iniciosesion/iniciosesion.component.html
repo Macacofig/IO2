@@ -40,7 +40,15 @@
         required
       />
 
-      <button type="submit">Ingresar</button>
+      <button type="submit" [disabled]="loading">Ingresar</button>
+
     </form>
   </div>
+  <!-- Loader Overlay -->
+  <div class="loader-overlay" *ngIf="loading">
+    <div class="loader-box">
+      <p>Cargando...</p>
+    </div>
+  </div>
+
 </div>
