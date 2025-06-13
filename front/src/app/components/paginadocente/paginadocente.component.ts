@@ -238,6 +238,35 @@ export class PaginadocenteComponent implements OnInit {
     });
   }
 
+  eliminarDoc(doc: any) {
+    this.authService.borrarDocumento(doc).subscribe({
+      next: () => {
+        alert('Documento eliminado correctamente');
+
+        this.documentos = this.documentos.filter(d => d !== doc);
+        console.log('Documento eliminado:', doc);
+      },
+      error: err => {
+        alert('Error al eliminar el documento');
+      }
+    });
+  }
+
+  eliminarLink(link: any) {
+    this.authService.borrarLink(link.nombre).subscribe({
+      next: () => {
+        alert('Link eliminado correctamente');
+
+        this.links = this.links.filter(l => l !== link);
+        console.log('Link eliminado:', link);
+      },
+      error: err => {
+        alert('Error al eliminar el link');
+      }
+    });
+  }
+
+
   volverAParalelos() {
     this.router.navigate(['/paralelos']);
   }

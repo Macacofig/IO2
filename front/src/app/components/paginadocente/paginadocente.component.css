@@ -68,36 +68,6 @@
   color: black;
 }
 
-/* Menú de navegación */
-
-
-/* Menú de navegación (Ejercicios, Documentos, Presentaciones) */
-.menu-tabs {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  background-color: #ffffff;
-  border-radius: 1rem;
-  padding: 0.75rem 1.5rem;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  margin-bottom: 2rem;
-}
-
-.menu-tabs span {
-  color: #3d2e84;
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s;
-}
-
-.menu-tabs span:hover {
-  background-color: #f0f2fc;
-  color: #2a2266;
-}
-
 /* Botón flotante */
 .menu-agregar {
   position: fixed;
@@ -145,6 +115,32 @@
 .btn-eliminarEst:hover {
   background-color: #2980b9;
 }
+
+/* boton eliminar documentos o links*/
+  .btn-eliminar {
+    background-color: #3d2e84; /* Rojo suave */
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-eliminar:hover {
+    background-color: #bf4f43;
+    transform: scale(1.05);
+  }
+
+  .btn-eliminar i {
+    margin-right: 4px;
+  }
+
 
 .submenu {
   position: absolute;
@@ -419,7 +415,7 @@
   }
 
   .titulo-principal {
-    font-size: 1.25rem;
+    font-size: 1.25rem;
   }
 }
 

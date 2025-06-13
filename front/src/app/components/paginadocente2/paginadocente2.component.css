@@ -145,6 +145,31 @@
   background-color: #2980b9;
 }
 
+/* boton eliminar documentos o links*/
+  .btn-eliminar {
+    background-color: #3d2e84; /* Rojo suave */
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-eliminar:hover {
+    background-color: #bf4f43;
+    transform: scale(1.05);
+  }
+
+  .btn-eliminar i {
+    margin-right: 4px;
+  }
+
 .submenu {
   position: absolute;
   bottom: 70px;
@@ -397,6 +422,31 @@
   background-color: rgb(188, 58, 58);
 }
 
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .menu-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .menu-tabs span {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+    white-space: nowrap;
+  }
+
+  .grid-documentos {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .titulo-principal {
+    font-size: 1.25rem;
+  }
+}
 
 /* Responsivo */
 @media (max-width: 600px) {

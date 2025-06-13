@@ -21,6 +21,8 @@
         <div class="card-doc" *ngFor="let doc of obtenerItemsPorCompetencia(competencia)">
           <div class="icono-doc">📄</div>
           <p class="nombres-archivos">{{ doc.nombre }}</p>
+          <!-- Ícono de borrar -->
+          <button class="btn-eliminar" (click)="eliminarDoc(doc)"> 🗑️ </button>
         </div>
       </div>
 
@@ -30,6 +32,7 @@
         <div class="card-doc" *ngFor="let link of obtenerLinksPorCompetencia(competencia)">
           <div class="icono-doc">🔗</div>
           <a [href]="link.url" target="_blank" class="nombres-archivos">{{ link.nombre }}</a>
+          <button class="btn-eliminar" (click)="eliminarLink(link)"> 🗑️ </button>
         </div>
       </div>
     </div>
