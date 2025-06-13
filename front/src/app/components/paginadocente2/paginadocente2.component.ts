@@ -192,7 +192,7 @@ export class Paginadocente2Component implements OnInit {
       })));
     });
 
-    this.authService.OrdenarTransporte().subscribe((data: any) => {
+    this.authService.OrdenarSimulacion().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
         competencia: 'Simulación de Sistemas'

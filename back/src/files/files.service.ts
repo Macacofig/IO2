@@ -164,7 +164,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .getMany();
   }
 
-  /* Obtener archivos de Asignación y Trasbordo IO1 */
+  /* Obtener archivos de Transporte, Asignación y Trasbordo  IO1 */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
   async getFilesTransporteAsignacionTrasbordoIO1(): Promise<FileEntity[]> 
@@ -173,7 +173,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Asignación y Trasbordo',
+        tema: 'Transporte, Asignación y Trasbordo ',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();
@@ -300,7 +300,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .getMany();
   }
 
-  /* Obtener archivos de Asignación y Trasbordo IO1 */
+  /* Obtener archivos de Transporte, Asignación y Trasbordo  IO1 */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
   async getFilesTransporteAsignacionTrasbordoIO1D(): Promise<FileEntity[]> 
@@ -309,7 +309,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Asignación y Trasbordo',
+        tema: 'Transporte, Asignación y Trasbordo ',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();
