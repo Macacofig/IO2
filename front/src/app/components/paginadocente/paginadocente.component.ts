@@ -36,14 +36,14 @@ export class PaginadocenteComponent implements OnInit {
   competencias = [
     'Programación Lineal y Dual',
     'Análisis Post-Optimal',
-    'Transporte, Asignación y Trasbordo ',
+    'Transporte, Asignación y Trasbordo',
     'Redes: PERT/CPM',
   ];
 
   competenciaLabels: { [key: string]: string } = {
     'Programación Lineal y Dual': 'Programación Lineal y Dual',
     'Análisis Post-Optimal': 'Análisis Post-Optimal',
-    'Transporte, Asignación y Trasbordo ': 'Transporte, Asignación y Trasbordo ',
+    'Transporte, Asignación y Trasbordo': 'Transporte, Asignación y Trasbordo',
     'Redes: PERT/CPM': 'Redes: PERT/CPM',
   };
 
@@ -194,7 +194,7 @@ export class PaginadocenteComponent implements OnInit {
     this.authService.OrdenarTransporte().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Transporte, Asignación y Trasbordo '
+        competencia: 'Transporte, Asignación y Trasbordo'
       })));
     });
 
@@ -226,7 +226,7 @@ export class PaginadocenteComponent implements OnInit {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Transporte, Asignación y Trasbordo '
+        competencia: 'Transporte, Asignación y Trasbordo'
       })));
     });
     this.authService.LinksRedes().subscribe((data: any) => {

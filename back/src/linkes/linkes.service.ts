@@ -146,7 +146,7 @@ export class LinkesService {
       .createQueryBuilder('linkes')
       .where('linkes.materia = :materia AND linkes.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Asignación y Trasbordo',
+        tema: 'Transporte, Asignación y Trasbordo',
       })
       .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
     .getMany();

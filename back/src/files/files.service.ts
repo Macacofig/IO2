@@ -173,7 +173,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Transporte, Asignación y Trasbordo ',
+        tema: 'Transporte, Asignación y Trasbordo',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();
@@ -309,7 +309,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Transporte, Asignación y Trasbordo ',
+        tema: 'Transporte, Asignación y Trasbordo',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();

@@ -17,7 +17,7 @@ export class PaginaestudiantesComponent {
   competenciaLabels: any = {
     C1: 'Programación Lineal y Dual',
     C2: 'Análisis Post-Optimal',
-    C3: 'Transporte, Asignación y Trasbordo ',
+    C3: 'Transporte, Asignación y Trasbordo',
     C4: 'Redes: PERT/CPM'
   };
 
