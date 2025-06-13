@@ -169,7 +169,7 @@ export class AuthService {
 
   //Borrar Links
   borrarLink(nombre: any) {
-    return this.http.request('DELETE', `${this.apiUrl}linkes/delete`, {
+    return this.http.request('DELETE', `${this.apiUrl}/linkes/delete`, {
       body: {
         link: nombre
       }
