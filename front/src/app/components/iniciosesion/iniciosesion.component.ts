@@ -15,6 +15,8 @@ export class IniciosesionComponent {
    email: string = '';
   materia: string = '';
   password: string = '';
+  loading: boolean = false;
+
 
   passwordVisible: boolean = false;
   mensajeError: string = '';
@@ -38,29 +40,31 @@ export class IniciosesionComponent {
   }
 
   ingresar() {
-    const usuario = {
-      email: this.email,
-      materia: this.materia,
-      password: this.password
-    };
+  this.loading = true; // Mostrar pantalla de carga
 
-    this.authService.login(usuario).subscribe(
+  const usuario = {
+    email: this.email,
+    materia: this.materia,
+    password: this.password
+  };
+
+  this.authService.login(usuario).subscribe(
     (respuesta) => {
+      this.loading = false; // Ocultar pantalla de carga
       console.log('Respuesta del backend:', respuesta);
       localStorage.setItem('access_token', respuesta.jwt);
 
       const esEspecial = this.email === this.correoEspecial;
 
       if (esEspecial) {
-        this.router.navigate(['/paralelos']); // Docente o admin
+        this.router.navigate(['/paralelos']);
       } else {
-        // Cambiar lógica basada en tipo
         switch (respuesta.tipo) {
           case 1:
-            this.router.navigate(['/paginaestudiante']); // Ejemplo: estudiante IO1
+            this.router.navigate(['/paginaestudiante']);
             break;
           case 2:
-            this.router.navigate(['/paginaestudiante2']); // Ejemplo: estudiante IO2
+            this.router.navigate(['/paginaestudiante2']);
             break;
           default:
             this.mensajeError = 'Tipo de usuario no reconocido';
@@ -70,17 +74,18 @@ export class IniciosesionComponent {
       }
     },
     (error) => {
+      this.loading = false; // Ocultar pantalla de carga
       console.error('Error desde backend:', error);
-      if (error.status === 404) {
-        this.mensajeError = 'Este Usuario no pertenece a la materia:' + this.materia;
-      } else if (error.status === 401) {
-        this.mensajeError = 'Contraseña incorrecta';
-      } else {
-        this.mensajeError = 'Error en el inicio de sesión';
+        if (error.status === 404) {
+          this.mensajeError = 'Este Usuario no pertenece a la materia:' + this.materia;
+        } else if (error.status === 401) {
+          this.mensajeError = 'Contraseña incorrecta';
+        } else {
+          this.mensajeError = 'Error en el inicio de sesión';
+        }
+        alert(this.mensajeError);
       }
-      alert(this.mensajeError);
-    }
-  );
+    );
   }
 }
 

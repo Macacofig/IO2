@@ -253,6 +253,8 @@ export class PaginadocenteComponent implements OnInit {
   }
 
   eliminarLink(link: any) {
+    console.log('Enviando a borrar:', link.nombre);
+
     this.authService.borrarLink(link.nombre).subscribe({
       next: () => {
         alert('Link eliminado correctamente');
