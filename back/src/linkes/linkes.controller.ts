@@ -24,8 +24,21 @@ export class LinkesController
     @Delete('delete')
     async deleteLink(@Body() body: { nombre: string }) 
     {
-        const { nombre } = body;
-        return this.linkesService.deleteLink(nombre);
+        const {nombre}= body;
+        try {
+        await this.linkesService.deleteLink(nombre);
+        return { message: 'Link eliminado correctamente' };
+        } catch (error) {
+        if (error instanceof TimeoutError) 
+        {
+            throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+        }
+        if (error instanceof NotFoundException) 
+        {
+            throw error;
+        }
+        throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+        }
     }
     /* Obtener archivos de Markov IO2 */
     /*********************************************************************************************************/
