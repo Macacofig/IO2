@@ -158,21 +158,13 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/linkes/RedesPERTCPMD`);
   }
 
-  //Borrar Documentos
-  borrarDocumento(doc: any) {
-    return this.http.request('DELETE', `${this.apiUrl}/files/delete`, {
-      body: {
-        file: doc
-      }
-    });
+  //Borrar Link
+  borrarLink(nombre: string) {
+    return this.http.delete(`${this.apiUrl}/linkes/delete/${nombre}`);
   }
 
-  //Borrar Links
-  borrarLink(nombre: any) {
-    return this.http.request('DELETE', `${this.apiUrl}/linkes/delete`, {
-      body: {
-        link: nombre
-      }
-    });
+  //Borrar Documento
+  borrarDocumento(nombreArchivo: string) {
+    return this.http.delete(`${this.apiUrl}/files/delete/${nombreArchivo}`);
   }
 }
