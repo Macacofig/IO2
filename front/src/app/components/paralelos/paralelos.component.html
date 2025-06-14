@@ -1,6 +1,6 @@
 <div class="paralelos-container">
   <button class="boton-cerrar-sesion" (click)="logout()">Cerrar sesión</button>
-  
+
   <h1 class="titulo">Investigación Operativa</h1>
 
   <div class="selector-materia">
@@ -8,7 +8,7 @@
     <button [class.activo]="materiaSeleccionada === 2" (click)="seleccionarMateria(2)">Inv.Op 2</button>
   </div>
 
-  <div class="seccion-paralelos">
+  <div class="seccion-paralelos" *ngIf="materiaSeleccionada">
     <div class="top-bar">
       <h2>Paralelos - Operativa {{ materiaSeleccionada }}</h2>
       <div class="acciones">

@@ -17,22 +17,28 @@ import { AuthService } from '../../services/auth.service';
 })
 
 export class ParalelosComponent {
-  materiaSeleccionada = 1;
+  materiaSeleccionada: number | null = null;
   paralelosOp1: string[] = [];
   paralelosOp2: string[] = [];
   parelelosService: ParalelosService = inject(ParalelosService);
 
-  constructor(private router: Router, private paralelosService: ParalelosService, private apiService: ApiService, private materiaService: MateriaService, private authService: AuthService ) {
+  constructor(
+    private router: Router,
+    private paralelosService: ParalelosService,
+    private apiService: ApiService,
+    private materiaService: MateriaService,
+    private authService: AuthService )
+    {
     this.parelelosService.obtenerParalelosMateria("Investigacion Operativa 1").subscribe(
       data => this.paralelosOp1 = data,
       error => console.log('Error al obtener paralelos de la materia 1', error),
-      () => console.log('Paralelos de la materia 1 obtenidos exitosamente') 
+      () => console.log('Paralelos de la materia 1 obtenidos exitosamente')
     )
-    
+
     this.parelelosService.obtenerParalelosMateria("Investigacion Operativa 2").subscribe(
       data => this.paralelosOp2 = data,
       error => console.log('Error al obtener paralelos de la materia 1:', error),
-      () => alert('Paralelos de la materia 1 obtenidos exitosamente') 
+      () => alert('Paralelos de la materia 1 obtenidos exitosamente')
     )
   }
 
@@ -43,16 +49,16 @@ export class ParalelosComponent {
         throw new Error('Usuario no autenticado');
 
       }
-      
+
     } catch (error) {
       console.error("sin token");
       // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
     this.router.navigate(['/iniciosesion']);
-      
+
     }
   }
 
-   seleccionarMateria(num: number): void {
+  seleccionarMateria(num: number): void {
   this.materiaSeleccionada = num;
 
   const materiaNombre = num === 1
