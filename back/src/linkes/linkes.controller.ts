@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Post, RequestTimeoutException } from '@nestjs/common';
+import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Param, Post, RequestTimeoutException } from '@nestjs/common';
 import { LinkesService } from './linkes.service';
 import { LinkesDto } from './dto/linkes.dto';
 import { TimeoutError } from 'rxjs';
@@ -21,13 +21,19 @@ export class LinkesController
     /* Eliminar Link */
     /*********************************************************************************************************/
     /*********************************************************************************************************/
-    @Delete('delete')
-    async deleteLink(@Body() body: { nombre: string }) 
+    @Delete('delete/:nombre')
+    async deleteLink(@Param('nombre') nombre: string) 
     {
-        const {nombre}= body;
+        console.log('Eliminando link:', nombre);
         try {
-        await this.linkesService.deleteLink(nombre);
-        return { message: 'Link eliminado correctamente' };
+        const link = await this.linkesService.findByName(nombre);
+
+        if (!link) {
+            throw new NotFoundException('Archivo no encontrado');
+        }
+
+        await this.linkesService.deleteLink(link.id);
+
         } catch (error) {
         if (error instanceof TimeoutError) 
         {

@@ -48,12 +48,12 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
   /*********************************************************************************************************/
   /*********************************************************************************************************/
   async findByName(nombreArchivo: string): Promise<FileEntity | null> {
-  return this.filesRepository.findOne({ where: { filename: nombreArchivo } });
-}
+    return this.filesRepository.findOne({ where: { filename: nombreArchivo } });
+  }
 
-async deleteFileById(id: number): Promise<void> {
-  await this.filesRepository.delete(id);
-}
+  async deleteFileById(id: number): Promise<void> {
+    await this.filesRepository.delete(id);
+  }
 
   /* Obtener archivos de la Markov IO2 */
   /*********************************************************************************************************/
