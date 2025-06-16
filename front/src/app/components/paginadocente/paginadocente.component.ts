@@ -243,7 +243,7 @@ export class PaginadocenteComponent implements OnInit {
       next: () => {
         alert('Documento eliminado correctamente');
 
-        this.documentos = this.documentos.filter(d => d !== doc);
+        this.documentos = this.documentos.filter(d => d.nombre !== doc.nombre);
         console.log('Documento eliminado:', doc);
       },
       error: err => {

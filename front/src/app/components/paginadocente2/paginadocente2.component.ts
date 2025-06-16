@@ -276,7 +276,7 @@ export class Paginadocente2Component implements OnInit {
       next: () => {
         alert('Link eliminado correctamente');
 
-        this.links = this.links.filter(l => l.nombre !== link.nombre);
+        this.links = this.links.filter(l => l !== link);
         console.log('Link eliminado:', link);
       },
       error: err => {
