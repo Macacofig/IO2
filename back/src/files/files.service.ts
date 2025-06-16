@@ -50,7 +50,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
   async deleteFile(filename: string): Promise<void>
   {
     const file = await this.filesRepository.findOne({ where: { filename } });
-
+    
     if (!file) {
       throw new NotFoundException('No se encontró un archivo con ese nombre');
     }

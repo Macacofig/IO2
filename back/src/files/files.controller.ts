@@ -67,6 +67,7 @@ export class FilesController {
   async deleteFile(@Body() body: {filename:string}) 
   {
     const {filename}= body;
+    console.log("filename",filename);
     try {
       await this.filesService.deleteFile(filename);
       return { message: 'Archivo eliminado correctamente' };
