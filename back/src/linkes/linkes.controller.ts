@@ -32,7 +32,7 @@ export class LinkesController
             throw new NotFoundException('Archivo no encontrado');
         }
 
-        await this.linkesService.deleteLink(link.id);
+        await this.linkesService.deletelinkid(link.id);
 
         } catch (error) {
         if (error instanceof TimeoutError) 

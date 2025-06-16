@@ -24,7 +24,7 @@ export class LinkesService {
     return this.linkesRepository.findOne({ where: { nombre } });
   }
   
-  async deleteFileById(id: number): Promise<void> {
+  async deletelinkid(id: number): Promise<void> {
     await this.linkesRepository.delete(id);
   }      
   
