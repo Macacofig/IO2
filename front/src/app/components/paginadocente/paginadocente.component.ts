@@ -242,6 +242,8 @@ export class PaginadocenteComponent implements OnInit {
     this.authService.borrarDocumento(doc).subscribe({
       next: () => {
         alert('Documento eliminado correctamente');
+        console.log('Enviando a borrar:', doc.nombre);
+        console.log('Documento a eliminar:', doc);
 
         this.documentos = this.documentos.filter(d => d.nombre !== doc.nombre);
         console.log('Documento eliminado:', doc);
