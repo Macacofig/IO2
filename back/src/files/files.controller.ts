@@ -63,21 +63,26 @@ export class FilesController {
   /* ELIMINAR ARCHIVOS */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
-  @Delete('delete')
-  async deleteFile(@Body() body: {filename:string}) 
+  @Delete('delete/:nombreArchivo')
+  async deleteFile(@Param('nombreArchivo') nombreArchivo: string) 
   {
-    const {filename}= body;
-    console.log("filename",filename);
-    try {
-      await this.filesService.deleteFile(filename);
+    console.log('nombreArchivo', nombreArchivo);
+    try 
+    {
+      const archivo = await this.filesService.findByName(nombreArchivo);
+
+      if (!archivo) {
+        throw new NotFoundException('Archivo no encontrado');
+      }
+
+      await this.filesService.deleteFileById(archivo.id);
+
       return { message: 'Archivo eliminado correctamente' };
     } catch (error) {
-      if (error instanceof TimeoutError) 
-      {
+      if (error instanceof TimeoutError) {
         throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
       }
-      if (error instanceof NotFoundException) 
-      {
+      if (error instanceof NotFoundException) {
         throw error;
       }
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');

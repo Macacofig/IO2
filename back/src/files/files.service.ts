@@ -47,16 +47,13 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
   /* Eliminar file */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
-  async deleteFile(filename: string): Promise<void>
-  {
-    const file = await this.filesRepository.findOne({ where: { filename } });
-    
-    if (!file) {
-      throw new NotFoundException('No se encontró un archivo con ese nombre');
-    }
+  async findByName(nombreArchivo: string): Promise<FileEntity | null> {
+  return this.filesRepository.findOne({ where: { filename: nombreArchivo } });
+}
 
-    await this.filesRepository.remove(file);
-  }
+async deleteFileById(id: number): Promise<void> {
+  await this.filesRepository.delete(id);
+}
 
   /* Obtener archivos de la Markov IO2 */
   /*********************************************************************************************************/
