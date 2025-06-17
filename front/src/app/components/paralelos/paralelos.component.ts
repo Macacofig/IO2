@@ -22,6 +22,8 @@ export class ParalelosComponent {
   paralelosOp2: string[] = [];
   parelelosService: ParalelosService = inject(ParalelosService);
 
+  paraleloSeleccionado: string = '';
+
   constructor(
     private router: Router,
     private paralelosService: ParalelosService,
@@ -115,6 +117,13 @@ export class ParalelosComponent {
     } else {
       console.warn('No se ha seleccionado una materia válida');
     }
+  }
+
+  entrarParalelo(paralelo: string) {
+    this.paraleloSeleccionado = paralelo;
+    console.log('paraleloSeleccionado: ', this.paraleloSeleccionado);
+    this.parelelosService.setParalelo(paralelo);
+    this.router.navigate(['/paralelomat']);
   }
 
   // Botón para cerrar sesión
