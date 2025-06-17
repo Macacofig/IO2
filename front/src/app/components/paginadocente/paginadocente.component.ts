@@ -86,6 +86,7 @@ export class PaginadocenteComponent implements OnInit {
   }
 
   logout() {
+    localStorage.removeItem('materia')
     this.authService.logout();
     this.router.navigate(['/iniciosesion']);
   }
