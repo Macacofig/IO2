@@ -32,7 +32,7 @@
         <div class="card-doc" *ngFor="let link of obtenerLinksPorCompetencia(competencia)">
           <div class="icono-doc">🔗</div>
           <a [href]="link.url" target="_blank" class="nombres-archivos">{{ link.nombre }}</a>
-          <button class="btn-eliminar" (click)="eliminarLink(link)"> 🗑️ </button>
+          <button class="btn-eliminar" (click)="eliminarLink(link.nombre)"> 🗑️ </button>
         </div>
       </div>
     </div>
