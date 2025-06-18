@@ -213,6 +213,7 @@ export class Paginadocente2Component implements OnInit {
         competencia: 'Gestión de Inventarios'
       })));
     });
+
   }
 
   cargarLinksPorCompetencia(): void {

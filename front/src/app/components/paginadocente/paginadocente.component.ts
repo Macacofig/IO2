@@ -183,6 +183,7 @@ export class PaginadocenteComponent implements OnInit {
         competencia: 'Programación Lineal y Dual'
       })));
     });
+    
 
 
     this.authService.OrdenarAnalisis().subscribe((data: any) => {
@@ -205,6 +206,7 @@ export class PaginadocenteComponent implements OnInit {
         competencia: 'Redes: PERT/CPM'
       })));
     });
+
   }
 
   cargarLinksPorCompetencia(): void {

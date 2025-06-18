@@ -35,6 +35,14 @@ export class UsersController {
     console.log("llegue")
     return {res:"he vuelto del back"};
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('validate-token')
+  async validateToken() : Promise<{true: boolean}> {
+    // Si entra aquí, el token es válido
+    return {true: true}; ;
+  }
+
   @Get()
   async getUsers() {
     try {
@@ -105,6 +113,7 @@ export class UsersController {
   {
     try
     {
+      console.log("kratos2")
       const { email, materia, password } = body;
       return await this.usuarioservice.loginSelect(email, materia, password);
     } catch (error) 
