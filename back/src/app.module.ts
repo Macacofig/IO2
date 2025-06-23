@@ -25,9 +25,6 @@ import { LinkesEntity } from './linkes/linkes.entity';
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        ssl: {
-          rejectUnauthorized: true,
-        },
         entities: [User, FileEntity, LinkesEntity], // Asegúrate de agregar las entidades correspondientes aquí
         synchronize: false,
       }),
