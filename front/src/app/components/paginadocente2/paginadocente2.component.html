@@ -16,7 +16,7 @@
       <h3 class="subtitulo-competencia">{{ competenciaLabels[competencia] }}</h3>
 
       <!-- Lista de Documentos -->
-      <h4 class="titulo-seccion">Lista de documentos</h4>
+      <h4 class="titulo-seccion" *ngIf="competencia !== 'Material Bibliografico'">Lista de documentos</h4>
       <div class="grid-documentos">
         <div class="card-doc" *ngFor="let doc of obtenerItemsPorCompetencia(competencia)">
           <div class="icono-doc">📄</div>
@@ -27,7 +27,7 @@
       </div>
 
       <!-- Lista de Links -->
-      <h4 class="titulo-seccion">Lista de Links</h4>
+      <h4 class="titulo-seccion" *ngIf="competencia !== 'Material Bibliografico'">Lista de Links</h4>
       <div class="grid-documentos">
         <div class="card-doc" *ngFor="let link of obtenerLinksPorCompetencia(competencia)">
           <div class="icono-doc">🔗</div>
@@ -63,7 +63,13 @@
     <label for="competencia">Competencia:</label>
     <select [(ngModel)]="competenciaSeleccionada" id="competencia">
       <option value="" disabled selected>Seleccione una competencia</option>
-      <option *ngFor="let c of competencias" [value]="c">{{ competenciaLabels[c] }}</option>
+      <option
+        *ngFor="let c of competencias"
+        [value]="c"
+        [hidden]="tabSeleccionado === 'links' && c === 'Material Bibliografico'"
+      >
+        {{ competenciaLabels[c] }}
+      </option>
     </select>
 
     <button (click)="subirContenido()">Subir</button>

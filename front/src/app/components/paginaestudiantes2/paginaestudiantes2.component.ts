@@ -12,14 +12,15 @@ import { Router } from '@angular/router';
 })
 export class Paginaestudiantes2Component {
   documentos: any[] = [];
-  competencias: string[] = ['C1', 'C2', 'C3', 'C4'];
+  competencias: string[] = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'];
 
   competenciaLabels: any = {
     C1: 'Cadenas de Márkov',
     C2: 'Teoría de Líneas de Espera',
     C3: 'Simulación de Sistemas',
     C4: 'Toma de Decisiones Multicriterio',
-    C5: 'Gestión de Inventarios'
+    C5: 'Gestión de Inventarios',
+    C6: 'Material Bibliográfico'
   };
 
   competenciaSeleccionada: string = '';
