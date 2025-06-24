@@ -36,7 +36,7 @@ export class PaginadocenteComponent implements OnInit {
   competencias = [
     'Programación Lineal y Dual',
     'Análisis Post-Optimal',
-    'Transporte, Asignación y Trasbordo ',
+    'Transporte, Asignación y Trasbordo',
     'Redes: PERT/CPM',
     'Material Bibliografico'
   ];
@@ -44,7 +44,7 @@ export class PaginadocenteComponent implements OnInit {
   competenciaLabels: { [key: string]: string } = {
     'Programación Lineal y Dual': 'Programación Lineal y Dual',
     'Análisis Post-Optimal': 'Análisis Post-Optimal',
-    'Transporte, Asignación y Trasbordo ': 'Transporte, Asignación y Trasbordo ',
+    'Transporte, Asignación y Trasbordo': 'Transporte, Asignación y Trasbordo',
     'Redes: PERT/CPM': 'Redes: PERT/CPM',
     'Material Bibliografico': 'Material Bibliografico'
   };
@@ -88,6 +88,7 @@ export class PaginadocenteComponent implements OnInit {
   }
 
   logout() {
+    localStorage.removeItem('materia')
     this.authService.logout();
     this.router.navigate(['/iniciosesion']);
   }
@@ -184,6 +185,7 @@ export class PaginadocenteComponent implements OnInit {
         competencia: 'Programación Lineal y Dual'
       })));
     });
+    
 
 
     this.authService.OrdenarAnalisis().subscribe((data: any) => {
@@ -196,7 +198,7 @@ export class PaginadocenteComponent implements OnInit {
     this.authService.OrdenarTransporte().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Transporte, Asignación y Trasbordo '
+        competencia: 'Transporte, Asignación y Trasbordo'
       })));
     });
 
@@ -206,6 +208,7 @@ export class PaginadocenteComponent implements OnInit {
         competencia: 'Redes: PERT/CPM'
       })));
     });
+
   }
 
   cargarLinksPorCompetencia(): void {
@@ -228,7 +231,7 @@ export class PaginadocenteComponent implements OnInit {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Transporte, Asignación y Trasbordo '
+        competencia: 'Transporte, Asignación y Trasbordo'
       })));
     });
     this.authService.LinksRedes().subscribe((data: any) => {
@@ -244,8 +247,10 @@ export class PaginadocenteComponent implements OnInit {
     this.authService.borrarDocumento(doc).subscribe({
       next: () => {
         alert('Documento eliminado correctamente');
+        console.log('Enviando a borrar:', doc.nombre);
+        console.log('Documento a eliminar:', doc);
 
-        this.documentos = this.documentos.filter(d => d !== doc);
+        this.documentos = this.documentos.filter(d => d.nombre !== doc.nombre);
         console.log('Documento eliminado:', doc);
       },
       error: err => {

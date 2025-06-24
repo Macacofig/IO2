@@ -18,13 +18,13 @@
     </div>
 
     <div class="paralelos-lista">
-      <div class="paralelo-card" *ngFor="let paralelo of obtenerParalelosActuales()">
+      <button class="paralelo-card" *ngFor="let paralelo of obtenerParalelosActuales()" [value]="paralelo" id="paraleloSel" (click)="entrarParalelo(paralelo)">
         <div class="icono">📘</div>
         <div class="nombre">{{ paralelo }}</div>
-      </div>
+      </button>
     </div>
 
-    <button class="btn-clase" (click)="entrarClases()"> Añadir Material</button>
+    <button class="btn-clase" (click)="entrarClases()">Añadir Material</button>
   </div>
 </div>
 

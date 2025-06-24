@@ -89,6 +89,7 @@ export class Paginadocente2Component implements OnInit {
   }
 
   logout() {
+    localStorage.removeItem('materia')
     this.authService.logout();
     this.router.navigate(['/iniciosesion']);
   }
@@ -194,7 +195,7 @@ export class Paginadocente2Component implements OnInit {
       })));
     });
 
-    this.authService.OrdenarTransporte().subscribe((data: any) => {
+    this.authService.OrdenarSimulacion().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
         competencia: 'Simulación de Sistemas'
@@ -214,6 +215,7 @@ export class Paginadocente2Component implements OnInit {
         competencia: 'Gestión de Inventarios'
       })));
     });
+
   }
 
   cargarLinksPorCompetencia(): void {
@@ -264,7 +266,7 @@ export class Paginadocente2Component implements OnInit {
       next: () => {
         alert('Documento eliminado correctamente');
 
-        this.documentos = this.documentos.filter(d => d !== doc);
+        this.documentos = this.documentos.filter(d => d.nombre !== doc.nombre);
         console.log('Documento eliminado:', doc);
       },
       error: err => {

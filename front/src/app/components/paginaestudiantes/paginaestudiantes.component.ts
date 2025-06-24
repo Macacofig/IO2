@@ -108,6 +108,7 @@ export class PaginaestudiantesComponent {
         tipo: 'link'
       })));
     });
+
   }
 
   descargarDocumento(doc: any): void {

@@ -20,16 +20,13 @@ export class LinkesService {
 /* Obtener archivos de la Markov IO2 */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
-  async deleteLink(nombre: string): Promise<void>
-  {
-    const link = await this.linkesRepository.findOne({ where: { nombre } });
+  async findByName(nombre: string): Promise<LinkesEntity | null> {
+    return this.linkesRepository.findOne({ where: { nombre } });
+  }
   
-    if (!link) {
-      throw new NotFoundException('No se encontró un link con ese nombre');
-    }
-  
-    await this.linkesRepository.remove(link);  
-  }  
+  async deletelinkid(id: number): Promise<void> {
+    await this.linkesRepository.delete(id);
+  }      
   
   /* Obtener archivos de la Markov IO2 */
   /*********************************************************************************************************/
@@ -146,7 +143,7 @@ export class LinkesService {
       .createQueryBuilder('linkes')
       .where('linkes.materia = :materia AND linkes.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Asignación y Trasbordo',
+        tema: 'Transporte, Asignación y Trasbordo',
       })
       .orderBy('linkes.nombre', 'ASC') // ← Ordena por nombre completo
     .getMany();

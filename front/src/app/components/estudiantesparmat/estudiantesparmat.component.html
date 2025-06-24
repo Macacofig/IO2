@@ -1,0 +1,23 @@
+<div class="paralelos-container">
+    <button class="boton-volver" (click)="volverAParalelos()">
+        <span class="icono-volver">&#8592;</span> Volver
+    </button>
+
+    <button class="boton-cerrar-sesion" (click)="logout()">Cerrar sesión</button>
+
+    <h1 class="titulo">{{ materiaSeleccionada }}</h1>
+    <h2 class="subtitulo">Paralelo {{ paraleloSeleccionado }}</h2>
+
+    <div class="seccion-estudiantes">
+        <div class="top-bar">
+            <h2>Estudiantes</h2>
+        </div>
+
+        <div class="estudiantes-lista">
+            <button class="estudiante-card" *ngFor="let estudiante of estudiantes" [value]="estudiante" id="estudianteSel">
+                <div class="nombre">{{ estudiante }}</div>
+                <button class="btn_eliminar" (click)="eliminarEstudiante(estudiante)">Eliminar</button>
+            </button>
+        </div>
+    </div>
+</div>

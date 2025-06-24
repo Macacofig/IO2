@@ -19,7 +19,9 @@ export class FormparaleloComponent {
     }
   }
 
-  agregar() {
+  agregar(event: Event) 
+  {
+    event.preventDefault();
     const materia = (document.getElementById('materia') as HTMLInputElement).value;
     const paralelo = (document.getElementById('paralelo') as HTMLInputElement).value;
     const fileInput = document.getElementById('file') as HTMLInputElement;

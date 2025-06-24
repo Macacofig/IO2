@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-iniciosesion',
@@ -24,10 +25,12 @@ export class IniciosesionComponent {
   // Flags para errores
   passwordE: boolean = false;
   materiaE: boolean = false;
+  algo: boolean = false;
+
 
   correoEspecial: string = 'rlujan@ucb.edu.bo';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private apiService: ApiService) {}
 
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
@@ -48,11 +51,30 @@ export class IniciosesionComponent {
     password: this.password
   };
 
+
   this.authService.login(usuario).subscribe(
     (respuesta) => {
       this.loading = false; // Ocultar pantalla de carga
       console.log('Respuesta del backend:', respuesta);
+      
       localStorage.setItem('access_token', respuesta.jwt);
+
+      this.apiService.getRequest("users/validate-token").subscribe(
+        (validacion) => {
+          console.log("Token válido:", validacion);
+        },
+        (error) => {
+          console.error("Error al validar token:", error);
+          alert("Error al validar el token. Por favor, inténtalo de nuevo.");
+          this.algo = true;
+        }
+      );
+      
+      if((this.algo)){
+        console.log("kratos")
+        return;
+
+      } 
 
       const esEspecial = this.email === this.correoEspecial;
 

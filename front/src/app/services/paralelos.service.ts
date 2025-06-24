@@ -1,12 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParalelosService {
+  // private paraleloSel = new BehaviorSubject<string>(''); // estado inicial vacío
+  private paraleloSel = new BehaviorSubject<string>(localStorage.getItem('paralelo') || '');
+  paraleloSeleccionado$ = this.paraleloSel.asObservable();
 
+  setParalelo(paralelo: string) {
+    localStorage.setItem('paralelo', paralelo);
+    this.paraleloSel.next(paralelo);
+  }
+
+  getParalelo(): string {
+    return this.paraleloSel.getValue();
+  }
+  
 
   url: string = 'https://educationio.onrender.com/users/';
 

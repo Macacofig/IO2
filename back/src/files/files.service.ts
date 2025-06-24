@@ -47,15 +47,12 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
   /* Eliminar file */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
-  async deleteFile(filename: string): Promise<void>
-  {
-    const file = await this.filesRepository.findOne({ where: { filename } });
+  async findByName(nombreArchivo: string): Promise<FileEntity | null> {
+    return this.filesRepository.findOne({ where: { filename: nombreArchivo } });
+  }
 
-    if (!file) {
-      throw new NotFoundException('No se encontró un archivo con ese nombre');
-    }
-
-    await this.filesRepository.remove(file);
+  async deleteFileById(id: number): Promise<void> {
+    await this.filesRepository.delete(id);
   }
 
   /* Obtener archivos de la Markov IO2 */
@@ -164,7 +161,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .getMany();
   }
 
-  /* Obtener archivos de Asignación y Trasbordo IO1 */
+  /* Obtener archivos de Transporte, Asignación y Trasbordo  IO1 */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
   async getFilesTransporteAsignacionTrasbordoIO1(): Promise<FileEntity[]> 
@@ -173,7 +170,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Asignación y Trasbordo',
+        tema: 'Transporte, Asignación y Trasbordo',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();
@@ -300,7 +297,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .getMany();
   }
 
-  /* Obtener archivos de Asignación y Trasbordo IO1 */
+  /* Obtener archivos de Transporte, Asignación y Trasbordo  IO1 */
   /*********************************************************************************************************/
   /*********************************************************************************************************/
   async getFilesTransporteAsignacionTrasbordoIO1D(): Promise<FileEntity[]> 
@@ -309,7 +306,7 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .createQueryBuilder('file')
       .where('file.materia = :materia AND file.tema = :tema', {
         materia: 'Investigacion Operativa 1',
-        tema: 'Asignación y Trasbordo',
+        tema: 'Transporte, Asignación y Trasbordo',
       })
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();

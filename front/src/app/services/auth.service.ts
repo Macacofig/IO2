@@ -18,6 +18,8 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/users/login`, usuario);
   }
 
+  
+
   // Cerrar sesión
   logout() {
     localStorage.removeItem('access_token');
