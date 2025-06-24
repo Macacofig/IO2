@@ -12,13 +12,14 @@ import { Router } from '@angular/router';
 })
 export class PaginaestudiantesComponent {
   documentos: any[] = [];
-  competencias: string[] = ['C1', 'C2', 'C3', 'C4'];
+  competencias: string[] = ['C1', 'C2', 'C3', 'C4', 'C5'];
 
   competenciaLabels: any = {
     C1: 'Programación Lineal y Dual',
     C2: 'Análisis Post-Optimal',
-    C3: 'Transporte, Asignación y Trasbordo',
-    C4: 'Redes: PERT/CPM'
+    C3: 'Transporte, Asignación y Trasbordo ',
+    C4: 'Redes: PERT/CPM',
+    C5: 'Material Bibliografico'
   };
 
   competenciaSeleccionada: string = '';

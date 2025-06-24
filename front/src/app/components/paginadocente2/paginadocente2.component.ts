@@ -38,7 +38,8 @@ export class Paginadocente2Component implements OnInit {
     'Teoría de Líneas de Espera',
     'Simulación de Sistemas',
     'Toma de Decisiones Multicriterio',
-    'Gestión de Inventarios'
+    'Gestión de Inventarios',
+    'Material Bibliografico'
   ];
 
   competenciaLabels: { [key: string]: string } = {
@@ -46,7 +47,8 @@ export class Paginadocente2Component implements OnInit {
     'Teoría de Líneas de Espera': 'Teoría de Líneas de Espera',
     'Simulación de Sistemas': 'Simulación de Sistemas',
     'Toma de Decisiones Multicriterio': 'Toma de Decisiones Multicriterio',
-    'Gestión de Inventarios': 'Gestión de Inventarios'
+    'Gestión de Inventarios': 'Gestión de Inventarios',
+    'Material Bibliografico': 'Material Bibliografico'
   };
   constructor(
     private authService: AuthService,

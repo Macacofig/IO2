@@ -38,6 +38,7 @@ export class PaginadocenteComponent implements OnInit {
     'Análisis Post-Optimal',
     'Transporte, Asignación y Trasbordo',
     'Redes: PERT/CPM',
+    'Material Bibliografico'
   ];
 
   competenciaLabels: { [key: string]: string } = {
@@ -45,6 +46,7 @@ export class PaginadocenteComponent implements OnInit {
     'Análisis Post-Optimal': 'Análisis Post-Optimal',
     'Transporte, Asignación y Trasbordo': 'Transporte, Asignación y Trasbordo',
     'Redes: PERT/CPM': 'Redes: PERT/CPM',
+    'Material Bibliografico': 'Material Bibliografico'
   };
 
   constructor(
