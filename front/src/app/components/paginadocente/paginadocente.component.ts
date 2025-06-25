@@ -28,6 +28,9 @@ export class PaginadocenteComponent implements OnInit {
   nombreLink: string = '';
   links: { nombre: string; url: string; competencia: string }[] = [];
 
+  //Material Bibliográfico
+  nombreMaterialBibliografico: string = '';
+
   // Estado UI
   tabSeleccionado = 'documentos';
   materiaSeleccionada = '';
@@ -62,7 +65,6 @@ export class PaginadocenteComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('PaginadocenteComponent initialized');
     this.cargarDocumentosPorCompetencia();
     this.cargarLinksPorCompetencia();
   }
@@ -73,7 +75,6 @@ export class PaginadocenteComponent implements OnInit {
 
   abrirFormulario(tipo: string): void {
   this.tabSeleccionado = tipo;
-  console.log('Abriendo formulario para:', tipo);
   this.mostrarFormulario = true;
   this.menuAbierto = false;
 }
@@ -125,9 +126,9 @@ export class PaginadocenteComponent implements OnInit {
   }
 
   subirArchivo(): void {
-    if (this.archivoSeleccionado && this.materiaSeleccionada && this.competenciaSeleccionada) {
+    if (this.archivoSeleccionado && this.competenciaSeleccionada) {
       this.authService
-        .cargarArchivo(this.archivoSeleccionado, this.materiaSeleccionada, this.competenciaSeleccionada)
+        .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 1', this.competenciaSeleccionada)
         .subscribe({
           next: () => {
             this.documentos.push({
@@ -144,15 +145,15 @@ export class PaginadocenteComponent implements OnInit {
   }
 
   subirLink(): void {
-  if (this.linkSeleccionado && this.nombreLink && this.materiaSeleccionada && this.competenciaSeleccionada) {
+  if (this.linkSeleccionado && this.nombreLink && this.competenciaSeleccionada) {
     console.log('Datos a enviar al backend:', {
       link: this.linkSeleccionado,
       nombre: this.nombreLink,
-      materia: this.materiaSeleccionada,
+      materia: 'Investigacion Operativa 1',
       competencia: this.competenciaSeleccionada
     });
     this.authService
-      .subirLink(this.linkSeleccionado, this.nombreLink, this.materiaSeleccionada, this.competenciaSeleccionada)
+      .subirLink(this.linkSeleccionado, this.nombreLink, 'Investigacion Operativa 1', this.competenciaSeleccionada)
       .subscribe({
         next: () => {
           this.links.push({
@@ -185,7 +186,7 @@ export class PaginadocenteComponent implements OnInit {
         competencia: 'Programación Lineal y Dual'
       })));
     });
-    
+
 
 
     this.authService.OrdenarAnalisis().subscribe((data: any) => {

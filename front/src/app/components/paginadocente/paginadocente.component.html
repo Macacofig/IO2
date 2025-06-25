@@ -43,11 +43,21 @@
   <div *ngIf="mostrarFormulario" class="modal-formulario">
     <h3 class="titulo-subir">Subir {{ tabSeleccionado }}</h3>
 
-    <!-- Mostrar input según el tipo de contenido -->
-    <ng-container *ngIf="tabSeleccionado === 'documentos'; else formularioLink">
-      <input class="nombres-archivos" type="file" (change)="onFileChange($event)" />
+      <!-- Mostrar input según el tipo de contenido -->
+    <ng-container [ngTemplateOutlet]="
+      tabSeleccionado === 'documentos' ? formDocumentos :
+      tabSeleccionado === 'links' ? formularioLink :
+      tabSeleccionado === 'materialBibliografico' ? formularioMaterialBibliografico :
+      null
+    ">
     </ng-container>
 
+    <!-- Plantilla para DOCUMENTOS -->
+    <ng-template #formDocumentos>
+      <input class="nombres-archivos" type="file" (change)="onFileChange($event)" />
+    </ng-template>
+
+    <!-- Plantilla para LINKS -->
     <ng-template #formularioLink>
       <label for="nombreLink">Nombre del Link:</label>
       <input type="text" [(ngModel)]="nombreLink" placeholder="Ej: Video sobre redes" class="nombres-archivos" />
@@ -56,21 +66,42 @@
       <input type="text" [(ngModel)]="linkSeleccionado" placeholder="https://..." class="nombres-archivos" />
     </ng-template>
 
+    <!-- Plantilla para MATERIAL BIBLIOGRÁFICO -->
+    <ng-template #formularioMaterialBibliografico>
+      <label for="nombreMaterialBibliografico">Nombre del Material Bibliográfico:</label>
+      <input type="file" [(ngModel)]="nombreMaterialBibliografico" placeholder="Ej: Libro sobre redes" class="nombres-archivos" />
 
-    <label for="materia">Materia:</label>
-    <input type="text" id="materia" [value]="materiaSeleccionada" readonly />
+      <!-- Mostrar competencia fija -->
+      <label for="competenciaFija">Competencia:</label>
+      <input type="text" id="competenciaFija" class="nombres-archivos" [value]="'Material Bibliografico'" readonly />
 
-    <label for="competencia">Competencia:</label>
-    <select [(ngModel)]="competenciaSeleccionada" id="competencia">
-      <option value="" disabled selected>Seleccione una competencia</option>
-      <option
-        *ngFor="let c of competencias"
-        [value]="c"
-        [hidden]="tabSeleccionado === 'links' && c === 'Material Bibliografico'"
-      >
-        {{ competenciaLabels[c] }}
-      </option>
-    </select>
+      <!-- Asignar automáticamente al modelo -->
+      <input type="hidden" [(ngModel)]="competenciaSeleccionada" [value]="'Material Bibliografico'" />
+    </ng-template>
+
+
+
+    <!-- <ng-container *ngIf="tabSeleccionado !== 'materialBibliografico'">
+      <label for="materia">Materia:</label>
+      <input type="text" id="materia" [value]="materiaSeleccionada" readonly />
+    </ng-container> -->
+
+
+    <!-- Mostrar solo si NO es materialBibliografico -->
+    <ng-container *ngIf="tabSeleccionado !== 'materialBibliografico'">
+      <label for="competencia">Competencia:</label>
+      <select [(ngModel)]="competenciaSeleccionada" id="competencia">
+        <option value="" disabled selected>Seleccione una competencia</option>
+        <option
+          *ngFor="let c of competencias"
+          [value]="c"
+          [hidden]="c === 'Material Bibliografico'"
+        >
+          {{ competenciaLabels[c] }}
+        </option>
+      </select>
+    </ng-container>
+
 
     <button (click)="subirContenido()">Subir</button>
     <button (click)="cerrarFormulario()">Cancelar</button>
@@ -81,7 +112,8 @@
     <button class="boton-agregar" (click)="toggleMenu()">+</button>
     <ul class="submenu" *ngIf="menuAbierto">
       <li (click)="abrirFormulario('documentos')">Documento</li>
-      <li (click)="abrirFormulario('links')">Link</li> <!-- Nuevo -->
+      <li (click)="abrirFormulario('links')">Link</li>
+      <li (click)="abrirFormulario('materialBibliografico')">Material Bibliográfico</li>
     </ul>
   </div>
 
