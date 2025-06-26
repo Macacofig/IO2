@@ -7,7 +7,7 @@ import { MateriaService } from '../../services/materia.service';
 
 import { ParalelosService } from '../../services/paralelos.service';
 import { HttpClient } from '@angular/common/http';
-
+import { Url } from 'url';
 
 @Component({
   selector: 'app-paginadocente2',
@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './paginadocente2.component.html',
   styleUrls: ['./paginadocente2.component.css']
 })
-export class Paginadocente2Component implements OnInit {
+export class PaginadocenteComponent implements OnInit {
   mostrarFormulario = false;
   menuAbierto = false;
 
@@ -28,12 +28,15 @@ export class Paginadocente2Component implements OnInit {
   nombreLink: string = '';
   links: { nombre: string; url: string; competencia: string }[] = [];
 
+  //Material Bibliográfico
+  nombreMaterialBibliografico!: File;
+
   // Estado UI
   tabSeleccionado = 'documentos';
   materiaSeleccionada = '';
   competenciaSeleccionada = '';
 
- competencias: string[] = [
+  competencias: string[] = [
     'Cadenas de Márkov',
     'Teoría de Líneas de Espera',
     'Simulación de Sistemas',
@@ -50,6 +53,8 @@ export class Paginadocente2Component implements OnInit {
     'Gestión de Inventarios': 'Gestión de Inventarios',
     'Material Bibliografico': 'Material Bibliografico'
   };
+
+
   constructor(
     private authService: AuthService,
     private materiaService: MateriaService,
@@ -63,7 +68,6 @@ export class Paginadocente2Component implements OnInit {
   }
 
   ngOnInit() {
-    console.log('PaginadocenteComponent initialized');
     this.cargarDocumentosPorCompetencia();
     this.cargarLinksPorCompetencia();
   }
@@ -74,7 +78,6 @@ export class Paginadocente2Component implements OnInit {
 
   abrirFormulario(tipo: string): void {
   this.tabSeleccionado = tipo;
-  console.log('Abriendo formulario para:', tipo);
   this.mostrarFormulario = true;
   this.menuAbierto = false;
 }
@@ -116,19 +119,48 @@ export class Paginadocente2Component implements OnInit {
   }
 
   subirContenido(): void {
-  if (this.tabSeleccionado.toLowerCase() === 'links') {
-    console.log('Ejecutando subirLink()');
-    this.subirLink();
-  } else {
-    console.log('Ejecutando subirArchivo()');
-    this.subirArchivo();
+    //console.log('Se hizo clic en el botón Subir. Tipo:', this.tabSeleccionado);
+    if (this.tabSeleccionado.toLowerCase() === 'links')
+    {
+      console.log('Ejecutando subirLink()');
+      this.subirLink();
+    }
+    if(this.tabSeleccionado.toLowerCase() === 'materialbibliografico')
+    {
+      console.log('Ejecutando subirlibro()');
+      this.subirLibro();
+    }
+    if( this.tabSeleccionado.toLowerCase() === 'documentos')
+    {
+      console.log('Ejecutando subirArchivo()');
+      this.subirArchivo();
     }
   }
 
   subirArchivo(): void {
-    if (this.archivoSeleccionado && this.materiaSeleccionada && this.competenciaSeleccionada) {
+    if (this.archivoSeleccionado && this.competenciaSeleccionada) {
       this.authService
-        .cargarArchivo(this.archivoSeleccionado, this.materiaSeleccionada, this.competenciaSeleccionada)
+        .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 1', this.competenciaSeleccionada)
+        .subscribe({
+          next: () => {
+            this.documentos.push({
+              nombre: this.archivoSeleccionado.name,
+              competencia: this.competenciaSeleccionada
+            });
+            this.cerrarFormulario();
+          },
+          error: err => console.error('Error al subir archivo', err)
+        });
+    } else {
+      alert('Completa todos los campos y selecciona un archivo');
+    }
+  }
+
+  subirLibro(): void {
+    this.competenciaSeleccionada = 'Material Bibliografico';
+    if (this.archivoSeleccionado) {
+      this.authService
+        .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 1', this.competenciaSeleccionada)
         .subscribe({
           next: () => {
             this.documentos.push({
@@ -145,15 +177,15 @@ export class Paginadocente2Component implements OnInit {
   }
 
   subirLink(): void {
-  if (this.linkSeleccionado && this.nombreLink && this.materiaSeleccionada && this.competenciaSeleccionada) {
+  if (this.linkSeleccionado && this.nombreLink && this.competenciaSeleccionada) {
     console.log('Datos a enviar al backend:', {
       link: this.linkSeleccionado,
       nombre: this.nombreLink,
-      materia: this.materiaSeleccionada,
+      materia: 'Investigacion Operativa 1',
       competencia: this.competenciaSeleccionada
     });
     this.authService
-      .subirLink(this.linkSeleccionado, this.nombreLink, this.materiaSeleccionada, this.competenciaSeleccionada)
+      .subirLink(this.linkSeleccionado, this.nombreLink, 'Investigacion Operativa 1', this.competenciaSeleccionada)
       .subscribe({
         next: () => {
           this.links.push({
@@ -180,91 +212,76 @@ export class Paginadocente2Component implements OnInit {
   }
 
   cargarDocumentosPorCompetencia(): void {
-    this.authService.OrdenarMarkov().subscribe((data: any) => {
+    this.authService.OrdenarProgramacion().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Cadenas de Márkov'
+        competencia: 'Programación Lineal y Dual'
       })));
     });
 
 
-    this.authService.OrdenarColas().subscribe((data: any) => {
+
+    this.authService.OrdenarAnalisis().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Teoría de Líneas de Espera'
+        competencia: 'Análisis Post-Optimal'
       })));
     });
 
-    this.authService.OrdenarSimulacion().subscribe((data: any) => {
+    this.authService.OrdenarTransporte().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Simulación de Sistemas'
+        competencia: 'Transporte, Asignación y Trasbordo'
       })));
     });
 
-    this.authService.OrdenarDecisiones().subscribe((data: any) => {
+    this.authService.OrdenarRedes().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Toma de Decisiones Multicriterio'
-      })));
-    });
-
-    this.authService.OrdenarInventarios().subscribe((data: any) => {
-      this.documentos.push(...data.map((doc: any) => ({
-        nombre: doc.nombre,
-        competencia: 'Gestión de Inventarios'
+        competencia: 'Redes: PERT/CPM'
       })));
     });
 
   }
 
   cargarLinksPorCompetencia(): void {
-    this.authService.LinksMarkov().subscribe((data: any) => {
+    this.authService.LinksProgramacion().subscribe((data: any) => {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Cadenas de Márkov'
+        competencia: 'Programación Lineal y Dual'
       })));
     });
-
-    this.authService.LinksColas().subscribe((data:any) => {
+    this.authService.LinksAnalisis().subscribe((data:any) => {
       console.log("Links de programación recibidos:", data);
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Teoría de Líneas de Espera'
+        competencia: 'Análisis Post-Optimal'
       })));
     });
-
-    this.authService.LinksSimulacion().subscribe((data: any) => {
+    this.authService.LinksTransporte().subscribe((data: any) => {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Simulación de Sistemas'
+        competencia: 'Transporte, Asignación y Trasbordo'
       })));
     });
-
-    this.authService.LinksDecisiones().subscribe((data: any) => {
+    this.authService.LinksRedes().subscribe((data: any) => {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Toma de Decisiones Multicriterio'
-      })));
-    });
-
-    this.authService.LinksInventarios().subscribe((data: any) => {
-      this.links.push(...data.map((l: any) => ({
-        nombre: l.nombre,
-        url: l.url,
-        competencia: 'Gestión de Inventarios'
+        competencia: 'Redes: PERT/CPM'
       })));
     });
   }
 
-   eliminarDoc(doc: any) {
+  eliminarDoc(doc: any) {
     this.authService.borrarDocumento(doc).subscribe({
       next: () => {
         alert('Documento eliminado correctamente');
+        console.log('Enviando a borrar:', doc.nombre);
+        console.log('Documento a eliminar:', doc);
 
         this.documentos = this.documentos.filter(d => d.nombre !== doc.nombre);
         console.log('Documento eliminado:', doc);
@@ -276,6 +293,8 @@ export class Paginadocente2Component implements OnInit {
   }
 
   eliminarLink(link: any) {
+    console.log('Enviando a borrar:', link.nombre);
+
     this.authService.borrarLink(link.nombre).subscribe({
       next: () => {
         alert('Link eliminado correctamente');
@@ -288,6 +307,7 @@ export class Paginadocente2Component implements OnInit {
       }
     });
   }
+
 
   volverAParalelos() {
     this.router.navigate(['/paralelos']);
