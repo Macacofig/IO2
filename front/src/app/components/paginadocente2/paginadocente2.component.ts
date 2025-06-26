@@ -70,6 +70,7 @@ export class Paginadocente2Component implements OnInit {
   ngOnInit() {
     this.cargarDocumentosPorCompetencia();
     this.cargarLinksPorCompetencia();
+    this.cargarLibros2();
   }
 
   toggleMenu(): void {
@@ -211,6 +212,10 @@ export class Paginadocente2Component implements OnInit {
     return this.links.filter(l => l.competencia === competencia);
   }
 
+  obtenerItemsPorMaterialBibliografico(): any[] {
+    return this.documentos.filter(d => d.competencia === 'Material Bibliografico');
+  }
+
   cargarDocumentosPorCompetencia(): void {
     this.authService.OrdenarProgramacion().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
@@ -272,6 +277,15 @@ export class Paginadocente2Component implements OnInit {
         nombre: l.nombre,
         url: l.url,
         competencia: 'Redes: PERT/CPM'
+      })));
+    });
+  }
+
+  cargarLibros2(): void {
+    this.authService.VerLibros2D().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Material Bibliografico'
       })));
     });
   }

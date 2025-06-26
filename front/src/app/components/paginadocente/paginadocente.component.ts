@@ -67,6 +67,7 @@ export class PaginadocenteComponent implements OnInit {
   ngOnInit() {
     this.cargarDocumentosPorCompetencia();
     this.cargarLinksPorCompetencia();
+    this.cargarLibros1();
   }
 
   toggleMenu(): void {
@@ -117,17 +118,17 @@ export class PaginadocenteComponent implements OnInit {
 
   subirContenido(): void {
     //console.log('Se hizo clic en el botón Subir. Tipo:', this.tabSeleccionado);
-    if (this.tabSeleccionado.toLowerCase() === 'links') 
+    if (this.tabSeleccionado.toLowerCase() === 'links')
     {
       console.log('Ejecutando subirLink()');
       this.subirLink();
-    } 
-    if(this.tabSeleccionado.toLowerCase() === 'materialbibliografico') 
+    }
+    if(this.tabSeleccionado.toLowerCase() === 'materialbibliografico')
     {
       console.log('Ejecutando subirlibro()');
       this.subirLibro();
     }
-    if( this.tabSeleccionado.toLowerCase() === 'documentos') 
+    if( this.tabSeleccionado.toLowerCase() === 'documentos')
     {
       console.log('Ejecutando subirArchivo()');
       this.subirArchivo();
@@ -155,9 +156,16 @@ export class PaginadocenteComponent implements OnInit {
 
   subirLibro(): void {
     this.competenciaSeleccionada = 'Material Bibliografico';
+    console.log('Datos a enviar al backend:', {
+      link: this.linkSeleccionado,
+      nombre: this.nombreLink,
+      materia: 'Investigacion Operativa 1',
+      competencia: this.competenciaSeleccionada
+    });
     if (this.archivoSeleccionado) {
       this.authService
         .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 1', this.competenciaSeleccionada)
+
         .subscribe({
           next: () => {
             this.documentos.push({
@@ -175,12 +183,6 @@ export class PaginadocenteComponent implements OnInit {
 
   subirLink(): void {
   if (this.linkSeleccionado && this.nombreLink && this.competenciaSeleccionada) {
-    console.log('Datos a enviar al backend:', {
-      link: this.linkSeleccionado,
-      nombre: this.nombreLink,
-      materia: 'Investigacion Operativa 1',
-      competencia: this.competenciaSeleccionada
-    });
     this.authService
       .subirLink(this.linkSeleccionado, this.nombreLink, 'Investigacion Operativa 1', this.competenciaSeleccionada)
       .subscribe({
@@ -206,6 +208,10 @@ export class PaginadocenteComponent implements OnInit {
 
   obtenerLinksPorCompetencia(competencia: string): any[] {
     return this.links.filter(l => l.competencia === competencia);
+  }
+
+  obtenerItemsPorMaterialBibliografico(): any[] {
+    return this.documentos.filter(d => d.competencia === 'Material Bibliografico');
   }
 
   cargarDocumentosPorCompetencia(): void {
@@ -269,6 +275,15 @@ export class PaginadocenteComponent implements OnInit {
         nombre: l.nombre,
         url: l.url,
         competencia: 'Redes: PERT/CPM'
+      })));
+    });
+  }
+
+  cargarLibros1(): void {
+    this.authService.VerLibros1D().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Material Bibliografico'
       })));
     });
   }

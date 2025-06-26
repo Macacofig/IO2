@@ -10,7 +10,7 @@ import { Paginaestudiantes2Component } from './components/paginaestudiantes2/pag
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, PaginadocenteComponent, HttpClientModule],
+  imports: [RouterOutlet, PaginadocenteComponent, HttpClientModule, PaginaestudiantesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

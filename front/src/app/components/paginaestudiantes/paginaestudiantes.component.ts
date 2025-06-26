@@ -109,6 +109,14 @@ export class PaginaestudiantesComponent {
       })));
     });
 
+    //LIBROS
+    this.authService.Verlibro1E().subscribe((res: any) => {
+      this.documentos.push(...res.map((doc: any) => ({
+        ...doc,
+        competencia: 'C5',
+        tipo: 'documento'
+      })));
+    });
   }
 
   descargarDocumento(doc: any): void {
@@ -142,6 +150,10 @@ export class PaginaestudiantesComponent {
 
   obtenerItemsPorCompetencia(competencia: string, tipo: 'documento' | 'link'): any[] {
     return this.documentos.filter(item => item.competencia === competencia && item.tipo === tipo);
+  }
+
+  obtenerItemsPorMaterialBibliografico(): any[] {
+    return this.documentos.filter(d => d.competencia === 'Material Bibliografico');
   }
 
   toggleMenu(): void {
