@@ -7,11 +7,10 @@ import { IniciosesionComponent } from './components/iniciosesion/iniciosesion.co
 import { PaginadocenteComponent } from './components/paginadocente/paginadocente.component';
 import { PaginaestudiantesComponent } from "./components/paginaestudiantes/paginaestudiantes.component";
 import { Paginaestudiantes2Component } from './components/paginaestudiantes2/paginaestudiantes2.component';
-import { Paginadocente2Component } from "./components/paginadocente2/paginadocente2.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, PaginadocenteComponent, HttpClientModule, Paginadocente2Component],
+  imports: [RouterOutlet, PaginadocenteComponent, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

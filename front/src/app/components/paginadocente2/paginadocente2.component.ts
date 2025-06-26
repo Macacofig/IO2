@@ -15,7 +15,7 @@ import { Url } from 'url';
   templateUrl: './paginadocente2.component.html',
   styleUrls: ['./paginadocente2.component.css']
 })
-export class PaginadocenteComponent implements OnInit {
+export class Paginadocente2Component implements OnInit {
   mostrarFormulario = false;
   menuAbierto = false;
 
@@ -140,7 +140,7 @@ export class PaginadocenteComponent implements OnInit {
   subirArchivo(): void {
     if (this.archivoSeleccionado && this.competenciaSeleccionada) {
       this.authService
-        .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 1', this.competenciaSeleccionada)
+        .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 2', this.competenciaSeleccionada)
         .subscribe({
           next: () => {
             this.documentos.push({
@@ -160,7 +160,7 @@ export class PaginadocenteComponent implements OnInit {
     this.competenciaSeleccionada = 'Material Bibliografico';
     if (this.archivoSeleccionado) {
       this.authService
-        .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 1', this.competenciaSeleccionada)
+        .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 2', this.competenciaSeleccionada)
         .subscribe({
           next: () => {
             this.documentos.push({
@@ -185,7 +185,7 @@ export class PaginadocenteComponent implements OnInit {
       competencia: this.competenciaSeleccionada
     });
     this.authService
-      .subirLink(this.linkSeleccionado, this.nombreLink, 'Investigacion Operativa 1', this.competenciaSeleccionada)
+      .subirLink(this.linkSeleccionado, this.nombreLink, 'Investigacion Operativa 2', this.competenciaSeleccionada)
       .subscribe({
         next: () => {
           this.links.push({
