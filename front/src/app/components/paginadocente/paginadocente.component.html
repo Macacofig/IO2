@@ -68,15 +68,14 @@
 
     <!-- Plantilla para MATERIAL BIBLIOGRÁFICO -->
     <ng-template #formularioMaterialBibliografico>
-      <label for="nombreMaterialBibliografico">Nombre del Material Bibliográfico:</label>
-      <input type="file" [(ngModel)]="nombreMaterialBibliografico" placeholder="Ej: Libro sobre redes" class="nombres-archivos" />
-
-      <!-- Mostrar competencia fija -->
+      <label for="nombreMaterialBibliografico">Material Bibliográfico:</label>
+      <input class="nombres-archivos" type="file" (change)="onFileChange($event)" />
+      <!-- Mostrar competencia fija
       <label for="competenciaFija">Competencia:</label>
-      <input type="text" id="competenciaFija" class="nombres-archivos" [value]="'Material Bibliografico'" readonly />
+      <input type="text" id="competenciaFija" class="nombres-archivos" [value]="'Material Bibliografico'" readonly /> -->
 
       <!-- Asignar automáticamente al modelo -->
-      <input type="hidden" [(ngModel)]="competenciaSeleccionada" [value]="'Material Bibliografico'" />
+      <!-- <input type="hidden" [(ngModel)]="competenciaSeleccionada" [value]="'Material Bibliografico'" /> -->
     </ng-template>
 
 

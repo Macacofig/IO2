@@ -29,7 +29,7 @@ export class PaginadocenteComponent implements OnInit {
   links: { nombre: string; url: string; competencia: string }[] = [];
 
   //Material Bibliográfico
-  nombreMaterialBibliografico: string = '';
+  nombreMaterialBibliografico!: File;
 
   // Estado UI
   tabSeleccionado = 'documentos';
@@ -116,17 +116,46 @@ export class PaginadocenteComponent implements OnInit {
   }
 
   subirContenido(): void {
-  if (this.tabSeleccionado.toLowerCase() === 'links') {
-    console.log('Ejecutando subirLink()');
-    this.subirLink();
-  } else {
-    console.log('Ejecutando subirArchivo()');
-    this.subirArchivo();
+    //console.log('Se hizo clic en el botón Subir. Tipo:', this.tabSeleccionado);
+    if (this.tabSeleccionado.toLowerCase() === 'links') 
+    {
+      console.log('Ejecutando subirLink()');
+      this.subirLink();
+    } 
+    if(this.tabSeleccionado.toLowerCase() === 'materialbibliografico') 
+    {
+      console.log('Ejecutando subirlibro()');
+      this.subirLibro();
+    }
+    if( this.tabSeleccionado.toLowerCase() === 'documentos') 
+    {
+      console.log('Ejecutando subirArchivo()');
+      this.subirArchivo();
     }
   }
 
   subirArchivo(): void {
     if (this.archivoSeleccionado && this.competenciaSeleccionada) {
+      this.authService
+        .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 1', this.competenciaSeleccionada)
+        .subscribe({
+          next: () => {
+            this.documentos.push({
+              nombre: this.archivoSeleccionado.name,
+              competencia: this.competenciaSeleccionada
+            });
+            this.cerrarFormulario();
+          },
+          error: err => console.error('Error al subir archivo', err)
+        });
+    } else {
+      alert('Completa todos los campos y selecciona un archivo');
+    }
+  }
+
+  subirLibro(): void {
+    this.competenciaSeleccionada = 'Material Bibliografico';
+    if (this.archivoSeleccionado) {
       this.authService
         .cargarArchivo(this.archivoSeleccionado, 'Investigacion Operativa 1', this.competenciaSeleccionada)
         .subscribe({
