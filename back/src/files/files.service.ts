@@ -326,4 +326,67 @@ constructor(@InjectRepository(FileEntity) private readonly filesRepository: Repo
       .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
       .getMany();
   }
+
+
+
+  /* Obtener Libros Docente IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  async getLibros1D(): Promise<FileEntity[]> 
+  {
+    return this.filesRepository
+      .createQueryBuilder('file')
+      .where('file.materia = :materia AND file.tema = :tema', {
+        materia: 'Investigacion Operativa 1',
+        tema: 'Material Bibliografico',
+      })
+      .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
+      .getMany();
+  }
+  
+  /* Obtener Libros Estudiante IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  
+  async getLibros1(): Promise<FileEntity[]> 
+  {
+    return this.filesRepository
+      .createQueryBuilder('file')
+      .where('file.materia = :materia AND file.tema = :tema', {
+        materia: 'Investigacion Operativa 1',
+        tema: 'Material Bibliografico',
+      })
+      .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC') 
+      .getMany();
+  }
+  /* Obtener Libros Docente IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  async getLibros2D(): Promise<FileEntity[]> 
+  {
+    return this.filesRepository
+      .createQueryBuilder('file')
+      .where('file.materia = :materia AND file.tema = :tema', {
+        materia: 'Investigacion Operativa 2',
+        tema: 'Material Bibliografico',
+      })
+      .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC')
+      .getMany();
+  }
+  
+  /* Obtener Libros Estudiante IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  
+  async getLibros2(): Promise<FileEntity[]> 
+  {
+    return this.filesRepository
+      .createQueryBuilder('file')
+      .where('file.materia = :materia AND file.tema = :tema', {
+        materia: 'Investigacion Operativa 2',
+        tema: 'Material Bibliografico',
+      })
+      .orderBy("SUBSTRING_INDEX(file.filename, '.', -1)", 'ASC') 
+      .getMany();
+  }
 }

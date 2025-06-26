@@ -655,4 +655,128 @@ async getFilesInventariosD()
       throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
     }
   }
+
+
+    /* Obtener archivos de Redes: PERT/CPM IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Libros1')
+  async getLibros1D()
+  {
+    try 
+    {
+      const files = await this.filesService.getLibros1();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+    /* Obtener archivos de Markov IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Libros1D')
+  async getLibros1() 
+  {
+    try 
+    {
+      const files = await this.filesService.getLibros1D();
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+      /* Obtener archivos de Redes: PERT/CPM IO1 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Libros2')
+  async getLibros2()
+  {
+    try 
+    {
+      const files = await this.filesService.getLibros2();
+
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+        downloadUrl: `https://educationio.onrender.com/files/${file.id}/download`,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
+
+    /* Obtener archivos de Markov IO2 */
+  /*********************************************************************************************************/
+  /*********************************************************************************************************/
+  @Get('Libros2D')
+  async getLibros2D() 
+  {
+    try 
+    {
+      const files = await this.filesService.getLibros2D();
+      // Retorna solo los campos requeridos
+      return files.map(file => ({
+        id: file.id,
+        nombre: file.filename,       // Puedes renombrar 'filename' como 'nombre' si lo deseas
+        materia: file.materia,
+        tema: file.tema,
+      }));
+    
+    } catch (error) {
+      if (error instanceof TimeoutError) 
+      {
+        throw new RequestTimeoutException('La conexión con la base de datos está tardando demasiado. Intenta más tarde.');
+      }
+      if (error instanceof NotFoundException) 
+      {
+        throw error;
+      }
+      throw new InternalServerErrorException('Hubo un problema. Intenta más tarde.');
+    }
+  }
 }
