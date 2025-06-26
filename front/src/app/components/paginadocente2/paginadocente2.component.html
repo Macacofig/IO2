@@ -41,7 +41,6 @@
 
   <!-- Formulario emergente -->
   <div *ngIf="mostrarFormulario" class="modal-formulario">
-    <h3 class="titulo-subir">Subir {{ tabSeleccionado }}</h3>
 
       <!-- Mostrar input según el tipo de contenido -->
     <ng-container [ngTemplateOutlet]="
@@ -54,11 +53,13 @@
 
     <!-- Plantilla para DOCUMENTOS -->
     <ng-template #formDocumentos>
+      <h3 class="titulo-subir">Subir Documentos </h3>
       <input class="nombres-archivos" type="file" (change)="onFileChange($event)" />
     </ng-template>
 
     <!-- Plantilla para LINKS -->
     <ng-template #formularioLink>
+      <h3 class="titulo-subir">Subir Links</h3>
       <label for="nombreLink">Nombre del Link:</label>
       <input type="text" [(ngModel)]="nombreLink" placeholder="Ej: Video sobre redes" class="nombres-archivos" />
 
@@ -68,6 +69,7 @@
 
     <!-- Plantilla para MATERIAL BIBLIOGRÁFICO -->
     <ng-template #formularioMaterialBibliografico>
+      <h3 class="titulo-subir">Subir Material Bibliografico</h3>
       <label for="nombreMaterialBibliografico">Material Bibliográfico:</label>
       <input class="nombres-archivos" type="file" (change)="onFileChange($event)" />
       <!-- Mostrar competencia fija
