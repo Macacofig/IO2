@@ -18,7 +18,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/users/login`, usuario);
   }
 
-  
+
 
   // Cerrar sesión
   logout() {
@@ -168,5 +168,22 @@ export class AuthService {
   //Borrar Documento
   borrarDocumento(nombreArchivo: string) {
     return this.http.delete(`${this.apiUrl}/files/delete/${nombreArchivo}`);
+  }
+
+  //libros
+  VerLibros1D(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/files/Libros1D`);
+  }
+
+  Verlibro1E(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/files/Libros1`);
+  }
+
+  Verlibro2E(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/files/Libros2`);
+    }
+
+  VerLibros2D(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/files/Libros2D`);
   }
 }
