@@ -217,66 +217,80 @@ export class Paginadocente2Component implements OnInit {
   }
 
   cargarDocumentosPorCompetencia(): void {
-    this.authService.OrdenarProgramacion().subscribe((data: any) => {
+    this.authService.OrdenarMarkov().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Programación Lineal y Dual'
+        competencia: 'Cadenas de Márkov'
       })));
     });
 
 
 
-    this.authService.OrdenarAnalisis().subscribe((data: any) => {
+    this.authService.OrdenarColas().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Análisis Post-Optimal'
+        competencia: 'Teoría de Líneas de Espera'
       })));
     });
 
-    this.authService.OrdenarTransporte().subscribe((data: any) => {
+    this.authService.OrdenarSimulacion().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Transporte, Asignación y Trasbordo'
+        competencia: 'Simulación de Sistemas'
       })));
     });
 
-    this.authService.OrdenarRedes().subscribe((data: any) => {
+    this.authService.OrdenarDecisiones().subscribe((data: any) => {
       this.documentos.push(...data.map((doc: any) => ({
         nombre: doc.nombre,
-        competencia: 'Redes: PERT/CPM'
+        competencia: 'Toma de Decisiones Multicriterio'
       })));
     });
 
+    this.authService.OrdenarInventarios().subscribe((data: any) => {
+      this.documentos.push(...data.map((doc: any) => ({
+        nombre: doc.nombre,
+        competencia: 'Gestión de Inventarios'
+      })));
+    });
   }
 
   cargarLinksPorCompetencia(): void {
-    this.authService.LinksProgramacion().subscribe((data: any) => {
+    this.authService.LinksMarkov().subscribe((data: any) => {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Programación Lineal y Dual'
+        competencia: 'Cadenas de Márkov'
       })));
     });
-    this.authService.LinksAnalisis().subscribe((data:any) => {
+    this.authService.LinksColas().subscribe((data:any) => {
       console.log("Links de programación recibidos:", data);
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Análisis Post-Optimal'
+        competencia: 'Teoría de Líneas de Espera'
       })));
     });
-    this.authService.LinksTransporte().subscribe((data: any) => {
+    this.authService.LinksSimulacion().subscribe((data: any) => {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Transporte, Asignación y Trasbordo'
+        competencia: 'Simulación de Sistemas'
       })));
     });
-    this.authService.LinksRedes().subscribe((data: any) => {
+    this.authService.LinksDecisiones().subscribe((data: any) => {
       this.links.push(...data.map((l: any) => ({
         nombre: l.nombre,
         url: l.url,
-        competencia: 'Redes: PERT/CPM'
+        competencia: 'Toma de Decisiones Multicriterio'
+      })));
+    });
+
+    this.authService.LinksInventarios().subscribe((data: any) => {
+      this.links.push(...data.map((l: any) => ({
+        nombre: l.nombre,
+        url: l.url,
+        competencia: 'Gestión de Inventarios'
       })));
     });
   }
