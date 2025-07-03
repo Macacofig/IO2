@@ -123,7 +123,7 @@ button:hover {
   font-weight: bold;
 }
 
-/* Puedes colocarlo en tu archivo CSS del componente */
+/* Pagina de carga */
 .loader-overlay {
   position: fixed;
   top: 0;

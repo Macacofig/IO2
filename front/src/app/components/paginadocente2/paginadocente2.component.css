@@ -22,6 +22,7 @@
   background-color: #c0392b;
   box-shadow: 0 4px 16px rgba(231, 76, 60, 0.25);
 }
+
 .paginadocente2-container {
   display: flex;
   flex-direction: column;
@@ -61,14 +62,6 @@
   color: #dddddd;
   padding-left: 1rem;
 }
-
-
-.nombres-archivos{
-  color: black;
-}
-
-/* Menú de navegación */
-
 
 /* Menú de navegación (Ejercicios, Documentos, Presentaciones) */
 .menu-tabs {
@@ -146,20 +139,20 @@
 }
 
 /* boton eliminar documentos o links*/
-  .btn-eliminar {
-    background-color: #3d2e84; /* Rojo suave */
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
+.btn-eliminar {
+  background-color: #3d2e84; /* Rojo suave */
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
   .btn-eliminar:hover {
     background-color: #bf4f43;
@@ -298,6 +291,18 @@
   padding-bottom: 2rem;
 }
 
+.nombres-archivos {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  color: #000;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
 /* Botón Volver */
 .boton-volver {
   position: fixed;
@@ -423,6 +428,31 @@
 }
 
 
+/*pagina de carga*/
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semitransparente */
+  color:#000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loader-box {
+  background: rgb(132, 125, 125);
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+
 /* Responsivo */
 @media (max-width: 600px) {
   .menu-tabs {
@@ -445,6 +475,10 @@
 
   .titulo-principal {
     font-size: 1.25rem;
+  }
+
+  .nombres-archivos {
+    font-size: 0.75rem;
   }
 }
 
@@ -470,6 +504,10 @@
 
   .titulo-principal {
     font-size: 1.25rem;
+  }
+
+  .nombres-archivos {
+    font-size: 0.75rem;
   }
 }
 
@@ -484,6 +522,10 @@
 
   .selector {
     font-size: 1em;
+  }
+
+  .nombres-archivos {
+    font-size: 0.75rem;
   }
 }
 
@@ -510,5 +552,9 @@
     margin: 5px 0 5px 0;
     width: 100%;
     height: 40%;
+  }
+
+  .nombres-archivos {
+    font-size: 0.75rem;
   }
 }
