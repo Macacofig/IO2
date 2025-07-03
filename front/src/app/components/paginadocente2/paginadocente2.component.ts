@@ -36,6 +36,10 @@ export class Paginadocente2Component implements OnInit {
   materiaSeleccionada = '';
   competenciaSeleccionada = '';
 
+  //pagina de carga
+  loading: boolean = false;
+
+
   competencias: string[] = [
     'Cadenas de Márkov',
     'Teoría de Líneas de Espera',
@@ -120,6 +124,8 @@ export class Paginadocente2Component implements OnInit {
   }
 
   subirContenido(): void {
+
+    this.loading = true;
     //console.log('Se hizo clic en el botón Subir. Tipo:', this.tabSeleccionado);
     if (this.tabSeleccionado.toLowerCase() === 'links')
     {
@@ -149,11 +155,13 @@ export class Paginadocente2Component implements OnInit {
               competencia: this.competenciaSeleccionada
             });
             this.cerrarFormulario();
+            this.loading = false;
           },
           error: err => console.error('Error al subir archivo', err)
         });
     } else {
       alert('Completa todos los campos y selecciona un archivo');
+      this.loading = false;
     }
   }
 
@@ -169,11 +177,13 @@ export class Paginadocente2Component implements OnInit {
               competencia: this.competenciaSeleccionada
             });
             this.cerrarFormulario();
+            this.loading = false;
           },
           error: err => console.error('Error al subir archivo', err)
         });
     } else {
       alert('Completa todos los campos y selecciona un archivo');
+      this.loading = false;
     }
   }
 
@@ -195,11 +205,13 @@ export class Paginadocente2Component implements OnInit {
             competencia: this.competenciaSeleccionada
           });
           this.cerrarFormulario();
+          this.loading = false;
         },
         error: err => console.error('Error al subir link', err)
       });
   } else {
     alert('Completa todos los campos para el link');
+    this.loading = false;
   }
 }
 

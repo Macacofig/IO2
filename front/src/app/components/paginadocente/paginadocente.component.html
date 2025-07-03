@@ -20,7 +20,7 @@
       <div class="grid-documentos">
         <div class="card-doc" *ngFor="let doc of obtenerItemsPorCompetencia(competencia)">
           <div class="icono-doc">📄</div>
-          <p class="nombres-archivos">{{ doc.nombre }}</p>
+          <p class="nombres-archivos" title="{{ doc.nombre }}">{{ doc.nombre }}</p>
           <!-- Ícono de borrar -->
           <button class="btn-eliminar" (click)="eliminarDoc(doc)"> 🗑️ </button>
         </div>
@@ -104,7 +104,7 @@
     </ng-container>
 
 
-    <button (click)="subirContenido()">Subir</button>
+    <button (click)="subirContenido()" [disabled]="loading">Subir</button>
     <button (click)="cerrarFormulario()">Cancelar</button>
   </div>
 
@@ -140,4 +140,11 @@
         </div>
       </form>
    </div> -->
+
+   <!-- Loader Overlay -->
+  <div class="loader-overlay" *ngIf="loading">
+    <div class="loader-box">
+      <p>Cargando...</p>
+    </div>
+  </div>
 </div>
